@@ -37,7 +37,7 @@ export function ScrollToTop() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.92 }}
           className={cn(
-            "fixed bottom-6 start-5 sm:start-6 z-40",
+            "fixed bottom-8 start-5 sm:bottom-9 sm:start-7 z-40",
             "flex h-11 w-11 items-center justify-center",
             "rounded-full border border-primary/30 bg-primary shadow-lg shadow-primary/30",
             "text-white backdrop-blur-md cursor-pointer",

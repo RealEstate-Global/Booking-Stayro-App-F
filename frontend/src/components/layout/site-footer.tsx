@@ -94,7 +94,7 @@ export function SiteFooter() {
   };
 
   return (
-    <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md pb-16 sm:pb-20 md:pb-16">
+    <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md pb-24 sm:pb-28 md:pb-24">
       <div className="container mx-auto px-4 pt-12 sm:px-6 md:pt-16">
         {/* 4 Dedicated, Non-Overlapping Columns */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
@@ -256,34 +256,36 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright (inward with safe scroll button clearance) | Center: Payment Badges | Right: Legal Links */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-foreground/10 pt-6 lg:flex-row">
-          {/* Left / Start: Copyright — moved inward with safe padding so the floating scroll button NEVER overlaps */}
-          <div className="flex items-center ps-14 sm:ps-16 md:ps-14 lg:ps-0">
-            <p className="text-xs text-muted-foreground">
-              © {year} {locale === "ar" ? "ستيرو" : "Stayro"} — {t.footer.rights}
-            </p>
-          </div>
+        {/* Bottom Bar: Inward horizontal spacing from left/right + generous clearance for scroll button */}
+        <div className="mt-14 border-t border-foreground/10 pt-8">
+          <div className="mx-auto flex flex-col items-center justify-between gap-6 px-4 sm:px-12 md:px-20 lg:px-24 lg:flex-row">
+            {/* Left / Start: Copyright — comfortably inset from the left edge so scrolltop button is 100% clear */}
+            <div className="flex items-center text-center lg:text-start">
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                © {year} {locale === "ar" ? "ستيرو" : "Stayro"} — {t.footer.rights}
+              </p>
+            </div>
 
-          {/* Center: Available payment methods (mada, Visa, Mastercard, Apple Pay) */}
-          <div className="flex items-center justify-center">
-            <PaymentBadges />
-          </div>
+            {/* Center: Available payment methods (mada, Visa, Mastercard, Apple Pay) */}
+            <div className="flex items-center justify-center">
+              <PaymentBadges />
+            </div>
 
-          {/* Right / End: Legal links */}
-          <div className="flex items-center gap-6">
-            <Link
-              href="/privacy"
-              className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              {t.footer.privacy}
-            </Link>
-            <Link
-              href="/terms"
-              className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              {t.footer.terms}
-            </Link>
+            {/* Right / End: Legal links with inward spacing */}
+            <div className="flex items-center gap-6 text-center lg:text-end">
+              <Link
+                href="/privacy"
+                className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                {t.footer.privacy}
+              </Link>
+              <Link
+                href="/terms"
+                className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                {t.footer.terms}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

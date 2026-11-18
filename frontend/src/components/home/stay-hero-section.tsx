@@ -37,9 +37,9 @@ export function StayHeroSection() {
           sizes="100vw"
           style={{
             maskImage:
-              "linear-gradient(to bottom, black 0%, black 75%, rgba(0,0,0,0.85) 85%, rgba(0,0,0,0.4) 93%, transparent 100%)",
+              "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.7) 82%, rgba(0,0,0,0.2) 92%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, black 0%, black 75%, rgba(0,0,0,0.85) 85%, rgba(0,0,0,0.4) 93%, transparent 100%)",
+              "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.7) 82%, rgba(0,0,0,0.2) 92%, transparent 100%)",
           }}
           className="object-cover object-[center_55%]"
         />
@@ -51,10 +51,10 @@ export function StayHeroSection() {
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-36 bg-gradient-to-b from-black/60 to-transparent"
       />
 
-      {/* Natural bottom transition into page background */}
+      {/* Seamless bottom transition into page background with guaranteed solid baseline */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-28 bg-gradient-to-t from-background via-background/40 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-44 bg-gradient-to-t from-background from-15% via-background/60 via-55% to-transparent"
       />
 
       {/* Main hero container */}
