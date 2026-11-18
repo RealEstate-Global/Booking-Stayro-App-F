@@ -36,14 +36,12 @@ export function InitialSplashLoader() {
     // Dismiss after neon sequence completes (~2.2s)
     const timer = setTimeout(() => {
       setVisible(false);
-      body.classList.add("splash-done");
       html.style.overflow = prevHtmlOverflow;
       body.style.overflow = prevBodyOverflow;
     }, 2200);
 
     return () => {
       clearTimeout(timer);
-      body.classList.add("splash-done");
       html.style.overflow = prevHtmlOverflow;
       body.style.overflow = prevBodyOverflow;
     };
@@ -57,16 +55,16 @@ export function InitialSplashLoader() {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.06,
-            filter: "blur(10px)",
-            transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+            scale: 1.03,
+            transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
           }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center overflow-hidden text-white selection:bg-transparent [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center overflow-hidden bg-[#0B090A] text-white selection:bg-transparent [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           role="status"
           aria-label="Stayro Loading"
         >
-          {/* Authentic Stayro Hero Backdrop — clearly visible without muddy dark gradients */}
-          <div className="absolute inset-0 -z-20">
+          {/* Authentic Stayro Hero Backdrop — solid base + instant CSS texture + Next.js image */}
+          <div className="absolute inset-0 -z-20 bg-[#0B090A]">
+            <div className="absolute inset-0 bg-[url('/images/stayro-hero.webp')] bg-cover bg-center" />
             <Image
               src="/images/stayro-hero.webp"
               alt="Stayro Hero Ambient Backdrop"
@@ -76,7 +74,7 @@ export function InitialSplashLoader() {
               sizes="100vw"
               className="object-cover object-center scale-100"
             />
-            {/* Subtle soft contrast layer to let the neon logo shine */}
+            {/* Subtle soft contrast layer to let the neon logo and typography pop */}
             <div className="absolute inset-0 bg-black/45" />
           </div>
 

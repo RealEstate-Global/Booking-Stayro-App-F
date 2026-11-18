@@ -244,28 +244,6 @@
 }
 
 @layer utilities {
-  /* Cinematic entry animation triggered when the first-loading splash finishes */
-  @keyframes page-cinematic-entry {
-    0% {
-      opacity: 0;
-      transform: translateY(22px) scale(0.985);
-      filter: blur(5px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0px);
-    }
-  }
-
-  .splash-done main {
-    animation: page-cinematic-entry 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .splash-done header {
-    animation: page-cinematic-entry 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
   /* SSR-safe entrance animation — runs without JS, mirrors stayro.com's fade+rise */
   @keyframes fade-rise {
     from {

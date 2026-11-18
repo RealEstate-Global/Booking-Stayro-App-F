@@ -13,23 +13,23 @@ export function CtaBannerSection() {
     <section className="px-4 pb-16 md:px-8">
       <div className="container mx-auto">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-6 py-12 text-center md:py-16">
-          {/* Decorative watermark — centered with soft radial fade, completely within bounds with zero border cutting */}
+          {/* Decorative watermark — positioned on the left side, exactly matching stayro.com reference */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-10 [mask-image:radial-gradient(circle_at_center,black_40%,transparent_75%)]"
+            className="pointer-events-none absolute -left-8 -top-8 h-72 w-72 select-none text-black/[0.12] sm:-left-12 sm:-top-10 sm:h-88 sm:w-88 md:-left-16 md:-top-12 md:h-[26rem] md:w-[26rem]"
           >
-            <StayroMark className="h-64 w-64 text-primary-foreground md:h-80 md:w-80" />
+            <StayroMark className="h-full w-full" />
           </div>
-          <h2 className="relative text-3xl font-extrabold text-primary-foreground md:text-5xl">
+          <h2 className="relative text-3xl font-extrabold text-[#221E1F] md:text-5xl">
             {t.home.ctaTitle}
           </h2>
-          <p className="relative mx-auto mt-3 max-w-md text-primary-foreground/85 md:text-lg">
+          <p className="relative mx-auto mt-3 max-w-md font-medium text-[#221E1F]/85 md:text-lg">
             {t.home.ctaSubtitle}
           </p>
           <Button
             asChild
             size="lg"
-            className="relative mt-7 rounded-full bg-background px-10 py-6 text-lg font-bold text-foreground transition-transform hover:scale-105 hover:bg-background/90"
+            className="relative mt-7 rounded-full bg-[#262222] px-10 py-6 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#1A1819] active:scale-95"
           >
             <Link href="/hotels">{t.home.ctaButton}</Link>
           </Button>
