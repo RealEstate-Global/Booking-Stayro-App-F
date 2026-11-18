@@ -93,7 +93,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Col 1: Brand Logo + About Summary + License + Contact Ways (lg:col-span-4) */}
           <div className="flex flex-col gap-4 lg:col-span-4">
-            <Link href="/" aria-label="Stayro" className="inline-block">
+            <Link href="/" prefetch aria-label="Stayro" className="inline-block">
               <StayroLogo className="h-8 w-auto text-foreground transition-opacity hover:opacity-90" />
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -152,6 +152,7 @@ export function SiteFooter() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
+                    prefetch
                     className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
@@ -173,6 +174,7 @@ export function SiteFooter() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
+                      prefetch
                       className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       <Icon className="h-4 w-4 shrink-0 text-primary/70" aria-hidden />
@@ -275,12 +277,14 @@ export function SiteFooter() {
             <div className="flex items-center gap-6 text-center lg:text-end">
               <Link
                 href="/privacy"
+                prefetch
                 className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
               >
                 {t.footer.privacy}
               </Link>
               <Link
                 href="/terms"
+                prefetch
                 className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
               >
                 {t.footer.terms}

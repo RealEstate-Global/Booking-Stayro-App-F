@@ -249,7 +249,7 @@ export function SiteHeader() {
       >
         {/* Start side: Stayro wordmark */}
         <div className="flex shrink-0 items-center">
-          <Link href="/" aria-label="Stayro" className="flex items-center">
+          <Link href="/" prefetch aria-label="Stayro" className="flex items-center">
             <StayroLogo
               aria-label="Stayro"
               className={cn(
@@ -276,6 +276,7 @@ export function SiteHeader() {
               <Link
                 key={item.path}
                 href={item.path}
+                prefetch
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "relative rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200",
@@ -339,7 +340,7 @@ export function SiteHeader() {
             >
               {/* Header inside mobile sheet */}
               <div className="mb-3 flex items-center justify-between border-b border-foreground/10 pb-3">
-                <Link href="/" onClick={closeMobileMenu} className="flex items-center">
+                <Link href="/" prefetch onClick={closeMobileMenu} className="flex items-center">
                   <StayroLogo className="h-6 w-auto text-foreground" />
                 </Link>
                 <button
@@ -366,6 +367,7 @@ export function SiteHeader() {
                     >
                       <Link
                         href={item.path}
+                        prefetch
                         aria-current={active ? "page" : undefined}
                         onClick={closeMobileMenu}
                         className={cn(
@@ -407,6 +409,7 @@ export function SiteHeader() {
               <div className="mt-4 border-t border-foreground/10 pt-3">
                 <Link
                   href="/hotels"
+                  prefetch
                   onClick={closeMobileMenu}
                   className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-95"
                 >

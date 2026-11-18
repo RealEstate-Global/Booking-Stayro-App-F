@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   outputFileTracingRoot: import.meta.dirname ?? path.resolve("."),
+  // Routes with loading.js are prefetched only up to the loading boundary and
+  // have a client-cache TTL of 0 by default — that makes "back to home" refetch
+  // the page and replay the skeleton. Keep segments warm instead.
+  experimental: {
+    staleTimes: { dynamic: 30, static: 300 },
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     // Cap AVIF/WebP quality at 80 — higher values add bytes with no visible gain.
