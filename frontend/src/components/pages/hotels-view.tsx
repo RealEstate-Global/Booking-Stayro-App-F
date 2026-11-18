@@ -189,19 +189,19 @@ export function HotelsView() {
         />
 
         {/* City Filter Pills / Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2.5 overflow-x-auto p-1.5 scrollbar-none">
           <button
             type="button"
             onClick={() => handleCitySelect("all")}
-            className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
+            className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4.5 py-2 text-xs font-bold transition-all cursor-pointer ${
               city === "all"
-                ? "bg-primary text-primary-foreground shadow-md scale-105"
-                : "border border-foreground/15 bg-card/60 text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-sm ring-1 ring-primary/30"
+                : "border border-foreground/15 bg-card/60 text-muted-foreground hover:border-primary/50 hover:bg-card hover:text-foreground"
             }`}
           >
             <span>{t.hotelsPage.allCities}</span>
             <span
-              className={`rounded-full px-1.5 py-0.2 text-[10px] font-extrabold ${
+              className={`inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[11px] font-extrabold leading-none ${
                 city === "all" ? "bg-white/25 text-white" : "bg-foreground/10 text-foreground"
               }`}
             >
@@ -216,15 +216,15 @@ export function HotelsView() {
                 key={c.id}
                 type="button"
                 onClick={() => handleCitySelect(c.id)}
-                className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
+                className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4.5 py-2 text-xs font-bold transition-all cursor-pointer ${
                   isActive
-                    ? "bg-primary text-primary-foreground shadow-md scale-105"
-                    : "border border-foreground/15 bg-card/60 text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                    ? "bg-primary text-primary-foreground shadow-sm ring-1 ring-primary/30"
+                    : "border border-foreground/15 bg-card/60 text-muted-foreground hover:border-primary/50 hover:bg-card hover:text-foreground"
                 }`}
               >
                 <span>{c.name[locale]}</span>
                 <span
-                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-extrabold ${
+                  className={`inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[11px] font-extrabold leading-none ${
                     isActive ? "bg-white/25 text-white" : "bg-foreground/10 text-foreground"
                   }`}
                 >
