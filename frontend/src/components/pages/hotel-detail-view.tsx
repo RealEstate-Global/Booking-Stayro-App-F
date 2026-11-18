@@ -42,12 +42,7 @@ import {
 
 interface HotelDetailViewProps {
   hotel: Hotel;
-  searchParams: {
-    checkIn?: string;
-    checkOut?: string;
-    guests?: string;
-    rooms?: string;
-  };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
 export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
@@ -56,19 +51,32 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
 
   const city = cities.find((c) => c.id === hotel.city);
   const BackArrow = dir === "rtl" ? ArrowRight : ArrowLeft;
-  const backParams = new URLSearchParams(
-    Object.entries(searchParams).filter(([, v]) => Boolean(v)) as [string, string][]
-  ).toString();
+  const backParams = useMemo(() => {
+    const params = new URLSearchParams();
+    Object.entries(searchParams).forEach(([k, v]) => {
+      if (typeof v === "string" && v) {
+        params.set(k, v);
+      } else if (Array.isArray(v) && v.length > 0) {
+        params.set(k, v[0]);
+      }
+    });
+    return params.toString();
+  }, [searchParams]);
+
+  const rawCheckIn = typeof searchParams.checkIn === "string" ? searchParams.checkIn : undefined;
+  const rawCheckOut = typeof searchParams.checkOut === "string" ? searchParams.checkOut : undefined;
+  const rawGuests = typeof searchParams.guests === "string" ? searchParams.guests : "2";
+  const rawRooms = typeof searchParams.rooms === "string" ? searchParams.rooms : "1";
 
   const defaults = useMemo(() => defaultDates(), []);
   const [checkIn, setCheckIn] = useState(
-    () => parseDateParam(searchParams.checkIn) ?? defaults.checkIn
+    () => parseDateParam(rawCheckIn) ?? defaults.checkIn
   );
   const [checkOut, setCheckOut] = useState(
-    () => parseDateParam(searchParams.checkOut) ?? defaults.checkOut
+    () => parseDateParam(rawCheckOut) ?? defaults.checkOut
   );
-  const [guests, setGuests] = useState(searchParams.guests ?? "2");
-  const [rooms, setRooms] = useState(searchParams.rooms ?? "1");
+  const [guests, setGuests] = useState(rawGuests);
+  const [rooms, setRooms] = useState(rawRooms);
   const [reference, setReference] = useState<string | null>(null);
 
   const nights = countNights(checkIn, checkOut);

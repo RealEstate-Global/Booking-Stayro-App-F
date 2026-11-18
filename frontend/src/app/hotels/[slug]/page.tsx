@@ -5,12 +5,7 @@ import { HotelDetailView } from "@/components/pages/hotel-detail-view";
 
 interface HotelDetailPageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{
-    checkIn?: string;
-    checkOut?: string;
-    guests?: string;
-    rooms?: string;
-  }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 export const dynamicParams = false;

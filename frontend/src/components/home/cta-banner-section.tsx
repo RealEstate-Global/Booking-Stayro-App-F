@@ -16,7 +16,7 @@ export function CtaBannerSection() {
           {/* Decorative watermark — positioned on the left side, exactly matching stayro.com reference */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-8 -top-8 h-72 w-72 select-none text-black/[0.12] sm:-left-12 sm:-top-10 sm:h-88 sm:w-88 md:-left-16 md:-top-12 md:h-[26rem] md:w-[26rem]"
+            className="pointer-events-none absolute -left-6 -top-6 h-64 w-64 select-none text-black/[0.14] sm:-left-10 sm:-top-8 sm:h-80 sm:w-80 md:-left-14 md:-top-10 md:h-[26rem] md:w-[26rem] lg:-left-16 lg:h-[28rem] lg:w-[28rem]"
           >
             <StayroMark className="h-full w-full" />
           </div>
@@ -29,7 +29,7 @@ export function CtaBannerSection() {
           <Button
             asChild
             size="lg"
-            className="relative mt-7 rounded-full bg-[#262222] px-10 py-6 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#1A1819] active:scale-95"
+            className="relative mt-7 rounded-full bg-[#262222] px-10 py-6 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#1A1819] active:scale-95 cursor-pointer"
           >
             <Link href="/hotels">{t.home.ctaButton}</Link>
           </Button>

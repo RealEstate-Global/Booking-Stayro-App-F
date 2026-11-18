@@ -37,40 +37,24 @@ export function StayHeroSection() {
           sizes="100vw"
           style={{
             maskImage:
-              "linear-gradient(to bottom, black 0%, black 48%, rgba(0,0,0,0.92) 60%, rgba(0,0,0,0.7) 72%, rgba(0,0,0,0.4) 82%, rgba(0,0,0,0.15) 90%, rgba(0,0,0,0.02) 94%, transparent 96%, transparent 100%)",
+              "linear-gradient(to bottom, black 0%, black 75%, rgba(0,0,0,0.85) 85%, rgba(0,0,0,0.4) 93%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, black 0%, black 48%, rgba(0,0,0,0.92) 60%, rgba(0,0,0,0.7) 72%, rgba(0,0,0,0.4) 82%, rgba(0,0,0,0.15) 90%, rgba(0,0,0,0.02) 94%, transparent 96%, transparent 100%)",
+              "linear-gradient(to bottom, black 0%, black 75%, rgba(0,0,0,0.85) 85%, rgba(0,0,0,0.4) 93%, transparent 100%)",
           }}
           className="object-cover object-[center_55%]"
         />
       </motion.div>
 
-      {/* Progressive bottom gradient blur — softly diffuses the skyline into the ambient backdrop with zero hard seams */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 backdrop-blur-md"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.8) 75%, transparent 96%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.8) 75%, transparent 96%, transparent 100%)",
-        }}
-      />
-
-      {/* Subtle legibility top & ambient bottom gradients — direct image visibility without cutting edges */}
+      {/* Top subtle legibility gradient */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-36 bg-gradient-to-b from-black/60 to-transparent"
       />
+
+      {/* Natural bottom transition into page background */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-44 bg-gradient-to-t from-transparent via-background/25 to-transparent"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 40%, black 80%, transparent 96%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 40%, black 80%, transparent 96%, transparent 100%)",
-        }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-28 bg-gradient-to-t from-background via-background/40 to-transparent"
       />
 
       {/* Main hero container */}

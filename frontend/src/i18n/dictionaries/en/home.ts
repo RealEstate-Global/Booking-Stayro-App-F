@@ -1,0 +1,68 @@
+export const homeEn = {
+  heroBadge: "Licensed by the Ministry of Tourism — 73104535",
+  heroTitle: "Every stay has a story",
+  heroSubtitle:
+    "Discover and book the best stays in Saudi Arabia — hotels, apartments, chalets and resorts, all in one place.",
+  contactPrompt: "Contact us to learn more about Stayro",
+  appStoreLabel: "Stayro Business — available on the App Store",
+  citiesBadge: "Destinations",
+  citiesTitle: "Discover the Kingdom's cities",
+  citiesSubtitle: "Handpicked stays across Saudi Arabia — from Makkah and Madinah to Riyadh and the coast.",
+  propertiesUnit: "properties",
+  exploreCity: "Explore stays",
+  featuredBadge: "Handpicked",
+  featuredTitle: "Featured stays",
+  featuredSubtitle: "The most loved by Stayro guests — book before rooms are gone.",
+  viewAll: "View all stays",
+  perNight: "/ night",
+  whyBadge: "Why Stayro",
+  whyTitle: "A stay experience worthy of you",
+  whySubtitle: "Licensed, reliable and in your language — because your stay is never just a room.",
+  stepsBadge: "How Stayro works",
+  stepsTitle: "Book your stay in 3 steps",
+  steps: [
+    {
+      title: "Pick your destination & dates",
+      description: "Choose the city, your check-in and check-out, and how many guests.",
+    },
+    {
+      title: "Compare the options",
+      description: "Clear prices in SAR, real ratings and what's included.",
+    },
+    {
+      title: "Book instantly & travel with confidence",
+      description: "Instant confirmation with a booking reference — trip details arrive before check-in.",
+    },
+  ],
+  testimonialsBadge: "Guest stories",
+  testimonialsTitle: "What Stayro guests say",
+  testimonials: [
+    {
+      name: "Ahmed Al-Shammari",
+      city: "Riyadh",
+      text: "Booked my hotel in Al Olaya in minutes — transparent pricing and top service. Everything you'd expect from a Saudi platform.",
+      rating: 5,
+    },
+    {
+      name: "Sara Al-Qahtani",
+      city: "Jeddah",
+      text: "Closest to the sea at the best price I found. Instant confirmation and the room was even nicer than the photos.",
+      rating: 5,
+    },
+    {
+      name: "Mohammed Al-Otaibi",
+      city: "Madinah",
+      text: "We used Stayro for an Umrah trip — everything from booking to check-in was smooth and easy. Huge thanks to the team.",
+      rating: 5,
+    },
+    {
+      name: "Fahad Al-Dosari",
+      city: "Dammam",
+      text: "Expense reporting was instant — and the best hotels in the Eastern Province in one tap. Highly recommend for companies.",
+      rating: 4,
+    },
+  ],
+  ctaTitle: "Your next journey starts here",
+  ctaSubtitle: "Join Stayro guests — every stay has a story.",
+  ctaButton: "Book your stay now",
+};

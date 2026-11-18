@@ -24,6 +24,10 @@ interface StaySearchFormProps {
   initialCheckOut?: string;
   initialGuests?: number;
   initialRooms?: number;
+  /** Optional search query preservation */
+  initialQ?: string;
+  /** Optional callback when destination changes directly */
+  onCityChange?: (cityId: string) => void;
 }
 
 /**
@@ -37,22 +41,50 @@ export function StaySearchForm({
   initialCheckOut,
   initialGuests = 2,
   initialRooms = 1,
+  initialQ,
+  onCityChange,
 }: StaySearchFormProps) {
   const { t, locale } = useLanguage();
   const router = useRouter();
   const defaults = useMemo(() => defaultDates(), []);
 
-  const [city, setCity] = useState(initialCity ?? cities[0].id);
+  // Default to "all" (All Cities) instead of forcing the first city
+  const [prevCity, setPrevCity] = useState(initialCity);
+  const [city, setCity] = useState(initialCity ?? "all");
+
+  const [prevGuests, setPrevGuests] = useState(initialGuests);
+  const [guests, setGuests] = useState(String(initialGuests));
+
+  const [prevRooms, setPrevRooms] = useState(initialRooms);
+  const [rooms, setRooms] = useState(String(initialRooms));
+
   const [checkIn, setCheckIn] = useState<Date>(
     () => parseDateParam(initialCheckIn) ?? defaults.checkIn
   );
   const [checkOut, setCheckOut] = useState<Date>(
     () => parseDateParam(initialCheckOut) ?? defaults.checkOut
   );
-  const [guests, setGuests] = useState(String(initialGuests));
-  const [rooms, setRooms] = useState(String(initialRooms));
 
-  const currentCity = useMemo(() => getCityById(city === "all" ? undefined : city), [city]);
+  // Sync state when props change during render (official React pattern)
+  if (initialCity !== prevCity) {
+    setPrevCity(initialCity);
+    setCity(initialCity ?? "all");
+  }
+
+  if (initialGuests !== prevGuests) {
+    setPrevGuests(initialGuests);
+    setGuests(String(initialGuests));
+  }
+
+  if (initialRooms !== prevRooms) {
+    setPrevRooms(initialRooms);
+    setRooms(String(initialRooms));
+  }
+
+  const currentCity = useMemo(
+    () => (city === "all" ? undefined : getCityById(city)),
+    [city]
+  );
 
   const handleCheckIn = (next: Date | undefined) => {
     if (!next) return;
@@ -64,15 +96,28 @@ export function StaySearchForm({
     }
   };
 
+  const handleDestinationChange = (nextCity: string) => {
+    setCity(nextCity);
+    if (onCityChange) {
+      onCityChange(nextCity);
+    }
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const params = new URLSearchParams({
-      city,
-      checkIn: toISODate(checkIn),
-      checkOut: toISODate(checkOut),
-      guests,
-      rooms,
-    });
+    const params = new URLSearchParams();
+    if (city && city !== "all") {
+      params.set("city", city);
+    } else {
+      params.set("city", "all");
+    }
+    if (checkIn) params.set("checkIn", toISODate(checkIn));
+    if (checkOut) params.set("checkOut", toISODate(checkOut));
+    if (guests) params.set("guests", guests);
+    if (rooms) params.set("rooms", rooms);
+    if (initialQ && initialQ.trim()) params.set("q", initialQ.trim());
+    params.set("page", "1");
+
     router.push(`/hotels?${params.toString()}`);
   };
 
@@ -90,7 +135,11 @@ export function StaySearchForm({
     >
       {/* Destination */}
       <div className="flex-[1.3] min-w-0 col-span-1 sm:col-span-2 lg:col-span-1">
-        <Select name="destination" value={city} onValueChange={setCity}>
+        <Select
+          name="destination"
+          value={city}
+          onValueChange={handleDestinationChange}
+        >
           <SelectTrigger
             id="search-city"
             name="destination"

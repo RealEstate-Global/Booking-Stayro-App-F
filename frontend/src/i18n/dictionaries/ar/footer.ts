@@ -1,0 +1,22 @@
+export const footerAr = {
+  footer: {
+    description: "لكل إقامة هناك قصة — منصة ستيرو السعودية للسفر والإقامات، مرخّصة من وزارة السياحة.",
+    navigation: "التنقل",
+    social: "تابعنا",
+    support: "الدعم",
+    about: "من نحن",
+    hotels: "الإقامات",
+    help: "المساعدة",
+    supportCenter: "مركز الدعم",
+    contactUs: "تواصل معنا",
+    privacy: "سياسة الخصوصية",
+    terms: "الشروط والأحكام",
+    rights: "جميع الحقوق محفوظة.",
+    newsletterTitle: "النشرة البريدية",
+    newsletterSubtitle: "اشترك لتصلك أحدث العروض والوجهات الحصرية أولاً.",
+    newsletterPlaceholder: "أدخل بريدك الإلكتروني",
+    subscribe: "اشترك",
+    subscribedToast: "تم اشتراكك بنجاح في نشرة ستيرو!",
+    contactsTitle: "طرق التواصل",
+  },
+};
