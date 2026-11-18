@@ -6,6 +6,7 @@ import { X, Cookie, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "@/i18n/language-provider";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const STORAGE_KEY = "stayro-cookie-consent-v2";
 
@@ -105,14 +106,21 @@ export function CookieConsent() {
             >
               {t.cookies.accept}
             </button>
-            <button
-              type="button"
-              onClick={() => dismiss("declined")}
-              aria-label={t.common.close}
-              className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground cursor-pointer"
-            >
-              <X className="h-4 w-4" />
-            </button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  onClick={() => dismiss("declined")}
+                  aria-label={t.common.close}
+                  className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground cursor-pointer"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={6}>
+                {t.common.close}
+              </TooltipContent>
+            </Tooltip>
           </div>
         </motion.aside>
       )}

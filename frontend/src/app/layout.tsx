@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { CookieConsent } from "@/components/shared/cookie-consent";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { InitialSplashLoader } from "@/components/shared/initial-splash-loader";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
 const tajawal = Tajawal({
@@ -198,13 +199,15 @@ export default function RootLayout({
         />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
           <LanguageProvider>
-            <InitialSplashLoader />
-            <SiteHeader />
-            <main className="relative z-10 flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
-            <SiteFooter />
-            <ScrollToTop />
-            <CookieConsent />
-            <Toaster position="top-center" richColors />
+            <TooltipProvider delayDuration={150}>
+              <InitialSplashLoader />
+              <SiteHeader />
+              <main className="relative z-10 flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
+              <SiteFooter />
+              <ScrollToTop />
+              <CookieConsent />
+              <Toaster position="top-center" richColors />
+            </TooltipProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import { useLanguage } from "@/i18n/language-provider";
 import { StayroLogo } from "@/components/shared/logo";
 import { PaymentBadges } from "@/components/shared/payment-badges";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -230,16 +231,23 @@ export function SiteFooter() {
                   const Icon = socialIcons[social.label];
                   return (
                     <li key={social.label}>
-                      <a
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer me"
-                        aria-label={`${social.label} — ${social.handle}`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-background/80 px-3.5 py-1.5 text-xs text-muted-foreground transition-all hover:border-primary/40 hover:text-primary active:scale-95"
-                      >
-                        {Icon ? <Icon className="h-3.5 w-3.5" /> : null}
-                        <span>{social.handle}</span>
-                      </a>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <a
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer me"
+                            aria-label={`${social.label} — ${social.handle}`}
+                            className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-background/80 px-3.5 py-1.5 text-xs text-muted-foreground transition-all hover:border-primary/40 hover:text-primary active:scale-95"
+                          >
+                            {Icon ? <Icon className="h-3.5 w-3.5" /> : null}
+                            <span>{social.handle}</span>
+                          </a>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" sideOffset={6}>
+                          {social.label} — {social.handle}
+                        </TooltipContent>
+                      </Tooltip>
                     </li>
                   );
                 })}

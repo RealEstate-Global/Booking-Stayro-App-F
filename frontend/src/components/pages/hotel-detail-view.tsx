@@ -31,6 +31,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Select,
   SelectContent,
@@ -105,10 +106,17 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
             <BackArrow className="h-4 w-4" aria-hidden />
             {t.hotelDetail.backToResults}
           </Link>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary">
-            <BadgeCheck className="h-4 w-4" aria-hidden />
-            {t.hotelDetail.verifiedStay}
-          </span>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary cursor-help">
+                <BadgeCheck className="h-4 w-4" aria-hidden />
+                {t.hotelDetail.verifiedStay}
+              </span>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" sideOffset={6}>
+              {t.header.license}
+            </TooltipContent>
+          </Tooltip>
         </div>
 
         {/* Gallery */}

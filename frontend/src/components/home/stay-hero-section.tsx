@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { BadgeCheck, ShieldCheck, Sparkles, Star, Zap } from "lucide-react";
 import { useLanguage } from "@/i18n/language-provider";
 import { StaySearchForm } from "@/components/shared/stay-search-form";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
  * Stayro home hero — full-viewport background (Riyadh skyline) with the
@@ -71,10 +72,17 @@ export function StayHeroSection() {
 
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-5 text-center md:gap-6">
           {/* Saudi Ministry of Tourism License badge */}
-          <span className="animate-fade-rise inline-flex w-fit items-center gap-2 rounded-full border border-primary/50 bg-black/60 px-4 py-2 text-xs font-semibold text-primary backdrop-blur-sm shadow-md">
-            <BadgeCheck className="h-4 w-4" aria-hidden />
-            {t.home.heroBadge}
-          </span>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="animate-fade-rise inline-flex w-fit items-center gap-2 rounded-full border border-primary/50 bg-black/60 px-4 py-2 text-xs font-semibold text-primary backdrop-blur-sm shadow-md cursor-help">
+                <BadgeCheck className="h-4 w-4" aria-hidden />
+                {t.home.heroBadge}
+              </span>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" sideOffset={6}>
+              {t.header.license}
+            </TooltipContent>
+          </Tooltip>
 
           <h1 className="animate-fade-rise max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.08] text-white drop-shadow-xl">
             {t.home.heroTitle}

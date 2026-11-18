@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ChevronUp } from "lucide-react";
 import { useLanguage } from "@/i18n/language-provider";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
  * Floating scroll-to-top button — fixed to the corner of the viewport.
@@ -27,29 +28,36 @@ export function ScrollToTop() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.button
-          key="scroll-to-top"
-          type="button"
-          aria-label={t.common.backToTop}
-          onClick={scrollToTop}
-          initial={{ opacity: 0, y: 24, scale: 0.85 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.85 }}
-          transition={{ type: "spring", stiffness: 420, damping: 28, mass: 0.7 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.92 }}
-          className={cn(
-            "fixed bottom-8 start-5 sm:bottom-9 sm:start-7 z-40",
-            "flex h-11 w-11 items-center justify-center",
-            "rounded-full border border-primary/30 bg-primary shadow-lg shadow-primary/30",
-            "text-white backdrop-blur-md cursor-pointer",
-            "hover:bg-primary/90 hover:shadow-primary/50",
-            "transition-shadow duration-200",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          )}
-        >
-          <ChevronUp className="h-5 w-5" aria-hidden />
-        </motion.button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <motion.button
+              key="scroll-to-top"
+              type="button"
+              aria-label={t.common.backToTop}
+              onClick={scrollToTop}
+              initial={{ opacity: 0, y: 24, scale: 0.85 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.85 }}
+              transition={{ type: "spring", stiffness: 420, damping: 28, mass: 0.7 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.92 }}
+              className={cn(
+                "fixed bottom-8 start-5 sm:bottom-9 sm:start-7 z-40",
+                "flex h-11 w-11 items-center justify-center",
+                "rounded-full border border-primary/30 bg-primary shadow-lg shadow-primary/30",
+                "text-white backdrop-blur-md cursor-pointer",
+                "hover:bg-primary/90 hover:shadow-primary/50",
+                "transition-shadow duration-200",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              )}
+            >
+              <ChevronUp className="h-5 w-5" aria-hidden />
+            </motion.button>
+          </TooltipTrigger>
+          <TooltipContent side="top" sideOffset={10}>
+            {t.common.backToTop}
+          </TooltipContent>
+        </Tooltip>
       )}
     </AnimatePresence>
   );

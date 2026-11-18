@@ -21,6 +21,7 @@ import { HotelCard } from "@/components/hotels/hotel-card";
 import { SectionBadge } from "@/components/shared/section-badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Select,
   SelectContent,
@@ -251,14 +252,21 @@ export function HotelsView() {
               className="h-10 w-full rounded-full border-foreground/15 bg-background/80 ps-9 pe-9 text-sm placeholder:text-muted-foreground/70 focus-visible:ring-primary [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
             />
             {searchInput ? (
-              <button
-                type="button"
-                onClick={handleClearSearch}
-                aria-label={t.hotelsPage.clearSearch}
-                className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={handleClearSearch}
+                    aria-label={t.hotelsPage.clearSearch}
+                    className="absolute end-3 top-1/2 -translate-y-1/2 rounded-full p-0.5 text-muted-foreground hover:bg-foreground/10 hover:text-foreground cursor-pointer transition-colors"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top" sideOffset={6}>
+                  {t.hotelsPage.clearSearch}
+                </TooltipContent>
+              </Tooltip>
             ) : null}
           </form>
 

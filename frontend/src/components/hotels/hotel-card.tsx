@@ -9,6 +9,7 @@ import { useLanguage } from "@/i18n/language-provider";
 import { SaudiRiyalSymbol } from "@/components/shared/saudi-riyal-symbol";
 import { cities } from "@/data/cities";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface HotelCardProps {
   hotel: Hotel;
@@ -53,11 +54,18 @@ export function HotelCard({ hotel, query }: HotelCardProps) {
           <h3 className="line-clamp-1 text-lg font-bold leading-snug text-foreground" title={hotel.name}>
             {hotel.name}
           </h3>
-          <div className="flex shrink-0 items-center gap-0.5 pt-1" aria-label={`${hotel.stars} stars`}>
-            {Array.from({ length: hotel.stars }).map((_, i) => (
-              <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
-            ))}
-          </div>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="flex shrink-0 items-center gap-0.5 pt-1 cursor-help" aria-label={`${hotel.stars} stars`}>
+                {Array.from({ length: hotel.stars }).map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
+                ))}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="top" sideOffset={4}>
+              {locale === "ar" ? `تصنيف ${hotel.stars} نجوم معتمد` : `${hotel.stars}-Star Certified Rating`}
+            </TooltipContent>
+          </Tooltip>
         </div>
 
         <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">

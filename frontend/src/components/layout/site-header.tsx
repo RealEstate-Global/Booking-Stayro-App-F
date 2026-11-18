@@ -22,6 +22,7 @@ import { navItems, type NavItemKey } from "@/data/navigation";
 import { useLanguage } from "@/i18n/language-provider";
 import { cn } from "@/lib/utils";
 import { StayroLogo } from "@/components/shared/logo";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navIcons: Record<NavItemKey, ComponentType<SVGProps<SVGSVGElement>>> = {
   home: Home,
@@ -101,39 +102,45 @@ function ThemeToggle({ isScrolled }: { isScrolled: boolean }) {
   };
 
   return (
-    <motion.button
-      type="button"
-      role="switch"
-      aria-checked={isDark}
-      aria-label={t.header.toggleTheme}
-      title={t.header.toggleTheme}
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.92 }}
-      onClick={handleToggle}
-      className={cn(
-        "relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full backdrop-blur-md transition-[border-color,background-color] duration-200",
-        isScrolled
-          ? "border border-foreground/15 bg-background/80 text-primary hover:border-primary/40 hover:bg-accent/20"
-          : "border border-white/20 bg-black/45 text-primary hover:border-primary/50 hover:bg-black/60 shadow-sm"
-      )}
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={isDark ? "dark" : "light"}
-          initial={{ y: -14, opacity: 0, rotate: -45, scale: 0.6 }}
-          animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
-          exit={{ y: 14, opacity: 0, rotate: 45, scale: 0.6 }}
-          transition={{ type: "spring", stiffness: 450, damping: 24 }}
-          className="flex items-center justify-center"
-        >
-          {isDark ? (
-            <Moon className="h-[1.1rem] w-[1.1rem]" aria-hidden />
-          ) : (
-            <Sun className="h-[1.1rem] w-[1.1rem]" aria-hidden />
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <motion.button
+          type="button"
+          role="switch"
+          aria-checked={isDark}
+          aria-label={t.header.toggleTheme}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.92 }}
+          onClick={handleToggle}
+          className={cn(
+            "relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full backdrop-blur-md transition-[border-color,background-color] duration-200 cursor-pointer",
+            isScrolled
+              ? "border border-foreground/15 bg-background/80 text-primary hover:border-primary/40 hover:bg-accent/20"
+              : "border border-white/20 bg-black/45 text-primary hover:border-primary/50 hover:bg-black/60 shadow-sm"
           )}
-        </motion.div>
-      </AnimatePresence>
-    </motion.button>
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={isDark ? "dark" : "light"}
+              initial={{ y: -14, opacity: 0, rotate: -45, scale: 0.6 }}
+              animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ y: 14, opacity: 0, rotate: 45, scale: 0.6 }}
+              transition={{ type: "spring", stiffness: 450, damping: 24 }}
+              className="flex items-center justify-center"
+            >
+              {isDark ? (
+                <Moon className="h-[1.1rem] w-[1.1rem]" aria-hidden />
+              ) : (
+                <Sun className="h-[1.1rem] w-[1.1rem]" aria-hidden />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </motion.button>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" sideOffset={8}>
+        {t.header.toggleTheme}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -141,44 +148,51 @@ function LanguageToggle({ isScrolled }: { isScrolled: boolean }) {
   const { locale, toggleLocale, t, dir } = useLanguage();
 
   return (
-    <motion.button
-      type="button"
-      onClick={toggleLocale}
-      aria-label={locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.94 }}
-      className={cn(
-        "inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-full px-3 text-xs font-bold backdrop-blur-md transition-[border-color,background-color] duration-200",
-        isScrolled
-          ? "border border-foreground/15 bg-background/80 text-foreground hover:border-primary/40 hover:text-primary"
-          : "border border-white/20 bg-black/45 text-white hover:border-primary/50 hover:text-primary shadow-sm"
-      )}
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={locale}
-          initial={{ y: -10, opacity: 0, scale: 0.75 }}
-          animate={{ y: 0, opacity: 1, scale: 1 }}
-          exit={{ y: 10, opacity: 0, scale: 0.75 }}
-          transition={{ type: "spring", stiffness: 500, damping: 25 }}
-          className="text-xs font-black text-primary"
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <motion.button
+          type="button"
+          onClick={toggleLocale}
+          aria-label={locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.94 }}
+          className={cn(
+            "inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-full px-3 text-xs font-bold backdrop-blur-md transition-[border-color,background-color] duration-200 cursor-pointer",
+            isScrolled
+              ? "border border-foreground/15 bg-background/80 text-foreground hover:border-primary/40 hover:text-primary"
+              : "border border-white/20 bg-black/45 text-white hover:border-primary/50 hover:text-primary shadow-sm"
+          )}
         >
-          {locale === "ar" ? "EN" : "ع"}
-        </motion.span>
-      </AnimatePresence>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={locale + "-text"}
-          initial={{ opacity: 0, x: dir === "rtl" ? 6 : -6 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: dir === "rtl" ? -6 : 6 }}
-          transition={{ duration: 0.18, ease: "easeOut" }}
-          className="hidden sm:inline text-xs"
-        >
-          {locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
-        </motion.span>
-      </AnimatePresence>
-    </motion.button>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={locale}
+              initial={{ y: -10, opacity: 0, scale: 0.75 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 10, opacity: 0, scale: 0.75 }}
+              transition={{ type: "spring", stiffness: 500, damping: 25 }}
+              className="text-xs font-black text-primary"
+            >
+              {locale === "ar" ? "EN" : "ع"}
+            </motion.span>
+          </AnimatePresence>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={locale + "-text"}
+              initial={{ opacity: 0, x: dir === "rtl" ? 6 : -6 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: dir === "rtl" ? -6 : 6 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="hidden sm:inline text-xs"
+            >
+              {locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
+            </motion.span>
+          </AnimatePresence>
+        </motion.button>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" sideOffset={8}>
+        {locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
