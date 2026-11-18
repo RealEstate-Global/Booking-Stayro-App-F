@@ -109,14 +109,16 @@ export function SiteHeader() {
         )}
       >
         {/* Start side: license line (collapses smoothly on scroll) + Stayro wordmark */}
-        <div className="flex min-w-0 flex-col-reverse items-start gap-1 md:gap-1.5">
-          <StayroLogo
-            aria-label="Stayro"
-            className={cn(
-              "block shrink-0 w-auto text-foreground transition-all duration-300",
-              isScrolled ? "h-5 md:h-7" : "h-6 md:h-9"
-            )}
-          />
+        <div className="flex shrink-0 flex-col-reverse items-start gap-1 md:gap-1.5">
+          <Link href="/" aria-label="Stayro" className="flex items-center">
+            <StayroLogo
+              aria-label="Stayro"
+              className={cn(
+                "block w-auto text-foreground transition-all duration-300",
+                isScrolled ? "h-5 md:h-7" : "h-6 md:h-9"
+              )}
+            />
+          </Link>
           <div
             className={cn(
               "overflow-hidden transition-all duration-300 ease-in-out",

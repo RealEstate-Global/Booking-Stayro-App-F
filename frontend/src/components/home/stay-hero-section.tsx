@@ -20,7 +20,7 @@ export function StayHeroSection() {
     >
       {/* Full-height background image with enhanced quality and smooth bottom mask */}
       <Image
-        src="/images/cities/riyadh.jpg"
+        src="/images/cities/riyadh.webp"
         alt=""
         fill
         priority

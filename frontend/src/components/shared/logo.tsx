@@ -14,13 +14,15 @@ type StayroMarkProps = SVGAttributes<SVGSVGElement> & {
 };
 
 /** The Stayro house-S mark, without the wordmark. */
-export function StayroMark({ title = "Stayro", ...props }: StayroMarkProps) {
+export function StayroMark({ title = "Stayro", style, ...props }: StayroMarkProps) {
   return (
     <svg
-      viewBox="0 0 700 700"
+      viewBox="50 15 720 720"
       role="img"
       aria-label={title}
       fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ display: "block", flexShrink: 0, ...style }}
       {...props}
     >
       <path d={MARK_PATH_1} />
@@ -33,15 +35,25 @@ type StayroLogoProps = SVGAttributes<SVGSVGElement> & {
   title?: string;
 };
 
-/** The full Stayro logo: house-S mark + wordmark. */
-export function StayroLogo({ title = "Stayro", ...props }: StayroLogoProps) {
+/**
+ * The full Stayro logo: house-S mark + wordmark.
+ *
+ * Always rendered with its natural aspect ratio (2575×775 ≈ 3.32:1).
+ * Set a height class (e.g. `h-7`) and let width compute automatically via
+ * the SVG viewBox — do NOT constrain width independently.
+ */
+export function StayroLogo({ title = "Stayro", style, ...props }: StayroLogoProps) {
   return (
     <svg
-      viewBox="0 0 2616.1 784.68"
+      viewBox="60 20 2575 775"
       role="img"
       aria-label={title}
       fill="currentColor"
-      style={{ minWidth: 0, flexShrink: 0 }}
+      xmlns="http://www.w3.org/2000/svg"
+      // Keep the SVG from being squashed inside a flex container.
+      // flexShrink:0 prevents the flex algorithm from shrinking this element.
+      // width:auto respects the height-driven aspect ratio.
+      style={{ display: "block", flexShrink: 0, width: "auto", ...style }}
       {...props}
     >
       <path d={WORDMARK_PATH} />

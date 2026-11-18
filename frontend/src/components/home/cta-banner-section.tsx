@@ -13,11 +13,13 @@ export function CtaBannerSection() {
     <section className="px-4 pb-16 md:px-8">
       <div className="container mx-auto">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-6 py-12 text-center md:py-16">
-          {/* Decorative watermark */}
-          <StayroMark
+          {/* Decorative watermark — centered with soft radial fade, completely within bounds with zero border cutting */}
+          <div
             aria-hidden
-            className="pointer-events-none absolute -end-6 -top-6 w-44 text-primary-foreground/15 md:w-64"
-          />
+            className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-10 [mask-image:radial-gradient(circle_at_center,black_40%,transparent_75%)]"
+          >
+            <StayroMark className="h-64 w-64 text-primary-foreground md:h-80 md:w-80" />
+          </div>
           <h2 className="relative text-3xl font-extrabold text-primary-foreground md:text-5xl">
             {t.home.ctaTitle}
           </h2>
