@@ -25,7 +25,6 @@ import {
   calculatePrice,
   countNights,
   defaultDates,
-  formatSar,
   generateBookingReference,
   parseDateParam,
 } from "@/lib/booking";
@@ -219,6 +218,21 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                       {reference}
                     </p>
                   </div>
+                  <div className="w-full rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-4 text-sm">
+                    <div className="flex items-center justify-between text-muted-foreground">
+                      <span>{t.hotelDetail.nights}</span>
+                      <span>
+                        {nights} {nights === 1 ? t.hotelDetail.night : t.hotelDetail.nights}
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-center justify-between border-t border-foreground/10 pt-2 font-bold text-foreground">
+                      <span>{t.hotelDetail.total}</span>
+                      <span className="flex items-baseline gap-1">
+                        <span>{total.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}</span>
+                        <SaudiRiyalSymbol className="text-foreground" />
+                      </span>
+                    </div>
+                  </div>
                   <p className="text-xs text-muted-foreground">{t.hotelDetail.demoNote}</p>
                   <Button
                     variant="outline"
@@ -325,19 +339,28 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                   </div>
 
                   {/* Price breakdown */}
-                  <dl className="mt-5 space-y-2 border-t border-foreground/10 pt-4 text-sm">
+                  <dl className="mt-5 space-y-2.5 border-t border-foreground/10 pt-4 text-sm">
                     <div className="flex items-center justify-between text-muted-foreground">
-                      <dt>
-                        {formatSar(hotel.priceSar, locale)} × {nights}{" "}
-                        {nights === 1 ? t.hotelDetail.night : t.hotelDetail.nights}
+                      <dt className="flex items-baseline gap-1">
+                        <span>{hotel.priceSar.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}</span>
+                        <SaudiRiyalSymbol className="text-muted-foreground text-[0.85em]" />
+                        <span className="ms-1">
+                          × {nights} {nights === 1 ? t.hotelDetail.night : t.hotelDetail.nights}
+                        </span>
                       </dt>
-                      <dd dir="ltr">{formatSar(subtotal, locale)}</dd>
+                      <dd className="flex items-baseline gap-1 font-semibold text-foreground">
+                        <span>{subtotal.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}</span>
+                        <SaudiRiyalSymbol className="text-foreground text-[0.85em]" />
+                      </dd>
                     </div>
                     <div className="flex items-center justify-between text-muted-foreground">
                       <dt>{t.hotelDetail.vat}</dt>
-                      <dd dir="ltr">{formatSar(vat, locale)}</dd>
+                      <dd className="flex items-baseline gap-1 font-semibold text-foreground">
+                        <span>{vat.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}</span>
+                        <SaudiRiyalSymbol className="text-foreground text-[0.85em]" />
+                      </dd>
                     </div>
-                    <div className="flex items-center justify-between border-t border-foreground/10 pt-2 text-base font-extrabold text-foreground">
+                    <div className="flex items-center justify-between border-t border-foreground/10 pt-2.5 text-base font-extrabold text-foreground">
                       <dt>{t.hotelDetail.total}</dt>
                       <dd className="flex items-baseline gap-1">
                         <span>{total.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}</span>
