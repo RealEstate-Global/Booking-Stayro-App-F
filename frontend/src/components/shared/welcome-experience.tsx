@@ -38,7 +38,8 @@ export function WelcomeExperience({ compact = false }: { compact?: boolean }) {
       </div>
       <div className="stayro-screen-shade" aria-hidden="true" />
 
-      <section className="stayro-brand" aria-label="ستيرو">
+      <div className="stayro-center">
+        <section className="stayro-brand" aria-label="ستيرو">
         <svg
           className="stayro-symbol"
           viewBox="0 0 1920 1920"
@@ -115,6 +116,7 @@ export function WelcomeExperience({ compact = false }: { compact?: boolean }) {
           <span>Twitter</span>
         </a>
       </nav>
+      </div>
     </div>
   );
 }

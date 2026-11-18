@@ -190,7 +190,7 @@ export default function RootLayout({
         {/* Returning visitors: hide the server-rendered splash before hydration so the client can unmount it safely */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem("stayro-splash-done")){document.documentElement.classList.add("splash-seen");document.documentElement.classList.remove("splash-active")}}catch(e){}`,
+            __html: `try{if(sessionStorage.getItem("stayro-splash-done")){document.documentElement.classList.add("splash-seen","welcome-complete");document.documentElement.classList.remove("splash-active")}}catch(e){}`,
           }}
         />
         <script
