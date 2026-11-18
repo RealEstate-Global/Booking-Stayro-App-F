@@ -91,7 +91,7 @@ export function DatePickerField({
           mode="single"
           selected={date}
           onSelect={onSelect}
-          initialFocus
+          autoFocus
           locale={dateLocale}
           disabled={[
             { before: minDate ?? today },
