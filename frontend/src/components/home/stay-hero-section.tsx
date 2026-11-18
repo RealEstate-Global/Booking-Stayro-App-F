@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import { BadgeCheck, ShieldCheck, Sparkles, Star, Zap } from "lucide-react";
 import { useLanguage } from "@/i18n/language-provider";
 import { StaySearchForm } from "@/components/shared/stay-search-form";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
  * Stayro home hero — full-viewport background (Riyadh skyline) with the

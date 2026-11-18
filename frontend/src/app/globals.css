@@ -118,6 +118,12 @@
     height: 0px !important;
   }
 
+  /* Returning visitors (layout.tsx inline script sets .splash-seen): hide the
+     server-rendered splash before hydration — the client effect unmounts it. */
+  html.splash-seen [data-stayro-splash] {
+    display: none !important;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
   }

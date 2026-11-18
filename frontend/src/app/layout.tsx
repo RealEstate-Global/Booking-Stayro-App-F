@@ -187,10 +187,10 @@ export default function RootLayout({
       className={`${tajawal.variable} splash-active`}
     >
       <body className="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
-        {/* Remove splash-active class if user has already visited (sessionStorage) or after timeout fallback */}
+        {/* Returning visitors: hide the server-rendered splash before hydration so the client can unmount it safely */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem("stayro-splash-done")){document.documentElement.classList.remove("splash-active")}}catch(e){}`,
+            __html: `try{if(sessionStorage.getItem("stayro-splash-done")){document.documentElement.classList.add("splash-seen");document.documentElement.classList.remove("splash-active")}}catch(e){}`,
           }}
         />
         <script
