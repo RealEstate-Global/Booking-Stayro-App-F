@@ -123,15 +123,15 @@ export function SiteHeader() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 w-full transition-all duration-300",
-        isScrolled
-          ? "border-b border-foreground/10 bg-background/85 shadow-sm backdrop-blur-xl"
-          : "bg-transparent"
+        isScrolled ? "px-3 pt-2 sm:px-6 md:pt-3" : "px-0 pt-0"
       )}
     >
       <div
         className={cn(
-          "mx-auto flex w-full max-w-screen-xl items-center justify-between gap-4 px-4 transition-all duration-300 md:px-8",
-          isScrolled ? "h-14 md:h-16" : "h-16 md:h-20"
+          "relative mx-auto flex w-full max-w-screen-xl items-center justify-between gap-4 transition-all duration-300",
+          isScrolled
+            ? "h-14 rounded-full border border-foreground/15 bg-background/85 px-4 shadow-lg backdrop-blur-2xl md:h-16 md:px-6"
+            : "h-16 border-b border-foreground/10 bg-transparent px-4 md:h-20 md:px-8"
         )}
       >
         {/* Start side: license line (collapses smoothly on scroll) + Stayro wordmark */}
@@ -160,9 +160,9 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Center: desktop navigation pill with glassmorphism */}
+        {/* Center: desktop navigation pill in EXACT mathematical center */}
         <nav
-          className="hidden items-center gap-1 rounded-full border border-foreground/15 bg-background/70 p-1.5 shadow-sm backdrop-blur-md lg:flex"
+          className="hidden items-center gap-1 rounded-full border border-foreground/15 bg-background/80 p-1.5 shadow-sm backdrop-blur-md lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:flex"
           aria-label="Main"
         >
           {navItems.map((item) => {

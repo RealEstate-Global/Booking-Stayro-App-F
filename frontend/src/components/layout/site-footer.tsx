@@ -1,15 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import type { ComponentType, SVGProps } from "react";
-import { BadgeCheck, Mail, Phone } from "lucide-react";
+import { useState, type ComponentType, type FormEvent, type SVGProps } from "react";
+import { BadgeCheck, Mail, Phone, Send } from "lucide-react";
+import { toast } from "sonner";
 import { siteConfig } from "@/config/site";
 import { useLanguage } from "@/i18n/language-provider";
 import { StayroLogo } from "@/components/shared/logo";
 
 function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
       <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
@@ -42,11 +51,12 @@ const socialIcons: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
 export function SiteFooter() {
   const { t, locale } = useLanguage();
   const year = new Date().getFullYear();
+  const [email, setEmail] = useState("");
 
   const navigationLinks = [
     { href: "/", label: t.nav.home },
-    { href: "/about", label: t.footer.about },
     { href: "/hotels", label: t.footer.hotels },
+    { href: "/about", label: t.footer.about },
     { href: "/support", label: t.footer.contactUs },
     { href: "/privacy", label: t.footer.privacy },
     { href: "/terms", label: t.footer.terms },
@@ -56,57 +66,41 @@ export function SiteFooter() {
     { href: "/support", label: t.footer.help },
     { href: "/support", label: t.footer.supportCenter },
     { href: "/support", label: t.footer.contactUs },
+    { href: "/privacy", label: t.footer.privacy },
   ];
 
+  const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    toast.success(t.footer.subscribedToast);
+    setEmail("");
+  };
+
   return (
-    <footer className="relative z-10 border-t border-foreground/10 bg-background/60 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-10 sm:px-6 md:py-12">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-12">
-          {/* Brand + license + contacts */}
-          <div className="space-y-3 md:col-span-4">
-            <Link href="/" aria-label="Stayro">
-              <StayroLogo className="h-7 w-auto text-primary md:h-8" />
+    <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto px-4 py-12 sm:px-6 md:py-16">
+        {/* 4 Balanced Columns with Zero Empty Space */}
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          {/* Col 1: Brand + About + License (lg:col-span-4) */}
+          <div className="flex flex-col gap-4 lg:col-span-4">
+            <Link href="/" aria-label="Stayro" className="inline-block">
+              <StayroLogo className="h-8 w-auto text-primary" />
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground">
               {t.footer.description}
             </p>
-            <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+            <div className="mt-auto flex items-start gap-2.5 rounded-2xl border border-primary/20 bg-primary/5 p-3 text-xs leading-relaxed text-foreground/85">
               <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
-              {t.header.license}
-            </p>
-            <ul className="space-y-1.5 text-sm">
-              {siteConfig.contacts.phones.map((phone, i) => (
-                <li key={phone}>
-                  <a
-                    href={siteConfig.contacts.phonesHref[i]}
-                    dir="ltr"
-                    className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    <Phone className="h-4 w-4 shrink-0 text-primary" aria-hidden />
-                    {phone}
-                  </a>
-                </li>
-              ))}
-              {siteConfig.contacts.emails.map((email) => (
-                <li key={email}>
-                  <a
-                    href={`mailto:${email}`}
-                    className="inline-flex items-center gap-2 break-all text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    <Mail className="h-4 w-4 shrink-0 text-primary" aria-hidden />
-                    {email}
-                  </a>
-                </li>
-              ))}
-            </ul>
+              <span>{t.header.license}</span>
+            </div>
           </div>
 
-          {/* Navigation */}
-          <nav className="md:col-span-2" aria-label="Footer navigation">
-            <h3 className="mb-3 text-sm font-semibold text-foreground">
+          {/* Col 2: Navigation Links (lg:col-span-2) */}
+          <nav className="flex flex-col lg:col-span-2" aria-label="Footer navigation">
+            <h3 className="mb-4 text-sm font-bold tracking-wide text-foreground">
               {t.footer.navigation}
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {navigationLinks.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -120,14 +114,14 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          {/* Support */}
-          <nav className="md:col-span-2" aria-label="Footer support">
-            <h3 className="mb-3 text-sm font-semibold text-foreground">
+          {/* Col 3: Support Links (lg:col-span-2) */}
+          <nav className="flex flex-col lg:col-span-2" aria-label="Footer support">
+            <h3 className="mb-4 text-sm font-bold tracking-wide text-foreground">
               {t.footer.support}
             </h3>
-            <ul className="space-y-2">
-              {supportLinks.map((link) => (
-                <li key={link.label}>
+            <ul className="space-y-2.5">
+              {supportLinks.map((link, idx) => (
+                <li key={link.label + idx}>
                   <Link
                     href={link.href}
                     className="text-sm text-muted-foreground transition-colors hover:text-primary"
@@ -137,45 +131,117 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
+            <div className="mt-5 flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden />
+              <span>{locale === "ar" ? "دعم على مدار الساعة" : "24/7 Live Support"}</span>
+            </div>
           </nav>
 
-          {/* Social */}
-          <div className="md:col-span-4">
-            <h3 className="mb-3 text-sm font-semibold text-foreground">
-              {t.footer.social}
-            </h3>
-            <ul className="flex flex-wrap gap-2">
-              {siteConfig.socials.map((social) => {
-                const Icon = socialIcons[social.label];
-                return (
-                  <li key={social.label}>
+          {/* Col 4: Newsletter + Socials + Contacts (lg:col-span-4) */}
+          <div className="flex flex-col gap-5 lg:col-span-4">
+            {/* Newsletter Subscription */}
+            <div className="rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-4">
+              <h3 className="text-sm font-bold text-foreground">
+                {t.footer.newsletterTitle}
+              </h3>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {t.footer.newsletterSubtitle}
+              </p>
+              <form onSubmit={handleSubscribe} className="mt-3 flex gap-2">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t.footer.newsletterPlaceholder}
+                  className="w-full min-w-0 rounded-full border border-foreground/15 bg-background px-3.5 py-2 text-xs text-foreground placeholder:text-muted-foreground/70 transition-colors focus:border-primary focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:scale-95"
+                >
+                  <span>{t.footer.subscribe}</span>
+                  <Send className="h-3 w-3 rtl:rotate-180" aria-hidden />
+                </button>
+              </form>
+            </div>
+
+            {/* Social Links underneath */}
+            <div>
+              <h4 className="mb-2 text-xs font-semibold text-foreground/80">
+                {t.footer.social}
+              </h4>
+              <ul className="flex flex-wrap gap-2">
+                {siteConfig.socials.map((social) => {
+                  const Icon = socialIcons[social.label];
+                  return (
+                    <li key={social.label}>
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer me"
+                        aria-label={`${social.label} — ${social.handle}`}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-background/80 px-3 py-1.5 text-xs text-muted-foreground transition-all hover:border-primary/40 hover:text-primary active:scale-95"
+                      >
+                        {Icon ? <Icon className="h-3.5 w-3.5" /> : null}
+                        <span>{social.handle}</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            {/* Contact Ways underneath socials */}
+            <div className="border-t border-foreground/10 pt-3">
+              <h4 className="mb-2 text-xs font-semibold text-foreground/80">
+                {t.footer.contactsTitle}
+              </h4>
+              <ul className="space-y-1.5 text-xs">
+                {siteConfig.contacts.phones.map((phone, i) => (
+                  <li key={phone}>
                     <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer me"
-                      aria-label={`${social.label} — ${social.handle}`}
-                      className="flex items-center gap-2 rounded-full border border-foreground/10 px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                      href={siteConfig.contacts.phonesHref[i]}
+                      dir="ltr"
+                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
                     >
-                      {Icon ? <Icon className="h-4 w-4" /> : null}
-                      {social.handle}
+                      <Phone className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
+                      <span>{phone}</span>
                     </a>
                   </li>
-                );
-              })}
-            </ul>
+                ))}
+                {siteConfig.contacts.emails.map((contactEmail) => (
+                  <li key={contactEmail}>
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="inline-flex items-center gap-2 break-all text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <Mail className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
+                      <span>{contactEmail}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-foreground/10 pt-6 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-foreground/10 pt-6 sm:flex-row">
           <p className="text-xs text-muted-foreground">
             © {year} {locale === "ar" ? "ستيرو" : "Stayro"} — {t.footer.rights}
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="text-xs text-muted-foreground transition-colors hover:text-primary">
+            <Link
+              href="/privacy"
+              className="text-xs text-muted-foreground transition-colors hover:text-primary"
+            >
               {t.footer.privacy}
             </Link>
-            <Link href="/terms" className="text-xs text-muted-foreground transition-colors hover:text-primary">
+            <Link
+              href="/terms"
+              className="text-xs text-muted-foreground transition-colors hover:text-primary"
+            >
               {t.footer.terms}
             </Link>
           </div>

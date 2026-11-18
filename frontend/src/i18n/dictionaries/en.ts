@@ -270,5 +270,11 @@ export const en: Dictionary = {
     privacy: "Privacy Policy",
     terms: "Terms of Use",
     rights: "All Rights Reserved.",
+    newsletterTitle: "Newsletter",
+    newsletterSubtitle: "Subscribe for exclusive stays and launch updates first.",
+    newsletterPlaceholder: "Enter your email",
+    subscribe: "Subscribe",
+    subscribedToast: "Thank you for subscribing to Stayro!",
+    contactsTitle: "Contact Us",
   },
 };

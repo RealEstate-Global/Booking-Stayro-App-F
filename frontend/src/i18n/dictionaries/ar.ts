@@ -267,6 +267,12 @@ export const ar = {
     privacy: "سياسة الخصوصية",
     terms: "الشروط والأحكام",
     rights: "جميع الحقوق محفوظة.",
+    newsletterTitle: "النشرة البريدية",
+    newsletterSubtitle: "اشترك لتصلك أحدث العروض والوجهات الحصرية أولاً.",
+    newsletterPlaceholder: "أدخل بريدك الإلكتروني",
+    subscribe: "اشترك",
+    subscribedToast: "تم اشتراكك بنجاح في نشرة ستيرو!",
+    contactsTitle: "طرق التواصل",
   },
 };
 
