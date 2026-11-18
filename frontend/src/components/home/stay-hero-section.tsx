@@ -19,7 +19,7 @@ export function StayHeroSection() {
   return (
     <section
       aria-label={t.home.heroTitle}
-      className="relative isolate -mt-16 flex min-h-svh w-full flex-col justify-center overflow-hidden md:-mt-20"
+      className="relative isolate -mt-16 flex min-h-svh w-full flex-col justify-center overflow-hidden pb-8 md:-mt-20 md:pb-12"
     >
       {/* Full-height background image — cinematic entrance matching stayro.com */}
       <motion.div
@@ -27,6 +27,12 @@ export function StayHeroSection() {
         animate={{ filter: "grayscale(0%) brightness(1) blur(0px)", scale: 1.01 }}
         transition={{ duration: 1.8, ease: "easeOut" }}
         className="absolute inset-0 -z-10"
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0.15) 88%, transparent 96%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0.15) 88%, transparent 96%)",
+        }}
       >
         <Image
           src="/images/cities/riyadh.webp"
@@ -35,12 +41,6 @@ export function StayHeroSection() {
           priority
           quality={80}
           sizes="100vw"
-          style={{
-            maskImage:
-              "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.7) 82%, rgba(0,0,0,0.2) 92%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.7) 82%, rgba(0,0,0,0.2) 92%, transparent 100%)",
-          }}
           className="object-cover object-[center_55%]"
         />
       </motion.div>
@@ -49,12 +49,6 @@ export function StayHeroSection() {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-36 bg-gradient-to-b from-black/60 to-transparent"
-      />
-
-      {/* Seamless bottom transition into page background with guaranteed solid baseline */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-44 bg-gradient-to-t from-background from-15% via-background/60 via-55% to-transparent"
       />
 
       {/* Main hero container */}
