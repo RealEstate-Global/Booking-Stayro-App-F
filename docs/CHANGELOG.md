@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2026-11-17
+## [2.0.0] - 2026-11-18
 
 ### Changed
 - **Converted the legacy React + Vite SPA to Next.js 16 (App Router) + React 19 + TypeScript**, now living in `frontend/` as a standalone pnpm project. `backend/` placeholder added for the future API.
@@ -19,11 +19,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Routing moved to App Router; per-route + per-hotel metadata via the Metadata API; JSON-LD `TravelAgency`, `sitemap.ts` (static routes + all hotel slugs), `robots.ts`, `app/icon.svg`.
 - Pages split into server `page.tsx` (metadata) + client `*View` components; shared `StaySearchForm`, `DatePickerField`, `HotelCard`, `SectionBadge` eliminate copy-pasted markup.
 - CI/CD rewritten for **pnpm** (`frontend/`, `--frozen-lockfile`, Node 20); dependabot targets `/frontend`; CodeQL retained; npm-audit replaced by `pnpm audit`.
+- **Legal & compliance** — bilingual `/privacy` and `/terms` pages (statically prerendered, in the sitemap) plus a delayed, localStorage-gated cookie-consent banner wired into the root layout; footer legal links now point at the real routes.
+
+### Fixed
+- Header **logo clipping** and the Jeddah hotel gallery image (replaced as `park-hyatt-pool.jpg` to bust immutable `_next/image` caching).
+- `pnpm lint` fully green under ESLint 9 flat config with react-hooks v6 rules — hydration-safe mount flags carry scoped, justified disables; `tsc --noEmit` and `pnpm build` (23 static pages) clean.
 
 ### Removed
 - All fabricated legacy features: flights/cars booking widget, fake destination explorer & pricing, placeholder "coming soon" pages, cars/login routes, video background, and every Lovable-generated reference.
 - Vite, `react-router`, `react-helmet-async`, vitest, `@tanstack/react-query`, `hls.js`, `recharts`, Radix toast/toaster (sonner is the single toast system).
 - **bun.lock / bun.lockb / package-lock.json** — pnpm only.
+- Unused shadcn/ui primitives — the vendored kit is pruned to the 9 primitives in use (accordion, button, calendar, card, input, label, popover, select, textarea), dropping embla, cmdk, vaul and most Radix packages with them.
 
 ## [Unreleased]
 
