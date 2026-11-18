@@ -48,9 +48,8 @@ export function CitiesSection() {
                 src={city.image}
                 alt={city.name[locale]}
                 fill
-                priority={index < 3}
-                quality={95}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                quality={85}
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />

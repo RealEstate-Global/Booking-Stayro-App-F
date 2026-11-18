@@ -33,7 +33,7 @@ export function StayHeroSection() {
           alt="Riyadh skyline"
           fill
           priority
-          quality={95}
+          quality={90}
           sizes="100vw"
           style={{
             maskImage:
