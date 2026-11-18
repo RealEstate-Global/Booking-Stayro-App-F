@@ -352,10 +352,41 @@
   filter: brightness(0.62) saturate(0.38);
 }
 
-.stayro-page-compact .stayro-backdrop {
-  background-image:
-    radial-gradient(circle at 50% 42%, rgba(255, 91, 46, 0.12), transparent 45%),
-    radial-gradient(ellipse at 50% 0%, #3a3739 0%, #1a1819 100%);
+/* Loading skeletons — soft directional shimmer, disabled for reduced motion */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--foreground) / 0.07),
+    transparent
+  );
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+[dir="rtl"] .skeleton::after {
+  animation-name: skeleton-shimmer-rtl;
+}
+
+@keyframes skeleton-shimmer {
+  to { transform: translateX(100%); }
+}
+
+@keyframes skeleton-shimmer-rtl {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after { animation: none; }
 }
 
 .stayro-screen-shade {

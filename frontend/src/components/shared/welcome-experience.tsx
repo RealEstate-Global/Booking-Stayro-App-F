@@ -17,24 +17,20 @@ const MARK_PATH_1 =
 const MARK_PATH_2 =
   "M1193.94 903.09c-33.03-26.06-66.72-49.11-99.68-74.4-32.96-25.29-64.29-49.65-97.5-75.13-25.97-19.92-54.18-31.33-86.2-16.65-30.21 13.85-45.36 38.68-43.26 72.07 1.65 26.21 18.5 44.52 38 60.76 14.03 11.68 29.34 22.27 43.93 33.4 39.86 30.41 80.39 58.05 120.63 88.78 48 36.65 90.05 72.41 101.43 135.11 8.64 47.63.19 93.45-25.16 135.41-21.14 34.99-47.81 62.77-86.18 81.5-76.16 37.19-154.08 32.75-227.79-10.85-28.28-16.73-51.5-41.08-69.31-68.52-9.13-14.06-16.89-29-23.28-44.49-5.82-14.1-8.38-30.29-17.29-42.82-12.16-17.09-30.57-32.02-52.45-32.34-22.32-.33-40.3 5.85-56.32 22.41-14.78 15.28-20.04 34.92-19.96 56.37 0 2.15.69 6.52 1.05 8.8 2.04 12.89 4.86 25.05 9.06 37.34 7.04 20.62 14.06 40.42 25.4 59.4 31.15 52.18 71.17 91.79 120.36 127.76 46.25 25.19 94.6 49.89 147.24 56.54 142.32 17.99 269.62-32.44 360.18-143.05 28.37-34.66 44.85-75.6 57.49-118.48 4.5-15.27 6.1-31.11 7.48-47.69.74-8.93 1.72-25.04 1.63-33.75-.67-62.78-13.95-118.98-44.88-172.39-22.38-38.65-50.54-68.23-84.59-95.09Z";
 
-export function WelcomeExperience({ compact = false }: { compact?: boolean }) {
+export function WelcomeExperience() {
   return (
-    <div className={`stayro-page${compact ? " stayro-page-compact" : ""}`} dir="rtl" lang="ar">
+    <div className="stayro-page" dir="rtl" lang="ar">
       <div className="stayro-backdrop">
-        {/* The compact variant (route streaming fallback) uses a CSS gradient:
-            no second 381 KB image request when navigating back to the home page. */}
-        {!compact && (
-          <Image
-            src="/images/stayro-hero.webp"
-            alt=""
-            aria-hidden
-            fill
-            loading="eager"
-            quality={75}
-            sizes="100vw"
-            className="stayro-backdrop-image"
-          />
-        )}
+        <Image
+          src="/images/stayro-hero.webp"
+          alt=""
+          aria-hidden
+          fill
+          loading="eager"
+          quality={75}
+          sizes="100vw"
+          className="stayro-backdrop-image"
+        />
       </div>
       <div className="stayro-screen-shade" aria-hidden="true" />
 

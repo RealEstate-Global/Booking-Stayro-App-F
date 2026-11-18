@@ -1,14 +1,6 @@
-import { WelcomeExperience } from "@/components/shared/welcome-experience";
+import { HomeSkeleton } from "@/components/shared/page-skeletons";
 
-/**
- * Route streaming fallback — the same full-screen Stayro welcome experience,
- * layered above the header and footer so the first view is always the brand
- * screen, never a half-loaded page.
- */
+/** Home route fallback — mirrors the hero, city strip and featured stays. */
 export default function Loading() {
-  return (
-    <div className="fixed inset-0 z-[99998]" role="status" aria-label="Stayro Loading">
-      <WelcomeExperience compact />
-    </div>
-  );
+  return <HomeSkeleton />;
 }
