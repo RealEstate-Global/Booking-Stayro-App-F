@@ -138,10 +138,26 @@
 }
 
 @layer base {
-  /* Centralized modern scrollbar — slim, rounded, theme-aware, RTL-safe */
-  html, body, *:not([data-radix-select-viewport]):not([data-radix-popper-content-wrapper]) {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(var(--primary) / 0.35) transparent;
+  /* Sleek, arrow-free scrollbar for WebKit / Blink (Chrome, Edge, Safari, Opera) */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--primary) / 0.35);
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--primary) / 0.65);
   }
 
   /* Completely remove and hide top & bottom stepper arrow buttons on all scrollbars */
@@ -150,10 +166,18 @@
   ::-webkit-scrollbar-button:vertical:decrement,
   ::-webkit-scrollbar-button:vertical:increment,
   ::-webkit-scrollbar-button:horizontal:decrement,
-  ::-webkit-scrollbar-button:horizontal:increment {
+  ::-webkit-scrollbar-button:horizontal:increment,
+  ::-webkit-scrollbar-button:start:decrement,
+  ::-webkit-scrollbar-button:end:increment,
+  ::-webkit-scrollbar-button:vertical:start:decrement,
+  ::-webkit-scrollbar-button:vertical:end:increment,
+  ::-webkit-scrollbar-button:horizontal:start:decrement,
+  ::-webkit-scrollbar-button:horizontal:end:increment {
     display: none !important;
     width: 0px !important;
     height: 0px !important;
+    font-size: 0px !important;
+    line-height: 0px !important;
     background: transparent !important;
     border: none !important;
   }
@@ -161,26 +185,15 @@
   /* Remove scrollbar corners */
   ::-webkit-scrollbar-corner {
     background: transparent !important;
+    display: none !important;
   }
 
-  /* Custom sleek scrollbar track & thumb */
-  ::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgb(var(--primary) / 0.35);
-    border-radius: 9999px;
-    transition: background-color 0.2s ease;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--primary) / 0.65);
+  /* Firefox only: apply modern thin scrollbar without triggering Chromium native arrow buttons */
+  @supports not selector(::-webkit-scrollbar) {
+    html, body, *:not([data-radix-select-viewport]):not([data-radix-popper-content-wrapper]) {
+      scrollbar-width: thin;
+      scrollbar-color: rgb(var(--primary) / 0.35) transparent;
+    }
   }
 
   /* Dropdowns, popovers and selects — completely hide internal scrollbars for seamless UX */
@@ -197,11 +210,36 @@
     height: 0px !important;
   }
 
+  /* View Transition API — full-page circular ripple effect when toggling theme */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 9999;
+  }
+
   /* Smooth color & theme transition across interactive backgrounds, borders, and text */
-  body, header, footer, [role="dialog"], .bg-background, .bg-card {
-    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  body,
+  header,
+  footer,
+  [role="dialog"],
+  .bg-background,
+  .bg-card,
+  .bg-popover,
+  .bg-muted,
+  .text-foreground,
+  .text-muted-foreground {
+    transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 

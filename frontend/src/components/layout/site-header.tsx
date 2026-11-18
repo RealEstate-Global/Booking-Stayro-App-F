@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ComponentType, type SVGProps } from "react";
+import { flushSync } from "react-dom";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -46,6 +47,59 @@ function ThemeToggle({ isScrolled }: { isScrolled: boolean }) {
 
   const isDark = mounted ? resolvedTheme === "dark" : true;
 
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const nextTheme = isDark ? "light" : "dark";
+
+    // Gracefully handle environments without View Transitions API or when prefers-reduced-motion is on
+    const doc = typeof document !== "undefined" ? (document as unknown as {
+      startViewTransition?: (cb: () => void | Promise<void>) => {
+        ready: Promise<void>;
+        finished: Promise<void>;
+      };
+    }) : undefined;
+
+    if (
+      !doc?.startViewTransition ||
+      (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    ) {
+      setTheme(nextTheme);
+      return;
+    }
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const transition = doc.startViewTransition(() => {
+      flushSync(() => {
+        setTheme(nextTheme);
+      });
+    });
+
+    transition.ready
+      .then(() => {
+        const clipPath = [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${endRadius}px at ${x}px ${y}px)`,
+        ];
+        document.documentElement.animate(
+          { clipPath },
+          {
+            duration: 480,
+            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+            pseudoElement: "::view-transition-new(root)",
+          }
+        );
+      })
+      .catch(() => {
+        // Fallback safely if pseudoElement animation is not supported
+      });
+  };
+
   return (
     <motion.button
       type="button"
@@ -55,7 +109,7 @@ function ThemeToggle({ isScrolled }: { isScrolled: boolean }) {
       title={t.header.toggleTheme}
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.92 }}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={handleToggle}
       className={cn(
         "relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full backdrop-blur-md transition-[border-color,background-color] duration-200",
         isScrolled
