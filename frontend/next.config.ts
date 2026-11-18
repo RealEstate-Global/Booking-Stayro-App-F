@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: import.meta.dirname ?? path.resolve("."),
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 80, 85, 90],
+    // Cap AVIF/WebP quality at 80 — higher values add bytes with no visible gain.
+    qualities: [75, 80],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },

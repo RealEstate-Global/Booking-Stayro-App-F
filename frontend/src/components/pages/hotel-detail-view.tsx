@@ -126,8 +126,8 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
               src={hotel.images[0]}
               alt={hotel.name}
               fill
-              priority
-              quality={90}
+              preload
+              quality={75}
               sizes="(max-width: 768px) 100vw, 66vw"
               className="object-cover"
             />
@@ -141,7 +141,7 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                 src={src}
                 alt={`${hotel.name} — ${i + 2}`}
                 fill
-                quality={90}
+                quality={80}
                 sizes="33vw"
                 className="object-cover"
               />

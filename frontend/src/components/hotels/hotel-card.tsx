@@ -30,7 +30,7 @@ export function HotelCard({ hotel, query }: HotelCardProps) {
           src={hotel.images[0]}
           alt={hotel.name}
           fill
-          quality={90}
+          quality={80}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
