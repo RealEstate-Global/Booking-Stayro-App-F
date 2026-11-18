@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ComponentType, type SVGProps } from "react";
+import { useEffect, useState, useSyncExternalStore, type ComponentType, type SVGProps } from "react";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -29,12 +29,20 @@ const navIcons: Record<NavItemKey, ComponentType<SVGProps<SVGSVGElement>>> = {
   support: Headset,
 };
 
+const emptySubscribe = () => () => {};
+
+function useMounted() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+}
+
 function ThemeToggle({ isScrolled }: { isScrolled: boolean }) {
   const { resolvedTheme, setTheme } = useTheme();
   const { t } = useLanguage();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
 
   const isDark = mounted ? resolvedTheme === "dark" : true;
 

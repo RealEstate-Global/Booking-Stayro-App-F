@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, type ComponentType, type FormEvent, type SVGProps } from "react";
-import { BadgeCheck, Download, HelpCircle, Mail, MessageSquare, Phone, Send, ShieldCheck } from "lucide-react";
+import { BadgeCheck, HelpCircle, MessageSquare, Send, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { siteConfig } from "@/config/site";
 import { useLanguage } from "@/i18n/language-provider";
@@ -37,7 +37,23 @@ function TikTokIcon(props: SVGProps<SVGSVGElement>) {
 function XIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M18.244 3H21l-6.52 7.45L22.5 21h-5.36l-4.19-5.48L8.06 21H5.3l6.97-7.97L2 3h5.5l3.79 5L18.244 3z" />
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function AppleIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.76 1.06-1.82.94-2.88-.91.04-2.02.61-2.67 1.37-.58.67-1.08 1.74-.95 2.78 1.02.08 2.06-.51 2.68-1.27z" />
+    </svg>
+  );
+}
+
+function GooglePlayIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M3.609 1.814L13.793 12 3.61 22.186a2.37 2.37 0 0 1-.61-.926V2.74c.16-.367.37-.688.61-.926zm11.242 11.244l2.128 2.128-11.45 6.467 9.322-8.595zm2.128-2.116l-2.128 2.128-9.322-8.595 11.45 6.467zm1.053 1.058l3.142 1.774c.915.516.915 1.358 0 1.874l-3.142 1.774-2.34-2.34 2.34-2.082z" />
     </svg>
   );
 }
@@ -94,36 +110,41 @@ export function SiteFooter() {
               <span>{t.header.license}</span>
             </div>
 
-            {/* Contact Ways moved under About Column */}
-            <div className="mt-2 rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-3.5">
-              <h4 className="mb-2 text-xs font-bold text-foreground">
-                {t.footer.contactsTitle}
-              </h4>
-              <ul className="space-y-2 text-xs">
-                {siteConfig.contacts.phones.map((phone, i) => (
-                  <li key={phone}>
-                    <a
-                      href={siteConfig.contacts.phonesHref[i]}
-                      dir="ltr"
-                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      <Phone className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
-                      <span>{phone}</span>
-                    </a>
-                  </li>
-                ))}
-                {siteConfig.contacts.emails.map((contactEmail) => (
-                  <li key={contactEmail}>
-                    <a
-                      href={`mailto:${contactEmail}`}
-                      className="inline-flex items-center gap-2 break-all text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      <Mail className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
-                      <span>{contactEmail}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+            {/* Official App Download Badges (iOS & Android) */}
+            <div className="mt-2 flex flex-col gap-2.5 sm:flex-row lg:flex-col xl:flex-row">
+              <a
+                href={siteConfig.appStore.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-2xl border border-foreground/15 bg-foreground/[0.03] px-3.5 py-2.5 transition-all hover:border-primary/50 hover:bg-foreground/[0.06] active:scale-95"
+              >
+                <AppleIcon className="h-6 w-6 text-foreground transition-transform group-hover:scale-110" />
+                <div className="flex flex-col text-start">
+                  <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
+                    {locale === "ar" ? "حمّله من" : "Download on the"}
+                  </span>
+                  <span className="text-xs font-bold leading-tight text-foreground">
+                    App Store
+                  </span>
+                </div>
+              </a>
+
+              <a
+                href="https://play.google.com/store/apps"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-2xl border border-foreground/15 bg-foreground/[0.03] px-3.5 py-2.5 transition-all hover:border-primary/50 hover:bg-foreground/[0.06] active:scale-95"
+              >
+                <GooglePlayIcon className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
+                <div className="flex flex-col text-start">
+                  <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
+                    {locale === "ar" ? "متوفر على" : "GET IT ON"}
+                  </span>
+                  <span className="text-xs font-bold leading-tight text-foreground">
+                    Google Play
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -226,19 +247,6 @@ export function SiteFooter() {
                   );
                 })}
               </ul>
-            </div>
-
-            {/* App Store Official Link */}
-            <div className="border-t border-foreground/10 pt-3">
-              <a
-                href={siteConfig.appStore.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-primary"
-              >
-                <Download className="h-3.5 w-3.5 text-primary" aria-hidden />
-                <span>{locale === "ar" ? "تطبيق ستيرو للأعمال (App Store)" : "Stayro Business on App Store"}</span>
-              </a>
             </div>
           </div>
         </div>
