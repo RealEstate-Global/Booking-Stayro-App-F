@@ -1,47 +1,42 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2026-11-18
+---
+
+## [2.2.0] - 2026-11-18
+
+### Added
+- **Authentic stayro.com First Loading Splash (`InitialSplashLoader`)**: Vector stroke-drawing animation of the Stayro house-S mark (`viewBox="0 0 1920 1920"`), radiant brand glow, typography, and progress indicator.
+- **Left-Side Floating Scroll-To-Top**: Spring-animated button anchored to `bottom-6 left-5`, automatically revealing after 400px of scrolling.
+- **Tactile Toggle Micro-Interactions**: Spring physics animations for `ThemeToggle` (sun/moon rotate & scale) and `LanguageToggle` (character-flip transitions) via `motion/react`.
+- **Root `vercel.json`**: Explicitly configured `rootDirectory: "frontend"` and `framework: "nextjs"` with security and immutable asset cache headers.
 
 ### Changed
-- **Converted the legacy React + Vite SPA to Next.js 16 (App Router) + React 19 + TypeScript**, now living in `frontend/` as a standalone pnpm project. `backend/` placeholder added for the future API.
-- **Rebranded to Stayro (ستيرو)** after verifying the real stayro.com — stayro.com design tokens (charcoal `#3A3739`, Stayro orange `#FF5B2E`, warm off-white `#FAF6F5`), Tajawal font, house-S logo, Ministry of Tourism license badge (**73104535**), real contact channels (Rakan@stayro.com, Abdulrahman@stayro.com, +966 55 123 4471, +966 546 546 480) and socials (@StayroApp on Instagram/TikTok/X).
-- **Full stays-booking experience (demo data)** — five real Saudi cities (Makkah, Madinah, Riyadh, Jeddah, Dammam) with real skyline imagery, and a 12-property catalog of real Saudi hotel brands with stars, Booking-style ratings, SAR pricing and amenities in `src/data/`.
-- **Search flow** — `StaySearchForm` (destination + guests + rooms + two reusable calendar date pickers) drives `/hotels` results with sorting (recommended / price asc-desc / rating); the form is prefillable from URL params on `/hotels`.
-- **Hotel detail + demo booking** — `/hotels/[slug]` statically generated per hotel: gallery, amenities with icons, guest stories, and a sticky booking card computing nights + **15% VAT** with an instant `STY-XXXXXX` confirmation reference.
-- **Bilingual Arabic (RTL, default) / English (LTR)** via a typed-dictionary `LanguageProvider` with persistent locale choice. All layout uses logical CSS properties.
-- **Theme** — dark default (stayro.com) with concrete-texture body, fully-supported light theme; **one centralized slim scrollbar** in `globals.css` (including Radix select dropdowns — no arrow buttons anywhere).
-- **Home page** — full-height hero (Riyadh skyline from the top of the body, under the fixed header), cities strip, featured stays, why-Stayro, how-it-works, guest stories and a closing CTA.
-- Routing moved to App Router; per-route + per-hotel metadata via the Metadata API; JSON-LD `TravelAgency`, `sitemap.ts` (static routes + all hotel slugs), `robots.ts`, `app/icon.svg`.
-- Pages split into server `page.tsx` (metadata) + client `*View` components; shared `StaySearchForm`, `DatePickerField`, `HotelCard`, `SectionBadge` eliminate copy-pasted markup.
-- CI/CD rewritten for **pnpm** (`frontend/`, `--frozen-lockfile`, Node 20); dependabot targets `/frontend`; CodeQL retained; npm-audit replaced by `pnpm audit`.
-- **Legal & compliance** — bilingual `/privacy` and `/terms` pages (statically prerendered, in the sitemap) plus a delayed, localStorage-gated cookie-consent banner wired into the root layout; footer legal links now point at the real routes.
-
-### Fixed
-- Header **logo clipping** and the Jeddah hotel gallery image (replaced as `park-hyatt-pool.jpg` to bust immutable `_next/image` caching).
-- `pnpm lint` fully green under ESLint 9 flat config with react-hooks v6 rules — hydration-safe mount flags carry scoped, justified disables; `tsc --noEmit` and `pnpm build` (23 static pages) clean.
+- **Scrollbar Overhaul**: Completely removed top and bottom arrow stepper buttons (`::-webkit-scrollbar-button`) across WebKit/Blink browsers; adjusted track and thumb width to 7px with smooth theme transition.
+- **Header Scroll Animation**: Transition duration accelerated from 300ms to 150ms with `transform-gpu` and `will-change-transform` for instant responsiveness when scrolling back to top.
+- **Dependency Upgrades**:
+  - `typescript` bumped from 5.9.3 to 6.0.3
+  - `motion` bumped to 14.14.0
+  - `next-themes` bumped to 0.4.6
+  - `sonner` bumped to 2.0.8
+  - `tailwind-merge` bumped to 3.7.0
+  - `date-fns` bumped to 4.4.0
+  - `react-day-picker` upgraded to 10.0.2 with complete `Calendar` component refactoring
+  - GitHub Actions updated: `actions/checkout@v7`, `actions/labeler@v7`, `pnpm/action-setup@v6`, `actions/setup-node@v7`
 
 ### Removed
-- All fabricated legacy features: flights/cars booking widget, fake destination explorer & pricing, placeholder "coming soon" pages, cars/login routes, video background, and every Lovable-generated reference.
-- Vite, `react-router`, `react-helmet-async`, vitest, `@tanstack/react-query`, `hls.js`, `recharts`, Radix toast/toaster (sonner is the single toast system).
-- **bun.lock / bun.lockb / package-lock.json** — pnpm only.
-- Unused shadcn/ui primitives — the vendored kit is pruned to the 9 primitives in use (accordion, button, calendar, card, input, label, popover, select, textarea), dropping embla, cmdk, vaul and most Radix packages with them.
-
-## [Unreleased]
-
-### Planned
-- `backend/` API: real inventory, availability and bookings (the frontend demo contract in `lib/booking.ts` is ready to swap).
-- Payments (mada / Visa / Mastercard / Apple Pay) in SAR.
-- Accounts, wishlist and booking management.
-- Host/stays onboarding (Stayro Business).
+- **"Coming Soon" References**: Deleted `coming-soon-card.tsx` and all obsolete "قريباً" notices across the app.
+- **Obsolete Dependabot Branches**: Cleaned up 6 stale PRs that targeted non-existent root lockfiles.
 
 ---
 
-## Links
+## [2.0.0] - 2026-11-18
 
-- [Documentation](../README.md)
-- [Project structure](./STRUCTURE.md)
+### Changed
+- **Converted legacy React + Vite SPA to Next.js 16 (App Router) + React 19 + TypeScript** in `frontend/`.
+- **Rebranded to Stayro (ستيرو)** with Ministry of Tourism license (**73104535**), real contact channels, and socials (@StayroApp).
+- **Full Stays Booking Experience**: Real Saudi cities, 12-property hotel catalog, search form with calendar date pickers, hotel detail with 15% VAT and `STY-XXXXXX` references.

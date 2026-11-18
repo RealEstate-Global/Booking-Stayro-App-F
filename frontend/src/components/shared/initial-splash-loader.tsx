@@ -1,36 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useLanguage } from "@/i18n/language-provider";
 
-// Exact Stayro logo mark paths extracted from stayro.com (viewBox 0 0 1920 1920)
-const STAYRO_MARK_PATH_1 =
-  "M1444.11 846.84c.06-26.52-16.13-52.16-36.02-70.68-28.61-26.61-50.38-47.32-65.34-62.06-8.24-8.13-12.34-18.4-12.26-30.82.25-50.57.17-100.92-.25-151.15-.16-18.86-4.83-38.01-17.71-52.37-12.39-13.81-28.92-23.26-47.33-26.2-28.53-4.55-57.13 9.75-73.21 33.27-15.59 22.78-11.41 54.74-11.54 81.98 0 3.41-1.27 3.96-3.72 1.6-17.46-16.5-37.49-34.06-53.72-49.3-42.56-39.96-73.12-68.54-91.59-85.72-5.11-4.72-11.2-9.56-18.26-14.44-30.13-23.07-74.09-23.11-105.79-5.31-7.06 4-17.37 12.17-30.85 24.55-28.06 25.64-55.83 51.37-83.34 77.56-46.74 43.58-93.36 87.03-139.89 130.44-20.79 19.37-44.33 42.9-66.73 63.45-14.89 13.66-29.76 27.34-44.59 41.07-14.16 13.12-29.69 25.52-42.45 40.17-12.81 14.71-23.81 32.85-23.65 52.88.17 23.02 12.59 46.9 32.71 58.62 15.76 8.21 33.22 8.97 48.26 7.24 7.19-.84 29.33-7.62 34.57-15.03 3.21-4.51 4.99-4 5.33 1.52 2.28 36.97 16.23 74.19 36.26 105.09 13.46 21.34 29.63 40.99 48.43 57.84 20.69 18.54 266.65 174.4 271.76 177.35 40.66 23.45 95.39 17.52 112.59-32.25 10.9-42.78-7.73-72.97-41.21-96.25L839.63 993.43c-65.47-39.62-112.8-86.73-103.17-170.52 5.07-44 24.26-81.47 57.56-112.46 29.54-27.49 100.8-94.61 107.01-100.54 16.1-11.66 35.97-18.53 57.44-18.53 22.95 0 44.04 7.87 60.73 21.05 3.13 2.74 6.21 5.56 9.34 8.42 11.75 10.53 23.5 21.14 35.21 31.75l137.27 122.35c49.83 43.91 84.15 74.82 102.95 92.76 16.07 15.31 32.44 33.55 54.27 40.39 29.18 9.15 61.45-2.44 76.95-29.06 6.17-10.6 8.86-21.47 8.88-32.19Z";
+// Canonical Stayro house-S mark paths calibrated for viewBox="-15 -15 700 810"
+const MARK_PATH_1 =
+  "M662.2 303.63c.04-18.14-11.03-35.67-24.63-48.34-19.57-18.2-34.46-32.37-44.69-42.45-5.64-5.56-8.44-12.58-8.38-21.08.17-34.58.12-69.02-.17-103.38-.11-12.9-3.3-26-12.11-35.82-8.48-9.45-19.78-15.91-32.37-17.92-19.51-3.11-39.07 6.66-50.07 22.75-10.67 15.58-7.8 37.43-7.89 56.07 0 2.33-.87 2.71-2.54 1.09-11.94-11.29-25.64-23.3-36.74-33.72C413.5 53.5 392.6 33.95 379.97 22.2c-3.5-3.22-7.66-6.54-12.49-9.88-20.61-15.78-50.67-15.81-72.35-3.63-4.83 2.74-11.88 8.32-21.1 16.79-19.19 17.54-38.18 35.13-57 53.04-31.97 29.8-63.85 59.52-95.68 89.21-14.22 13.25-30.32 29.34-45.64 43.4-10.19 9.34-20.35 18.7-30.49 28.09-9.69 8.97-20.3 17.45-29.03 27.47C7.42 276.77-.1 289.18 0 302.88c.12 15.74 8.61 32.08 22.37 40.09 10.78 5.62 22.72 6.13 33.01 4.95 4.91-.58 20.06-5.21 23.64-10.28 2.2-3.08 3.41-2.74 3.64 1.04 1.56 25.28 11.1 50.74 24.8 71.87 9.2 14.6 20.26 28.03 33.12 39.56 14.15 12.68 182.37 119.28 185.86 121.29 27.81 16.04 65.24 11.98 77-22.06 7.46-29.26-5.29-49.9-28.18-65.83l-126.49-79.65c-44.77-27.1-77.15-59.32-70.56-116.62 3.47-30.09 16.59-55.72 39.37-76.91 20.2-18.8 68.94-64.7 73.19-68.76 11.01-7.98 24.6-12.67 39.28-12.67 15.7 0 30.12 5.38 41.54 14.4 2.14 1.87 4.25 3.8 6.39 5.76 8.04 7.2 16.07 14.46 24.08 21.71l93.88 83.68c34.08 30.03 57.55 51.17 70.41 63.44 10.99 10.47 22.19 22.95 37.12 27.63 19.96 6.26 42.03-1.67 52.63-19.87 4.22-7.25 6.06-14.68 6.08-22.02Z";
 
-const STAYRO_MARK_PATH_2 =
-  "M1193.94 903.09c-33.03-26.06-66.72-49.11-99.68-74.4-32.96-25.29-64.29-49.65-97.5-75.13-25.97-19.92-54.18-31.33-86.2-16.65-30.21 13.85-45.36 38.68-43.26 72.07 1.65 26.21 18.5 44.52 38 60.76 14.03 11.68 29.34 22.27 43.93 33.4 39.86 30.41 80.39 58.05 120.63 88.78 48 36.65 90.05 72.41 101.43 135.11 8.64 47.63.19 93.45-25.16 135.41-21.14 34.99-47.81 62.77-86.18 81.5-76.16 37.19-154.08 32.75-227.79-10.85-28.28-16.73-51.5-41.08-69.31-68.52-9.13-14.06-16.89-29-23.28-44.49-5.82-14.1-8.38-30.29-17.29-42.82-12.16-17.09-30.57-32.02-52.45-32.34-22.32-.33-40.3 5.85-56.32 22.41-14.78 15.28-20.04 34.92-19.96 56.37 0 2.15.69 6.52 1.05 8.8 2.04 12.89 4.86 25.05 9.06 37.34 7.04 20.62 14.06 40.42 25.4 59.4 31.15 52.18 71.17 91.79 120.36 127.76 46.25 25.19 94.6 49.89 147.24 56.54 142.32 17.99 269.62-32.44 360.18-143.05 28.37-34.66 44.85-75.6 57.49-118.48 4.5-15.27 6.1-31.11 7.48-47.69.74-8.93 1.72-25.04 1.63-33.75-.67-62.78-13.95-118.98-44.88-172.39-22.38-38.65-50.54-68.23-84.59-95.09Z";
+const MARK_PATH_2 =
+  "M491.1 342.1c-22.59-17.83-45.63-33.59-68.17-50.88-22.54-17.3-43.97-33.96-66.68-51.38-17.76-13.63-37.05-21.43-58.96-11.39-20.66 9.47-31.02 26.45-29.59 49.29 1.13 17.92 12.65 30.45 25.99 41.56 9.59 7.99 20.06 15.23 30.04 22.84 27.26 20.8 54.98 39.71 82.5 60.72 32.83 25.07 61.59 49.53 69.37 92.4 5.91 32.58.13 63.92-17.21 92.61-14.46 23.93-32.7 42.93-58.94 55.74-52.09 25.43-105.38 22.4-155.79-7.42-19.34-11.44-35.22-28.1-47.41-46.86-6.24-9.61-11.55-19.83-15.92-30.43-3.98-9.65-5.73-20.72-11.83-29.28-8.32-11.69-20.91-21.9-35.87-22.12-15.27-.23-27.56 4-38.52 15.33C84 533.28 80.4 546.71 80.46 561.38c0 1.47.47 4.46.72 6.02 1.4 8.81 3.33 17.13 6.2 25.54 4.81 14.1 9.62 27.64 17.37 40.62 21.3 35.69 48.67 62.78 82.32 87.38 31.63 17.23 64.7 34.12 100.7 38.67 97.34 12.31 184.4-22.19 246.34-97.83 19.41-23.7 30.67-51.71 39.32-81.03 3.08-10.44 4.17-21.28 5.12-32.61.51-6.1 1.18-17.13 1.11-23.09-.46-42.93-9.54-81.37-30.7-117.9-15.31-26.43-34.57-46.66-57.86-65.04Z";
 
 /**
- * Stayro first-load splash overlay:
- * Clones the authentic animation of stayro.com:
- * 1. Dark charcoal #121214 luxury backdrop
- * 2. Animated stroke-drawing of the Stayro house-S mark (from stayro.com's SVG)
- * 3. Fill transition into luminous brand orange (#FF5B2E)
- * 4. Ambient radial light + brand typography
- * 5. Smooth spring exit unveiling the live app
- *
- * NOTE: Strictly NO "coming soon" — presents the live Saudi stays booking platform.
+ * Stayro Grand Neon First-Load Splash:
+ * - Uses /images/stayro-hero.webp as authentic backdrop with luxury dark overlay
+ * - Large, prominent Stayro house-S mark with high-voltage neon drawing animation
+ * - Dual-layer neon tube effect: vivid orange outer glow + hot bright core
+ * - High-energy neon bloom & pulse on ignition
+ * - Typography + glowing progress bar
+ * - Seamless fade-out revealing the live application
  */
 export function InitialSplashLoader() {
   const [visible, setVisible] = useState(true);
   const { locale } = useLanguage();
 
   useEffect(() => {
-    // Show on initial load, then smoothly dismiss
+    // Dismiss after neon sequence completes (total ~2.2s)
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 1700);
+    }, 2200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -39,94 +38,156 @@ export function InitialSplashLoader() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          key="stayro-splash"
+          key="stayro-neon-splash"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#121214] text-white selection:bg-transparent"
+          exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#121214] text-white selection:bg-transparent"
           role="status"
           aria-label="Stayro Loading"
         >
-          {/* Ambient radial glow */}
-          <div
+          {/* Authentic Stayro Hero Backdrop */}
+          <div className="absolute inset-0 -z-20">
+            <Image
+              src="/images/stayro-hero.webp"
+              alt="Stayro Ambient Backdrop"
+              fill
+              priority
+              quality={90}
+              sizes="100vw"
+              className="object-cover object-center scale-105 filter brightness-50 contrast-110"
+            />
+            {/* Luxury dark gradient vignette overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#121214]/90 via-[#121214]/80 to-[#121214]/95 backdrop-blur-[2px]" />
+          </div>
+
+          {/* Dynamic Radial Ambient Neon Glow */}
+          <motion.div
             aria-hidden
-            className="pointer-events-none absolute h-96 w-96 rounded-full bg-primary/25 blur-[120px]"
+            initial={{ scale: 0.8, opacity: 0.3 }}
+            animate={{
+              scale: [0.8, 1.15, 1],
+              opacity: [0.3, 0.7, 0.5],
+            }}
+            transition={{ duration: 1.8, ease: "easeOut" }}
+            className="pointer-events-none absolute h-[480px] w-[480px] rounded-full bg-primary/30 blur-[130px]"
           />
 
-          <div className="relative flex flex-col items-center gap-6 text-center">
-            {/* Animated Stayro house-S mark — stroke outline draws itself, then fills */}
-            <div className="relative h-28 w-28 md:h-36 md:w-36">
+          <div className="relative flex flex-col items-center gap-7 px-4 text-center">
+            {/* BIG Prominent Stayro Mark with Neon Line Animation */}
+            <div className="relative h-44 w-44 sm:h-56 sm:w-56 md:h-64 md:w-64 lg:h-72 lg:w-72">
               <svg
-                viewBox="0 0 1920 1920"
-                fill="#FF5B2E"
+                viewBox="-15 -15 700 810"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-full w-full drop-shadow-[0_0_35px_rgba(255,91,46,0.65)]"
+                className="h-full w-full overflow-visible drop-shadow-[0_0_15px_rgba(255,91,46,0.9)] drop-shadow-[0_0_35px_rgba(255,91,46,0.6)] drop-shadow-[0_0_65px_rgba(255,91,46,0.35)]"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
+                {/* Outer Neon Glow Layer — Path 1 */}
                 <motion.path
-                  d={STAYRO_MARK_PATH_1}
+                  d={MARK_PATH_1}
                   stroke="#FF5B2E"
-                  initial={{
-                    pathLength: 0,
-                    fillOpacity: 0,
-                    strokeWidth: 16,
-                  }}
+                  strokeWidth={14}
+                  initial={{ pathLength: 0, opacity: 0 }}
                   animate={{
                     pathLength: 1,
-                    fillOpacity: [0, 0, 1],
-                    strokeWidth: [16, 16, 0],
+                    opacity: [0, 1, 0.85, 1],
                   }}
                   transition={{
-                    pathLength: { duration: 1.0, ease: "easeInOut" },
-                    fillOpacity: { delay: 0.85, duration: 0.35 },
-                    strokeWidth: { delay: 1.05, duration: 0.2 },
+                    pathLength: { duration: 1.1, ease: "easeInOut" },
+                    opacity: { duration: 0.3 },
+                  }}
+                />
+
+                {/* Outer Neon Glow Layer — Path 2 */}
+                <motion.path
+                  d={MARK_PATH_2}
+                  stroke="#FF5B2E"
+                  strokeWidth={14}
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{
+                    pathLength: 1,
+                    opacity: [0, 1, 0.85, 1],
+                  }}
+                  transition={{
+                    pathLength: { duration: 1.1, ease: "easeInOut" },
+                    opacity: { duration: 0.3 },
+                  }}
+                />
+
+                {/* Inner Hot Neon Core Layer — Path 1 (Bright white-orange electrical filament) */}
+                <motion.path
+                  d={MARK_PATH_1}
+                  stroke="#FFF2EB"
+                  strokeWidth={4}
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.1, ease: "easeInOut" }}
+                />
+
+                {/* Inner Hot Neon Core Layer — Path 2 */}
+                <motion.path
+                  d={MARK_PATH_2}
+                  stroke="#FFF2EB"
+                  strokeWidth={4}
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.1, ease: "easeInOut" }}
+                />
+
+                {/* Neon Solid Ignition Fill — Ignites with high-voltage bloom upon stroke completion */}
+                <motion.path
+                  d={MARK_PATH_1}
+                  fill="#FF5B2E"
+                  initial={{ fillOpacity: 0 }}
+                  animate={{
+                    fillOpacity: [0, 0, 0.95, 0.7, 1],
+                  }}
+                  transition={{
+                    delay: 0.95,
+                    duration: 0.45,
+                    ease: "easeOut",
                   }}
                 />
                 <motion.path
-                  d={STAYRO_MARK_PATH_2}
-                  stroke="#FF5B2E"
-                  initial={{
-                    pathLength: 0,
-                    fillOpacity: 0,
-                    strokeWidth: 16,
-                  }}
+                  d={MARK_PATH_2}
+                  fill="#FF5B2E"
+                  initial={{ fillOpacity: 0 }}
                   animate={{
-                    pathLength: 1,
-                    fillOpacity: [0, 0, 1],
-                    strokeWidth: [16, 16, 0],
+                    fillOpacity: [0, 0, 0.95, 0.7, 1],
                   }}
                   transition={{
-                    pathLength: { duration: 1.0, ease: "easeInOut" },
-                    fillOpacity: { delay: 0.85, duration: 0.35 },
-                    strokeWidth: { delay: 1.05, duration: 0.2 },
+                    delay: 0.95,
+                    duration: 0.45,
+                    ease: "easeOut",
                   }}
                 />
               </svg>
             </div>
 
-            {/* Typography — fades & rises smoothly */}
+            {/* Typography with Neon Glow */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
+              transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
               className="flex flex-col items-center gap-2"
             >
-              <h1 className="text-3xl font-black tracking-tight text-white md:text-5xl">
+              <h1 className="text-3xl font-black tracking-tight text-white drop-shadow-[0_0_20px_rgba(255,91,46,0.7)] md:text-5xl">
                 {locale === "ar" ? "ستيرو" : "Stayro"}
               </h1>
-              <p className="text-sm font-medium tracking-wide text-white/80 md:text-base">
+              <p className="text-sm font-medium tracking-wide text-white/85 drop-shadow md:text-base">
                 {locale === "ar" ? "لكل إقامة هناك قصة" : "Every stay has a story"}
               </p>
             </motion.div>
 
-            {/* Sleek shimmering brand progress bar */}
+            {/* Shimmering Neon Brand Progress Bar */}
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ delay: 0.2, duration: 1.2, ease: "easeInOut" }}
-              className="mt-2 h-1 w-32 overflow-hidden rounded-full bg-white/10"
+              transition={{ delay: 0.3, duration: 1.3, ease: "easeInOut" }}
+              className="mt-1 h-1 w-36 overflow-hidden rounded-full bg-white/15 drop-shadow-[0_0_10px_rgba(255,91,46,0.8)]"
             >
-              <div className="h-full w-full origin-left animate-pulse bg-primary" />
+              <div className="h-full w-full origin-left animate-pulse bg-gradient-to-r from-primary via-[#FFA180] to-primary" />
             </motion.div>
           </div>
         </motion.div>

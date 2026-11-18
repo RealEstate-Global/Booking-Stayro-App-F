@@ -1,26 +1,25 @@
-# Stayro — Backend
+# Stayro — Backend Service Specification
 
-> Placeholder, reserved for the Stayro API service. **Not scaffolded yet — the frontend is the focus right now.**
+> Placeholder reserved for the Stayro API service. The frontend currently operates with client-side state and instant demo booking references (`STY-XXXXXX`).
 
-## Planned stack (proposed)
+## Planned Stack
 
-- Node.js + TypeScript
-- Express (or NestJS) REST API
-- PostgreSQL + Prisma
-- pnpm for package management
+- **Runtime:** Node.js + TypeScript
+- **Framework:** Express / NestJS REST API
+- **Database:** PostgreSQL + Prisma ORM
+- **Authentication:** JWT + Phone SMS OTP (Saudi national numbers +966)
+- **Package Manager:** pnpm
 
-## What will live here
+## Service Responsibilities
 
-- `src/` — API source (routes, services, repositories, middleware, validators)
-- Flight / hotel / car search and booking endpoints (powering the frontend `BookingTabs` widget)
-- Auth (login/signup for the frontend `/login` page)
-- Support ticket endpoint (powering `/support`)
-- Health check at `GET /api/v1/health`
+- **Inventory & Pricing:** Live availability and dynamic rates for Saudi hotels and serviced stays.
+- **Search & Filter:** Geospatial and amenity-based search engine across Saudi destinations.
+- **Booking Engine:** Reservation transactions, calendar locking, and automated confirmation emails.
+- **Payment Gateway:** Integration with Saudi payment rails (mada, Apple Pay, Visa, Mastercard) via HyperPay/Tap/Geidea.
+- **Support & Ticketing:** Inquiries processing connected to `support@stayro.com`.
 
-## Conventions (when scaffolded)
+## Conventions
 
-- Standalone pnpm project (no monorepo workspace), install with `pnpm install`
-- `pnpm dev` / `pnpm build` / `pnpm start` / `pnpm lint` / `pnpm typecheck`
-- `.env` for secrets, never committed (`.env.example` committed instead)
-
-Until then, the frontend is fully static and all booking actions are client-side stubs that intentionally show a "coming soon" notice.
+- Standalone pnpm service
+- Run scripts: `pnpm dev` · `pnpm build` · `pnpm start` · `pnpm lint`
+- Secrets managed via `.env` (with `.env.example` committed)

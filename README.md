@@ -1,86 +1,127 @@
 <div align="center">
 
-# ستيرو | Stayro — Stays Booking Platform
+# ستيرو | Stayro — Saudi Stays Booking Platform
 
-### لكل إقامة هناك قصة · Every stay has a story
+### لكل إقامة هناك قصة · Every Stay Has a Story
 
-![License](https://img.shields.io/badge/License-Ministry%20of%20Tourism%2073104535-FF5B2E)
-![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=next.js)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?logo=tailwind-css)
-![pnpm](https://img.shields.io/badge/pnpm-12-F69220?logo=pnpm)
+[![License: Ministry of Tourism](https://img.shields.io/badge/License-Ministry%20of%20Tourism%2073104535-FF5B2E?style=for-the-badge)](https://stayro.com)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![pnpm](https://img.shields.io/badge/pnpm-12-F69220?style=for-the-badge&logo=pnpm&logoColor=white)](https://pnpm.io)
 
-[stayro.com](https://stayro.com)
+**[Official Reference: stayro.com](https://stayro.com)**
 
 </div>
 
 ---
 
-## About
+## 🇸🇦 Overview
 
-Stayro (ستيرو) is a bilingual **Arabic (RTL, default) / English** stays-booking platform for Saudi Arabia, licensed by the **Ministry of Tourism, License No. 73104535**. Travelers search, compare and book **hotels, apartments, chalets and resorts** across Makkah, Madinah, Riyadh, Jeddah and Dammam — with clear SAR pricing, a reusable calendar picker and an instant demo booking flow.
+**Stayro (ستيرو)** is a bilingual **Arabic (RTL default) / English (LTR)** luxury stays and accommodation booking platform tailored for the Kingdom of Saudi Arabia. Officially licensed by the **Ministry of Tourism (License No. 73104535)**, Stayro empowers travelers to discover, filter, and book premium hotels, serviced apartments, desert escapes, and chalets across Saudi destinations with transparent SAR pricing, authentic Saudi hospitality, and live simulated instant booking confirmations.
 
-This repository contains the web frontend (and a placeholder for the future backend API), built as a **production-grade Next.js App Router application** with a clean, single-responsibility folder structure.
+Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript 6**, and **Tailwind CSS**, the application delivers exceptional performance, fluid motion design, and cultural alignment.
 
-## Repository layout
+---
+
+## 🏛️ Architecture & Workspace Structure
 
 ```text
 .
-├── frontend/          # Next.js 16 app (App Router, React 19, TypeScript, Tailwind 3.4, pnpm)
-│   ├── public/        # Static assets (images, icon)
-│   │   └── images/    # City skylines (makkah/madinah/riyadh/jeddah/dammam) + hotel & room photos
+├── frontend/                     # Next.js 16 Application (App Router, Turbopack, pnpm)
+│   ├── public/
+│   │   ├── images/
+│   │   │   ├── cities/           # High-resolution skyline photography (Riyadh, Makkah, Madinah, etc.)
+│   │   │   ├── hotels/           # Curated hotel and suite imagery
+│   │   │   └── stayro-hero.webp  # Ambient brand background texture
+│   │   └── icon.svg              # Stayro vector favicon
 │   └── src/
-│       ├── app/           # Routes: /, /about, /hotels, /hotels/[slug], /support
-│       │                  # + loading/not-found/error, sitemap.ts, robots.ts, icon.svg
+│       ├── app/                  # App Router: /, /hotels, /hotels/[slug], /about, /support, /privacy, /terms
 │       ├── components/
-│       │   ├── layout/    # SiteHeader (animated mobile sheet), SiteFooter
-│       │   ├── home/      # Full-height hero, cities, featured stays, why/how, testimonials, CTA
-│       │   ├── hotels/    # HotelCard
-│       │   ├── pages/     # Per-route views (HomeView, HotelsView, HotelDetailView, …)
-│       │   ├── shared/    # StaySearchForm, DatePickerField, Logo, SectionBadge, …
-│       │   └── ui/        # shadcn/ui design-system primitives
-│       ├── config/        # site.ts — brand, license, contacts, socials (single source of truth)
-│       ├── data/          # Demo catalog: cities.ts, hotels.ts (real Saudi cities & hotel brands)
-│       ├── i18n/          # LanguageProvider + typed ar/en dictionaries (RTL/LTR aware)
-│       └── lib/           # booking.ts (pricing/VAT/nights/reference), utils
-├── backend/           # Placeholder for the future API (not scaffolded yet)
-├── docs/              # Documentation
-└── screenshots/       # Product screenshots
+│       │   ├── home/             # Hero, destinations, featured stays, why stayro, testimonials, CTA
+│       │   ├── hotels/           # HotelCard with rating, amenities, and pricing breakdown
+│       │   ├── layout/           # SiteHeader with fast 150ms transitions, SiteFooter with app badges
+│       │   ├── pages/            # View components (HomeView, HotelsView, HotelDetailView, SupportView, etc.)
+│       │   ├── shared/           # InitialSplashLoader, ScrollToTop, StaySearchForm, DatePickerField, StayroLogo
+│       │   └── ui/               # shadcn/ui primitives customized for RTL and brand design tokens
+│       ├── config/               # site.ts — brand constants, contacts, social links, license data
+│       ├── data/                 # Catalog: cities.ts, hotels.ts (real Saudi hotel brands)
+│       ├── i18n/                 # LanguageProvider, dictionaries (ar.ts source of truth, en.ts)
+│       └── lib/                  # booking.ts (VAT 15%, night calculations, STY- references), utils.ts
+├── backend/                      # Backend API specification & placeholder service
+├── docs/                         # Architecture, security, performance, style, and changelog guides
+├── vercel.json                   # Monorepo deployment routing and immutable caching headers
+└── README.md                     # Project documentation
 ```
 
-## Getting started (frontend)
+---
+
+## ✨ Key Features & Capabilities
+
+| Capability | Description |
+| :--- | :--- |
+| **Authentic First Splash** | Cloned stroke-drawing vector animation of the Stayro house-S mark from `stayro.com`, with radial glow, brand typography, and smooth unmount. |
+| **Arrow-Free Sleek Scrollbar** | Custom 7px scrollbar with all stepper arrow buttons (`::-webkit-scrollbar-button`) completely hidden, seamless dark/light theme transitions. |
+| **Bilingual RTL / LTR** | Native Arabic-first (RTL) experience with instantaneous toggle to English (LTR), persistent locale storage, and Tajawal typography. |
+| **Spring Micro-Interactions** | Tactile tactile micro-interactions on theme and translation switches with spring physics via `motion/react`. |
+| **Fast Responsive Header** | Hardware-accelerated header with 150ms collapse/expand transition from full-width to floating glass pill. |
+| **Left-Side Scroll-To-Top** | Floating action button anchored to bottom-left with scroll threshold activation and spring entrance. |
+| **Search & Discovery** | Reusable popover calendar date pickers, destination selection, guest counts, and dynamic sorting by price, rating, and recommendations. |
+| **Hotel Detail & Booking** | Gallery views, amenity checklists, sticky reservation card with 15% VAT calculation and instant demo confirmation (`STY-XXXXXX`). |
+| **Official Compliance** | Verified Ministry of Tourism License badge (**73104535**), real support phones, emails, and verified social links (`@StayroApp`). |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js** `>= 20.9.0`
+- **pnpm** `12.x` (`npm install -g pnpm`)
+
+### Installation & Development
 
 ```bash
+# Clone the repository
+git clone https://github.com/RealEstate-Global/Booking-Stayro-App-F.git
+cd Booking-Stayro-App-F
+
+# Navigate to frontend and install dependencies
 cd frontend
 pnpm install
-pnpm dev        # http://localhost:3000
+
+# Start local development server with Turbopack
+pnpm dev
 ```
 
-| Command          | Description                    |
-| ---------------- | ------------------------------ |
-| `pnpm dev`       | Start dev server (Turbopack)   |
-| `pnpm build`     | Production build               |
-| `pnpm start`     | Serve the production build     |
-| `pnpm lint`      | ESLint (eslint-config-next)    |
-| `pnpm typecheck` | `tsc --noEmit`                 |
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Requirements: **Node.js ≥ 20.9** and **pnpm 12** (`npm i -g pnpm`).
+---
 
-## Features
+## 🛠️ CLI Commands
 
-- 🌐 **Bilingual العربية/English** — full RTL layout switching with persistent preference, typed dictionaries (`src/i18n`)
-- 🎨 **Stayro brand system** — stayro.com design tokens (`#3A3739` charcoal, `#FF5B2E` orange, `#FAF6F5` warm off-white), Tajawal font, light/dark themes (dark default), slim centralized scrollbar
-- 🏙️ **Real destinations** — five Saudi cities with genuine imagery and per-city property counts
-- 🏨 **Stays catalog** — 12 demo listings of real Saudi hotel brands with stars, Booking-style ratings, SAR pricing and amenities
-- 🔎 **Full search flow** — destination + reusable calendar date pickers + guests/rooms → results with sorting (recommended/price/rating)
-- 🛏️ **Hotel detail + demo booking** — gallery, amenities, guest reviews, sticky booking card with nights/VAT(15%)/total breakdown and instant confirmation reference (`STY-XXXXXX`)
-- 📞 Real Stayro contact channels (phones, emails, Instagram/TikTok/X) and Ministry of Tourism license badge
-- 🔍 SEO — Next.js Metadata API, Open Graph, JSON-LD (`TravelAgency`), per-hotel metadata, sitemap & robots, static prerendering
-- ♿ Accessibility — RTL-correct logical properties, aria labels, keyboard-focusable controls
-- ⚡ Performance — static prerender, `next/font`, `next/image` with AVIF/WebP
+| Command | Working Directory | Description |
+| :--- | :--- | :--- |
+| `pnpm dev` | `frontend/` | Launches Next.js dev server with Turbopack |
+| `pnpm build` | `frontend/` | Builds production bundle and prerenders 23 static pages |
+| `pnpm start` | `frontend/` | Runs production server on port 3000 |
+| `pnpm lint` | `frontend/` | Executes ESLint 9 checks |
+| `pnpm typecheck` | `frontend/` | Validates TypeScript types (`tsc --noEmit`) |
 
-## Notes
+---
 
-- The demo catalog (`src/data/`) is **demo data**: cities are real, hotel brands are real, but ratings, review counts, prices and guest testimonials are sample values for the preview build. Bookings are **client-side demos** (`STY-` references) until `backend/` is built — no payment is collected.
-- The old Vite app was fully replaced; there is no `package-lock.json`/`bun.lock` — **pnpm only**.
+## 🌐 Official Contacts & Social Channels
+
+* **Licensing:** Ministry of Tourism License No. `73104535`
+* **Phones:** [+966 55 123 4471](tel:+966551234471) · [+966 546 546 480](tel:+966546546480)
+* **Emails:** [Rakan@stayro.com](mailto:Rakan@stayro.com) · [Abdulrahman@stayro.com](mailto:Abdulrahman@stayro.com)
+* **Instagram:** [@StayroApp](https://www.instagram.com/stayroapp/)
+* **TikTok:** [@StayroApp](https://www.tiktok.com/@StayroApp)
+* **X (Twitter):** [@StayroApp](https://x.com/StayroApp)
+* **App Store:** [Stayro Business on App Store](https://apps.apple.com/sa/app/stayro-business/id6740650889)
+
+---
+
+## 📄 License & Intellectual Property
+
+© 2026 **Stayro (ستيرو)**. All rights reserved. Platform licensed under the Ministry of Tourism, Kingdom of Saudi Arabia.

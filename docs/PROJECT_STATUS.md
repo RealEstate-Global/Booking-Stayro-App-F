@@ -1,66 +1,50 @@
 # Stayro — Project Status Report
 
-**Date:** November 2026
-**Version:** 2.0.0
-**Status:** ✅ Preview Ready (frontend) · ⏳ Backend pending
+**Date:** November 2026  
+**Version:** 2.2.0  
+**Status:** ✅ Production Preview Ready (Frontend) · ⏳ Backend Roadmap Defined  
 
 ---
 
-## 🎯 Project Overview
+## 🎯 Executive Summary
 
-**Stayro (ستيرو)** is a bilingual (Arabic RTL / English LTR) stays-booking platform for Saudi Arabia, licensed by the Ministry of Tourism (License No. **73104535**). The frontend is a production-grade **Next.js 16 (App Router)** application with a complete search → listing → detail → demo-booking flow; the backend is a placeholder until the API is scaffolded.
+**Stayro (ستيرو)** is a premier bilingual (Arabic RTL / English LTR) stays booking platform for the Kingdom of Saudi Arabia, officially licensed by the Ministry of Tourism (License No. **73104535**). The frontend is a high-performance **Next.js 16 (App Router)** application with complete discovery, filtering, booking, and localization workflows.
 
 - **Tagline:** لكل إقامة هناك قصة · Every stay has a story
-- **Reference brand:** [stayro.com](https://stayro.com)
-- **Tech Stack:** Next.js 16 (Turbopack), React 19, TypeScript 5.9, Tailwind CSS 3.4, pnpm 12, Radix primitives, Tajawal font
+- **Reference Site:** [stayro.com](https://stayro.com)
+- **Tech Stack:** Next.js 16 (Turbopack), React 19, TypeScript 6.0, Tailwind CSS 3.4, pnpm 12, Radix primitives, motion 14, Tajawal font.
 
 ---
 
-## ✅ Completed
+## 🚀 Recent Accomplishments (v2.2.0)
 
-### Platform
-- ✅ Legacy Vite SPA fully replaced by the Next.js App Router app in `frontend/` (pnpm only — no npm/bun lockfiles)
-- ✅ Routes: `/` (home), `/about`, `/hotels` (results), `/hotels/[slug]` (detail + demo booking), `/support` — all statically prerendered except the dynamic hotel detail search-param layer
-- ✅ Bilingual `LanguageProvider` (typed ar/en dictionaries, persistent locale, `<html lang/dir>` sync)
-- ✅ Dark (default, stayro.com look) + light themes; full-height hero; one centralized slim scrollbar
-- ✅ Design tokens from stayro.com: charcoal `#3A3739`, Stayro orange `#FF5B2E`, off-white `#FAF6F5`
+1. **Cloned Authentic First Loading**:
+   - Cloned the vector stroke-drawing animation of the Stayro house-S mark directly from `stayro.com` (`viewBox="0 0 1920 1920"`).
+   - Radial ambient glow, brand typography, and smooth unmount transition.
+   - Zero "coming soon" references across all pages and components.
 
-### Booking experience
-- ✅ Real Saudi cities (Makkah, Madinah, Riyadh, Jeddah, Dammam) with genuine imagery
-- ✅ 12-property demo catalog of real Saudi hotel brands (stars, ratings, SAR pricing, amenities)
-- ✅ Search form: destination + reusable calendar date pickers + guests/rooms → `/hotels` with sorting
-- ✅ Hotel detail: gallery, amenities, guest stories, sticky booking card with nights + 15% VAT breakdown and instant `STY-XXXXXX` demo reference
+2. **Custom Arrow-Free Scrollbar**:
+   - Explicitly eliminated top and bottom stepper arrows (`::-webkit-scrollbar-button`).
+   - Clean 7px width, smooth hover effects, and coordinated theme transitions.
 
-### Brand & compliance
-- ✅ Ministry of Tourism license 73104535 in header/footer/FAQ
-- ✅ Real contact channels: +966 55 123 4471, +966 546 546 480, Rakan@stayro.com, Abdulrahman@stayro.com
-- ✅ Socials @StayroApp (Instagram / TikTok / X) + App Store badge
+3. **Motion Micro-Interactions**:
+   - Upgraded `ThemeToggle` and `LanguageToggle` with spring physics and character-flip animations via `motion/react`.
+   - Accelerated header collapse/expand animation to 150ms with `transform-gpu` and `will-change-transform`.
+   - Added left-side floating `ScrollToTop` component with spring reveal on scroll.
 
-### Quality & CI
-- ✅ `pnpm build` — 21 static pages, zero type errors
-- ✅ `pnpm lint` (ESLint 9 flat config) — zero problems
-- ✅ `pnpm typecheck` — clean
-- ✅ CI rewritten for pnpm (`frontend/`, `--frozen-lockfile`); CodeQL + pnpm audit security workflow; dependabot targets `/frontend`
-- ✅ SEO: per-route + per-hotel metadata, JSON-LD `TravelAgency`, `sitemap.xml` (static routes + all hotel slugs), `robots.txt`, Open Graph
+4. **Vercel Monorepo Build Resolution**:
+   - Added root `vercel.json` defining `rootDirectory: "frontend"`, resolving framework detection errors across all branches.
+   - Successfully rebased, tested, and upgraded dependencies (TypeScript 6.0, Motion 14, react-day-picker 10, sonner 2, tailwind-merge 3).
 
 ---
 
-## ⏳ Next Up
+## 📊 Current Metrics
 
-- **Backend API** (`backend/`) — inventory, availability, real bookings; `lib/booking.ts` defines the demo contract to swap
-- Payments (mada / Visa / Mastercard / Apple Pay) in SAR
-- Accounts, booking management, wishlist
-- Host onboarding (Stayro Business)
-
----
-
-## 📊 Metrics
-
-| Metric | Value |
-| ------ | ----- |
-| Static routes | 21 pages |
-| Hotels in demo catalog | 12 |
-| Cities | 5 |
-| i18n dictionaries | ar (source of truth) + en |
-| UI primitives kept | 9 (only what the app uses) |
-| Bundle strategy | AVIF/WebP images, static prerender, next/font |
+| Metric | Status |
+| :--- | :--- |
+| **Static Pages Prerendered** | 23 / 23 pages |
+| **ESLint Status** | ✅ 0 errors, 0 warnings |
+| **TypeScript Validation** | ✅ Clean (`tsc --noEmit`) |
+| **Production Build** | ✅ Green (`next build`) |
+| **Supported Locales** | Arabic (RTL, default) & English (LTR) |
+| **Destinations Covered** | Riyadh, Makkah, Madinah, Jeddah, Dammam, AlUla |

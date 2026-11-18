@@ -138,11 +138,49 @@
 }
 
 @layer base {
-  /* Centralized modern scrollbar — slim, rounded, theme-aware, RTL-safe.
-     Page and main containers use this. */
-  *:not([data-radix-select-viewport]):not([data-radix-popper-content-wrapper]) {
+  /* Centralized modern scrollbar — slim, rounded, theme-aware, RTL-safe */
+  html, body, *:not([data-radix-select-viewport]):not([data-radix-popper-content-wrapper]) {
     scrollbar-width: thin;
     scrollbar-color: rgb(var(--primary) / 0.35) transparent;
+  }
+
+  /* Completely remove and hide top & bottom stepper arrow buttons on all scrollbars */
+  ::-webkit-scrollbar-button,
+  ::-webkit-scrollbar-button:single-button,
+  ::-webkit-scrollbar-button:vertical:decrement,
+  ::-webkit-scrollbar-button:vertical:increment,
+  ::-webkit-scrollbar-button:horizontal:decrement,
+  ::-webkit-scrollbar-button:horizontal:increment {
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Remove scrollbar corners */
+  ::-webkit-scrollbar-corner {
+    background: transparent !important;
+  }
+
+  /* Custom sleek scrollbar track & thumb */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--primary) / 0.35);
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--primary) / 0.65);
   }
 
   /* Dropdowns, popovers and selects — completely hide internal scrollbars for seamless UX */
@@ -159,22 +197,11 @@
     height: 0px !important;
   }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgb(var(--primary) / 0.35);
-    border-radius: 9999px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--primary) / 0.6);
+  /* Smooth color & theme transition across interactive backgrounds, borders, and text */
+  body, header, footer, [role="dialog"], .bg-background, .bg-card {
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
