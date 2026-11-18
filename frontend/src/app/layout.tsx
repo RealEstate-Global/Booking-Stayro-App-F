@@ -202,7 +202,10 @@ export default function RootLayout({
             <TooltipProvider delayDuration={150}>
               <InitialSplashLoader />
               <SiteHeader />
-              <main className="relative z-10 flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
+              {/* No z-index here: loading.tsx's fixed welcome screen must be able to
+                  layer above the header/footer instead of being trapped in a
+                  stacking context below them. */}
+              <main className="relative flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
               <SiteFooter />
               <ScrollToTop />
               <CookieConsent />
