@@ -2,27 +2,39 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType, type SVGProps } from "react";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "motion/react";
-import { BadgeCheck, Menu, Moon, Sun, X } from "lucide-react";
-import { navItems } from "@/data/navigation";
+import {
+  BadgeCheck,
+  BedDouble,
+  ChevronLeft,
+  ChevronRight,
+  Headset,
+  Home,
+  Info,
+  Menu,
+  Moon,
+  Sun,
+  X,
+} from "lucide-react";
+import { navItems, type NavItemKey } from "@/data/navigation";
 import { useLanguage } from "@/i18n/language-provider";
 import { cn } from "@/lib/utils";
 import { StayroLogo } from "@/components/shared/logo";
 
-/**
- * Single, centralized theme toggle — sun/moon crossfade+rotate,
- * the same interaction pattern as stayro.com.
- */
+const navIcons: Record<NavItemKey, ComponentType<SVGProps<SVGSVGElement>>> = {
+  home: Home,
+  about: Info,
+  hotels: BedDouble,
+  support: Headset,
+};
+
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
-  // Hydration-safe mount flag: SSR always renders the default (dark) icon, the
-  // client unlocks the real resolvedTheme afterwards — avoids a theme flicker.
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-shot post-hydration sync
   useEffect(() => setMounted(true), []);
 
   const isDark = mounted ? resolvedTheme === "dark" : true;
@@ -35,19 +47,19 @@ function ThemeToggle() {
       aria-label={t.header.toggleTheme}
       title={t.header.toggleTheme}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-foreground/10 bg-background text-primary transition-colors hover:bg-accent/20"
+      className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-foreground/15 bg-background/80 text-primary backdrop-blur-md transition-all hover:border-primary/40 hover:bg-accent/20 active:scale-95"
     >
       <Sun
         aria-hidden
         className={cn(
-          "h-[1.2rem] w-[1.2rem] transition-all duration-300",
+          "h-[1.1rem] w-[1.1rem] transition-all duration-300",
           isDark ? "-rotate-90 scale-0" : "rotate-0 scale-100"
         )}
       />
       <Moon
         aria-hidden
         className={cn(
-          "absolute h-[1.2rem] w-[1.2rem] transition-all duration-300",
+          "absolute h-[1.1rem] w-[1.1rem] transition-all duration-300",
           isDark ? "rotate-0 scale-100" : "rotate-90 scale-0"
         )}
       />
@@ -63,10 +75,10 @@ function LanguageToggle() {
       type="button"
       onClick={toggleLocale}
       aria-label={locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
-      className="inline-flex h-10 items-center gap-1.5 rounded-full border border-foreground/10 bg-background px-3 text-xs font-bold text-foreground transition-colors hover:text-primary"
+      className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/15 bg-background/80 px-3 text-xs font-bold text-foreground backdrop-blur-md transition-all hover:border-primary/40 hover:text-primary active:scale-95"
     >
-      <span className="text-sm text-primary">{locale === "ar" ? "EN" : "ع"}</span>
-      <span className="hidden sm:inline">
+      <span className="text-xs font-black text-primary">{locale === "ar" ? "EN" : "ع"}</span>
+      <span className="hidden sm:inline text-xs">
         {locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
       </span>
     </button>
@@ -75,9 +87,11 @@ function LanguageToggle() {
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const { t, dir } = useLanguage();
+  const { t, dir, locale } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const Arrow = dir === "rtl" ? ChevronLeft : ChevronRight;
 
   const isActive = (path: string) =>
     path === "/" ? pathname === "/" : pathname.startsWith(path);
@@ -92,6 +106,18 @@ export function SiteHeader() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header
@@ -114,7 +140,7 @@ export function SiteHeader() {
             <StayroLogo
               aria-label="Stayro"
               className={cn(
-                "block w-auto text-foreground transition-all duration-300",
+                "block w-auto text-foreground transition-all duration-300 hover:opacity-90",
                 isScrolled ? "h-5 md:h-7" : "h-6 md:h-9"
               )}
             />
@@ -134,90 +160,144 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Center: desktop navigation */}
-        <nav className="hidden items-center gap-2 lg:flex" aria-label="Main">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              aria-current={isActive(item.path) ? "page" : undefined}
-              className={cn(
-                "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                isActive(item.path)
-                  ? "bg-foreground/10 text-primary"
-                  : "text-foreground/80 hover:text-primary"
-              )}
-            >
-              {t.nav[item.key]}
-            </Link>
-          ))}
+        {/* Center: desktop navigation pill with glassmorphism */}
+        <nav
+          className="hidden items-center gap-1 rounded-full border border-foreground/15 bg-background/70 p-1.5 shadow-sm backdrop-blur-md lg:flex"
+          aria-label="Main"
+        >
+          {navItems.map((item) => {
+            const active = isActive(item.path);
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "relative rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200",
+                  active
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                )}
+              >
+                {t.nav[item.key]}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* End side: toggles + mobile menu */}
-        <div className="flex items-center gap-2 md:gap-3">
+        {/* End side: toggles + mobile menu button */}
+        <div className="flex items-center gap-2 md:gap-2.5">
           <LanguageToggle />
           <ThemeToggle />
           <button
             type="button"
-            className="p-2 text-foreground lg:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-foreground/15 bg-background/80 text-foreground backdrop-blur-md transition-all hover:border-primary/40 hover:text-primary active:scale-95 lg:hidden"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label={t.header.toggleMenu}
             aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile navigation — floating rounded sheet with a springy open */}
+      {/* Mobile navigation — modern spring drawer with enhanced responsive layout */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Dim backdrop, tap to close */}
+            {/* Dim backdrop with blur */}
             <motion.button
               key="backdrop"
               aria-label={t.common.close}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-40 cursor-default bg-black/50 backdrop-blur-[2px]"
+              onClick={closeMobileMenu}
+              className="fixed inset-0 z-40 cursor-default bg-black/60 backdrop-blur-sm"
             />
+            {/* Floating glass panel */}
             <motion.div
               key="panel"
-              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              dir={dir}
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              className="absolute inset-x-3 top-full z-50 mt-2 origin-top overflow-hidden rounded-3xl border border-foreground/10 bg-background/95 p-2 shadow-2xl backdrop-blur-xl"
+              exit={{ opacity: 0, y: -16, scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 350, damping: 28 }}
+              className="absolute inset-x-3 top-full z-50 mt-2 origin-top overflow-hidden rounded-3xl border border-foreground/15 bg-background/95 p-4 shadow-2xl backdrop-blur-2xl sm:inset-x-6"
             >
-              <nav className="flex flex-col" aria-label="Mobile">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.path}
-                    initial={{ opacity: 0, x: dir === "rtl" ? 14 : -14 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 + index * 0.05, duration: 0.25 }}
-                  >
-                    <Link
-                      href={item.path}
-                      aria-current={isActive(item.path) ? "page" : undefined}
-                      onClick={closeMobileMenu}
-                      className={cn(
-                        "flex items-center justify-between rounded-2xl px-5 py-3.5 font-semibold transition-colors",
-                        isActive(item.path)
-                          ? "bg-primary/15 text-primary"
-                          : "text-muted-foreground hover:bg-foreground/5 hover:text-primary"
-                      )}
+              {/* Header inside mobile sheet */}
+              <div className="mb-3 flex items-center justify-between border-b border-foreground/10 pb-3">
+                <div className="flex items-center gap-2">
+                  <StayroLogo className="h-5 w-auto text-primary" />
+                </div>
+                <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                  <BadgeCheck className="h-3 w-3 text-primary" aria-hidden />
+                  {locale === "ar" ? "مرخّص من وزارة السياحة" : "Ministry of Tourism"}
+                </span>
+              </div>
+
+              {/* Navigation list */}
+              <nav className="flex flex-col gap-1.5" aria-label="Mobile">
+                {navItems.map((item, index) => {
+                  const active = isActive(item.path);
+                  const Icon = navIcons[item.key];
+                  return (
+                    <motion.div
+                      key={item.path}
+                      initial={{ opacity: 0, x: dir === "rtl" ? 16 : -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.04 + index * 0.04, duration: 0.22 }}
                     >
-                      {t.nav[item.key]}
-                      {isActive(item.path) ? (
-                        <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
-                      ) : null}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        href={item.path}
+                        aria-current={active ? "page" : undefined}
+                        onClick={closeMobileMenu}
+                        className={cn(
+                          "group flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold transition-all",
+                          active
+                            ? "border border-primary/30 bg-primary/10 text-primary shadow-xs"
+                            : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={cn(
+                              "flex h-8 w-8 items-center justify-center rounded-xl transition-colors",
+                              active
+                                ? "bg-primary text-white"
+                                : "bg-foreground/5 text-muted-foreground group-hover:text-foreground"
+                            )}
+                          >
+                            <Icon className="h-4 w-4" aria-hidden />
+                          </span>
+                          <span>{t.nav[item.key]}</span>
+                        </div>
+                        <Arrow
+                          className={cn(
+                            "h-4 w-4 transition-transform",
+                            active
+                              ? "text-primary translate-x-0"
+                              : "text-muted-foreground/60 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                          )}
+                          aria-hidden
+                        />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </nav>
+
+              {/* Bottom quick CTA in mobile menu */}
+              <div className="mt-4 border-t border-foreground/10 pt-3">
+                <Link
+                  href="/hotels"
+                  onClick={closeMobileMenu}
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-95"
+                >
+                  <BedDouble className="h-4 w-4" aria-hidden />
+                  {locale === "ar" ? "ابحث عن إقامتك الآن" : "Search Stays Now"}
+                </Link>
+              </div>
             </motion.div>
           </>
         )}

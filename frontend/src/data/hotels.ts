@@ -43,7 +43,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 2387,
     priceSar: 3280,
     amenities: ["wifi", "restaurant", "breakfast", "shuttle", "spa", "gym"],
-    images: ["/images/hotels/room-suite.jpg", "/images/hotels/fairmont-makkah.jpg", "/images/hotels/room-executive.jpg"],
+    images: ["/images/hotels/room-suite.webp", "/images/hotels/fairmont-makkah.webp", "/images/hotels/room-executive.webp"],
     description: {
       ar: "إقامة فاخرة على بُعد خطوات من الحرم المكي — إطلالات على الكعبة وخدمة تليق بضيوف الرحمن.",
       en: "Luxury stay steps from the Holy Mosque — Kaaba views and service worthy of the guests of Allah.",
@@ -60,7 +60,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 1754,
     priceSar: 2850,
     amenities: ["wifi", "restaurant", "breakfast", "shuttle", "kids"],
-    images: ["/images/hotels/oberoi-madinah.jpg", "/images/hotels/room-executive.jpg", "/images/hotels/room-deluxe.jpg"],
+    images: ["/images/hotels/oberoi-madinah.webp", "/images/hotels/room-executive.webp", "/images/hotels/room-deluxe.webp"],
     description: {
       ar: "هدوء وروحانية على بُعد دقائق من المسجد النبوي — أرقى فنادق المدينة المنورة.",
       en: "Serenity and spirituality minutes from the Prophet's Mosque — Madinah's finest address.",
@@ -77,7 +77,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 3120,
     priceSar: 2450,
     amenities: ["wifi", "pool", "spa", "gym", "restaurant", "parking", "breakfast", "kids"],
-    images: ["/images/hotels/four-seasons.jpg", "/images/hotels/room-suite.jpg", "/images/hotels/room-executive.jpg"],
+    images: ["/images/hotels/four-seasons.webp", "/images/hotels/room-suite.webp", "/images/hotels/room-executive.webp"],
     description: {
       ar: "إطلالة أيقونية على أفق الرياض داخل مركز المملكة — فخامة لا تُضاهى.",
       en: "Iconic views over the Riyadh skyline inside Kingdom Centre — unmatched luxury.",
@@ -94,7 +94,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 2845,
     priceSar: 2120,
     amenities: ["wifi", "pool", "spa", "gym", "restaurant", "parking", "breakfast", "kids"],
-    images: ["/images/hotels/ritz-riyadh.jpg", "/images/hotels/room-suite.jpg", "/images/hotels/room-executive.jpg"],
+    images: ["/images/hotels/ritz-riyadh.webp", "/images/hotels/room-suite.webp", "/images/hotels/room-executive.webp"],
     description: {
       ar: "منتجع أخضر أنيق في قلب الحي الدبلوماسي — ملاذ هادئ وسط المدينة.",
       en: "An elegant green resort in the diplomatic quarter — a calm oasis in the city.",
@@ -111,7 +111,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 1980,
     priceSar: 2380,
     amenities: ["wifi", "pool", "spa", "gym", "restaurant", "parking", "breakfast"],
-    images: ["/images/hotels/park-hyatt-pool.jpg", "/images/hotels/room-deluxe.jpg", "/images/hotels/room-executive.jpg"],
+    images: ["/images/hotels/park-hyatt-pool.webp", "/images/hotels/room-deluxe.webp", "/images/hotels/room-executive.webp"],
     description: {
       ar: "بإطلالة مباشرة وخدمة راقية على البحر الأحمر — أهدأ وجهات جدة الساحلية.",
       en: "A Red Sea jewel — Jeddah's most tranquil coastal retreat.",
@@ -128,7 +128,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 4210,
     priceSar: 2980,
     amenities: ["wifi", "restaurant", "breakfast", "shuttle", "gym"],
-    images: ["/images/hotels/room-executive.jpg", "/images/hotels/fairmont-makkah.jpg", "/images/hotels/room-suite.jpg"],
+    images: ["/images/hotels/room-executive.webp", "/images/hotels/fairmont-makkah.webp", "/images/hotels/room-suite.webp"],
     description: {
       ar: "داخل برج الساعة الأشهر في العالم — إطلالة على الحرم من غرفتك مباشرة.",
       en: "Inside the world's most famous clock tower — Haram views from your window.",
@@ -145,7 +145,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 1543,
     priceSar: 2650,
     amenities: ["wifi", "pool", "spa", "gym", "restaurant", "breakfast"],
-    images: ["/images/hotels/room-suite.jpg", "/images/hotels/room-executive.jpg", "/images/hotels/ritz-riyadh.jpg"],
+    images: ["/images/hotels/room-suite.webp", "/images/hotels/room-executive.webp", "/images/hotels/ritz-riyadh.webp"],
     description: {
       ar: "القمة الجديدة للفخامة فوق قمة برج الفيصلية التاريخي.",
       en: "A new summit of luxury atop the historic Al Faisaliah tower.",
@@ -161,7 +161,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 3410,
     priceSar: 980,
     amenities: ["wifi", "pool", "gym", "restaurant", "parking", "breakfast"],
-    images: ["/images/hotels/room-deluxe.jpg", "/images/hotels/park-hyatt-pool.jpg", "/images/hotels/room-executive.jpg"],
+    images: ["/images/hotels/room-deluxe.webp", "/images/hotels/park-hyatt-pool.webp", "/images/hotels/room-executive.webp"],
     description: {
       ar: "أيقونة جدة على الكورنيش — اختيار العائلات والتجار منذ عقود.",
       en: "The Corniche legend — Jeddah's choice for families and business for decades.",
@@ -177,7 +177,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 2876,
     priceSar: 1650,
     amenities: ["wifi", "restaurant", "breakfast", "shuttle"],
-    images: ["/images/hotels/room-deluxe.jpg", "/images/hotels/room-executive.jpg", "/images/hotels/fairmont-makkah.jpg"],
+    images: ["/images/hotels/room-deluxe.webp", "/images/hotels/room-executive.webp", "/images/hotels/fairmont-makkah.webp"],
     description: {
       ar: "قريب من الحرم بأسعار مناسبة — قيمة ممتازة للمعتمر والحاج.",
       en: "Close to the Haram at smart rates — excellent value for pilgrims.",
@@ -193,7 +193,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 2321,
     priceSar: 920,
     amenities: ["wifi", "restaurant", "breakfast", "parking"],
-    images: ["/images/hotels/room-suite.jpg", "/images/hotels/oberoi-madinah.jpg", "/images/hotels/room-deluxe.jpg"],
+    images: ["/images/hotels/room-suite.webp", "/images/hotels/oberoi-madinah.webp", "/images/hotels/room-deluxe.webp"],
     description: {
       ar: "من أفضل قيمة مقابل السعر قرب المسجد النبوي — مثالي للعائلات.",
       en: "Best value near the Prophet's Mosque — ideal for families.",
@@ -209,7 +209,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 1688,
     priceSar: 760,
     amenities: ["wifi", "pool", "gym", "restaurant", "parking", "breakfast"],
-    images: ["/images/hotels/room-suite.jpg", "/images/hotels/villa-resort.jpg", "/images/hotels/room-deluxe.jpg"],
+    images: ["/images/hotels/room-suite.webp", "/images/hotels/villa-resort.webp", "/images/hotels/room-deluxe.webp"],
     description: {
       ar: "القيمة الأولى لرجال الأعمال في المنطقة الشرقية — قرب الكورنيش وواجهة البحر.",
       en: "The Eastern Province business first choice — near the Corniche and the seafront.",
@@ -225,7 +225,7 @@ export const hotels: Hotel[] = [
     reviewsCount: 1245,
     priceSar: 690,
     amenities: ["wifi", "pool", "restaurant", "parking", "breakfast", "kids"],
-    images: ["/images/hotels/villa-resort.jpg", "/images/hotels/room-executive.jpg", "/images/hotels/room-deluxe.jpg"],
+    images: ["/images/hotels/villa-resort.webp", "/images/hotels/room-executive.webp", "/images/hotels/room-deluxe.webp"],
     description: {
       ar: "إطلالة بحرية وعائلات سعيدة — منتجع شاطئي على كورنيش الدمام.",
       en: "Seaside views and happy families — a beach resort on Dammam's cornice.",
