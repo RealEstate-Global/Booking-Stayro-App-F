@@ -8,10 +8,13 @@ import { cn } from "@/lib/utils";
 
 function Select({
   dir,
+  name,
   ...props
 }: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>) {
   const { dir: contextDir } = useLanguage();
-  return <SelectPrimitive.Root dir={dir ?? contextDir} {...props} />;
+  const generatedId = React.useId();
+  const fallbackName = name ?? `select-${generatedId.replace(/:/g, "")}`;
+  return <SelectPrimitive.Root dir={dir ?? contextDir} name={fallbackName} {...props} />;
 }
 
 const SelectGroup = SelectPrimitive.Group;

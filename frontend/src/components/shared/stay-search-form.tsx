@@ -90,9 +90,10 @@ export function StaySearchForm({
     >
       {/* Destination */}
       <div className="flex-[1.3] min-w-0 col-span-1 sm:col-span-2 lg:col-span-1">
-        <Select value={city} onValueChange={setCity}>
+        <Select name="destination" value={city} onValueChange={setCity}>
           <SelectTrigger
             id="search-city"
+            name="destination"
             aria-label={t.search.destination}
             className="flex h-14 w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-2xl border-0 bg-transparent px-3 text-start shadow-none transition-colors hover:bg-foreground/5 focus:ring-0 focus:ring-offset-0 lg:h-14 lg:rounded-full [&>svg]:hidden"
           >
@@ -130,6 +131,12 @@ export function StaySearchForm({
           showArrow={true}
           className="h-14 rounded-2xl px-3 hover:bg-foreground/5 lg:rounded-full"
         />
+        <input
+          type="hidden"
+          id="search-checkin-value"
+          name="checkIn"
+          value={checkIn ? checkIn.toISOString() : ""}
+        />
       </div>
 
       {/* Check-out */}
@@ -145,13 +152,20 @@ export function StaySearchForm({
           showArrow={true}
           className="h-14 rounded-2xl px-3 hover:bg-foreground/5 lg:rounded-full"
         />
+        <input
+          type="hidden"
+          id="search-checkout-value"
+          name="checkOut"
+          value={checkOut ? checkOut.toISOString() : ""}
+        />
       </div>
 
       {/* Guests */}
       <div className="flex-[0.9] min-w-0 col-span-1">
-        <Select value={guests} onValueChange={setGuests}>
+        <Select name="guests" value={guests} onValueChange={setGuests}>
           <SelectTrigger
             id="search-guests"
+            name="guests"
             aria-label={`${t.search.guests}: ${guests}`}
             className="flex h-14 w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-2xl border-0 bg-transparent px-3 text-start shadow-none transition-colors hover:bg-foreground/5 focus:ring-0 focus:ring-offset-0 lg:h-14 lg:rounded-full [&>svg]:hidden"
           >
@@ -178,9 +192,10 @@ export function StaySearchForm({
 
       {/* Rooms */}
       <div className="flex-[0.9] min-w-0 col-span-1">
-        <Select value={rooms} onValueChange={setRooms}>
+        <Select name="rooms" value={rooms} onValueChange={setRooms}>
           <SelectTrigger
             id="search-rooms"
+            name="rooms"
             aria-label={`${t.search.rooms}: ${rooms}`}
             className="flex h-14 w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-2xl border-0 bg-transparent px-3 text-start shadow-none transition-colors hover:bg-foreground/5 focus:ring-0 focus:ring-offset-0 lg:h-14 lg:rounded-full [&>svg]:hidden"
           >

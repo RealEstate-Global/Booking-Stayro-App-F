@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { useLanguage } from "@/i18n/language-provider";
 
 // Canonical Stayro house-S mark paths calibrated for viewBox="-15 -15 700 810"
 const MARK_PATH_1 =
@@ -23,15 +22,31 @@ const MARK_PATH_2 =
  */
 export function InitialSplashLoader() {
   const [visible, setVisible] = useState(true);
-  const { locale } = useLanguage();
 
   useEffect(() => {
-    // Dismiss after neon sequence completes (total ~2.2s)
+    // Completely hide scrollbars during splash loading
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = body.style.overflow;
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    // Dismiss after neon sequence completes (~2.2s)
     const timer = setTimeout(() => {
       setVisible(false);
+      body.classList.add("splash-done");
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
     }, 2200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      body.classList.add("splash-done");
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
+    };
   }, []);
 
   return (
@@ -40,24 +55,29 @@ export function InitialSplashLoader() {
         <motion.div
           key="stayro-neon-splash"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#121214] text-white selection:bg-transparent"
+          exit={{
+            opacity: 0,
+            scale: 1.06,
+            filter: "blur(10px)",
+            transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+          }}
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center overflow-hidden text-white selection:bg-transparent [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           role="status"
           aria-label="Stayro Loading"
         >
-          {/* Authentic Stayro Hero Backdrop */}
+          {/* Authentic Stayro Hero Backdrop — clearly visible without muddy dark gradients */}
           <div className="absolute inset-0 -z-20">
             <Image
               src="/images/stayro-hero.webp"
-              alt="Stayro Ambient Backdrop"
+              alt="Stayro Hero Ambient Backdrop"
               fill
               priority
-              quality={90}
+              quality={95}
               sizes="100vw"
-              className="object-cover object-center scale-105 filter brightness-50 contrast-110"
+              className="object-cover object-center scale-100"
             />
-            {/* Luxury dark gradient vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#121214]/90 via-[#121214]/80 to-[#121214]/95 backdrop-blur-[2px]" />
+            {/* Subtle soft contrast layer to let the neon logo shine */}
+            <div className="absolute inset-0 bg-black/45" />
           </div>
 
           {/* Dynamic Radial Ambient Neon Glow */}
@@ -165,18 +185,18 @@ export function InitialSplashLoader() {
               </svg>
             </div>
 
-            {/* Typography with Neon Glow */}
+            {/* Authentic Brand Typography */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
               className="flex flex-col items-center gap-2"
             >
-              <h1 className="text-3xl font-black tracking-tight text-white drop-shadow-[0_0_20px_rgba(255,91,46,0.7)] md:text-5xl">
-                {locale === "ar" ? "ستيرو" : "Stayro"}
+              <h1 className="text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)] drop-shadow-[0_0_25px_rgba(255,91,46,0.8)] md:text-5xl">
+                ستيرو
               </h1>
-              <p className="text-sm font-medium tracking-wide text-white/85 drop-shadow md:text-base">
-                {locale === "ar" ? "لكل إقامة هناك قصة" : "Every stay has a story"}
+              <p className="text-sm font-bold tracking-wide text-white/95 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] md:text-base">
+                لكل إقامة هناك قصة
               </p>
             </motion.div>
 

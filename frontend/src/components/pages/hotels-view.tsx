@@ -94,8 +94,8 @@ export function HotelsView() {
 
           <div className="flex items-center gap-2">
             <SlidersHorizontal className="h-4 w-4 text-muted-foreground" aria-hidden />
-            <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-              <SelectTrigger className="h-10 w-[190px] rounded-full border-foreground/15 bg-transparent text-sm">
+            <Select name="sort" value={sort} onValueChange={(v) => setSort(v as SortKey)}>
+              <SelectTrigger id="hotels-sort-trigger" name="sort" aria-label={t.hotelsPage.sortRecommended} className="h-10 w-[190px] rounded-full border-foreground/15 bg-transparent text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

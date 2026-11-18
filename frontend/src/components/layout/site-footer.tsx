@@ -206,11 +206,15 @@ export function SiteFooter() {
               </p>
               <form onSubmit={handleSubscribe} className="mt-3 flex gap-2">
                 <input
+                  id="newsletter-email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t.footer.newsletterPlaceholder}
+                  aria-label={t.footer.newsletterPlaceholder}
                   className="w-full min-w-0 rounded-full border border-foreground/15 bg-background px-3.5 py-2 text-xs text-foreground placeholder:text-muted-foreground/70 transition-colors focus:border-primary focus:outline-none"
                 />
                 <button

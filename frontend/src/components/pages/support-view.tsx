@@ -67,6 +67,7 @@ export function SupportView() {
                 <Input
                   id="name"
                   name="name"
+                  autoComplete="name"
                   required
                   placeholder={t.supportPage.namePlaceholder}
                   className="mt-2 border-foreground/10 bg-background transition-colors focus:border-primary"
@@ -81,6 +82,7 @@ export function SupportView() {
                   id="email"
                   name="email"
                   type="email"
+                  autoComplete="email"
                   required
                   placeholder={t.supportPage.emailPlaceholder}
                   className="mt-2 border-foreground/10 bg-background transition-colors focus:border-primary"
