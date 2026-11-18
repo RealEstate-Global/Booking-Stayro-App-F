@@ -23,28 +23,40 @@ const MARK_PATH_2 =
  */
 export function InitialSplashLoader() {
   const { t } = useLanguage();
-  const [visible, setVisible] = useState(() => {
-    // SSR always renders visible; client checks sessionStorage
-    if (typeof window === "undefined") return true;
-    try {
-      return !sessionStorage.getItem("stayro-splash-done");
-    } catch {
-      return true;
-    }
-  });
+  // The initial render MUST be identical on the server and on the client.
+  // Reading sessionStorage in this initializer made the client bail out of
+  // hydration on reload, leaving the server-rendered overlay in the DOM with
+  // no timer to dismiss it — a permanent blank screen. sessionStorage is now
+  // consulted in the effect below, after hydration has completed.
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    if (!visible) {
-      // Already dismissed (e.g. returning visitor in same session)
-      document.documentElement.classList.remove("splash-active");
+    if (!visible) return;
+
+    const html = document.documentElement;
+    let alreadySeen = false;
+    try {
+      alreadySeen = Boolean(sessionStorage.getItem("stayro-splash-done"));
+    } catch {
+      // Storage unavailable (private mode) — treat as a first visit.
+    }
+
+    // Returning visitor: the inline script in the root layout adds the
+    // `splash-seen` class before hydration and CSS hides the SSR overlay, so
+    // only the state needs to unmount it here. No timer, no stuck overlay.
+    if (alreadySeen) {
+      // One-shot post-hydration sync: the first render must be identical on
+      // server and client, so this decision can only be made in the effect.
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration-safe dismissal for returning visitors
+      setVisible(false);
+      html.classList.remove("splash-active");
       return;
     }
 
-    // Ensure splash-active class is on html to disable scrollbar-gutter
-    const html = document.documentElement;
+    // Ensure splash-active class is on html to disable scrollbar-gutter.
     html.classList.add("splash-active");
 
-    // Dismiss after neon sequence completes (~2.2s)
+    // Dismiss after neon sequence completes (~2.2s).
     const timer = setTimeout(() => {
       setVisible(false);
     }, 2200);
@@ -76,6 +88,7 @@ export function InitialSplashLoader() {
             transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
           }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center overflow-hidden bg-[#0B090A] text-white selection:bg-transparent [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          data-stayro-splash
           role="status"
           aria-label={t.home.splashAriaLabel}
         >
