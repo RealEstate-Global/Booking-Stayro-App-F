@@ -243,12 +243,12 @@ export function HotelsView() {
             <Input
               id="hotels-keyword-search"
               name="q"
-              type="search"
+              type="text"
               value={searchInput}
               onChange={handleSearchChange}
               placeholder={t.hotelsPage.searchPlaceholder}
               aria-label={t.hotelsPage.searchLabel}
-              className="h-10 w-full rounded-full border-foreground/15 bg-background/80 ps-9 pe-9 text-sm placeholder:text-muted-foreground/70 focus-visible:ring-primary"
+              className="h-10 w-full rounded-full border-foreground/15 bg-background/80 ps-9 pe-9 text-sm placeholder:text-muted-foreground/70 focus-visible:ring-primary [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
             />
             {searchInput ? (
               <button
