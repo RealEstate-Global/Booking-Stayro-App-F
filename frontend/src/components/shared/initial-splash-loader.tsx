@@ -70,7 +70,7 @@ export function InitialSplashLoader() {
               alt="Stayro Hero Ambient Backdrop"
               fill
               priority
-              quality={95}
+              quality={80}
               sizes="100vw"
               className="object-cover object-center scale-100"
             />

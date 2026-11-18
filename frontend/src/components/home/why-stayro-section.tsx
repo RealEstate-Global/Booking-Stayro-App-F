@@ -20,7 +20,7 @@ export function WhyStayroSection() {
             src="/images/hotels/room-suite.webp"
             alt="غرفة فندقية مع ستيرو — Every Stayro stay"
             fill
-            quality={95}
+            quality={80}
             sizes="(max-width: 1024px) 90vw, 45vw"
             className="object-cover"
           />

@@ -20,6 +20,11 @@ const tajawal = Tajawal({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   title: {
     default: `${siteConfig.nameAr} (${siteConfig.name}) | ${siteConfig.tagline.ar}`,
     template: `%s | ${siteConfig.nameAr} (${siteConfig.name})`,
