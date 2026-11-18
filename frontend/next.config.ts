@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: import.meta.dirname ?? path.resolve("."),
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 90, 95],
   },
 };
 

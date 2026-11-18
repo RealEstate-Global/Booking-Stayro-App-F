@@ -53,7 +53,7 @@ Related to #
 - **Browser(s)**: 
 - **OS**: 
 - **Node version**: 
-- **npm version**: 
+- **pnpm version**: 
 
 ## Checklist
 <!-- Mark completed items with an "x" -->

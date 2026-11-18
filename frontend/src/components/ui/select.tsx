@@ -3,9 +3,16 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
 
+import { useLanguage } from "@/i18n/language-provider";
 import { cn } from "@/lib/utils";
 
-const Select = SelectPrimitive.Root;
+function Select({
+  dir,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>) {
+  const { dir: contextDir } = useLanguage();
+  return <SelectPrimitive.Root dir={dir ?? contextDir} {...props} />;
+}
 
 const SelectGroup = SelectPrimitive.Group;
 

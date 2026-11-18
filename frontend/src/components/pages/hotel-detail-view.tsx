@@ -251,7 +251,7 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                           aria-label={t.search.checkIn}
                           date={checkIn}
                           onSelect={handleCheckInChange}
-                          showArrow={false}
+                          showArrow={true}
                         />
                       </div>
                     </div>
@@ -267,7 +267,7 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                           date={checkOut}
                           onSelect={(next) => next && setCheckOut(next)}
                           minDate={new Date(checkIn.getTime() + 86_400_000)}
-                          showArrow={false}
+                          showArrow={true}
                         />
                       </div>
                     </div>
@@ -279,7 +279,7 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                       <div className="relative mt-1">
                         <Users className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" aria-hidden />
                         <Select value={guests} onValueChange={setGuests}>
-                          <SelectTrigger id="detail-guests" className="h-11 ps-9">
+                          <SelectTrigger id="detail-guests" className="h-11 ps-9 pe-3">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -300,7 +300,7 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                       <div className="relative mt-1">
                         <BedDouble className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" aria-hidden />
                         <Select value={rooms} onValueChange={setRooms}>
-                          <SelectTrigger id="detail-rooms" className="h-11 ps-9">
+                          <SelectTrigger id="detail-rooms" className="h-11 ps-9 pe-3">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>

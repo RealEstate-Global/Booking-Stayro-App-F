@@ -5,7 +5,7 @@ import { hotels } from "@/data/hotels";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/about", "/hotels", "/support"];
+  const staticRoutes = ["", "/about", "/hotels", "/support", "/privacy", "/terms"];
 
   const hotelEntries: MetadataRoute.Sitemap = hotels.map((hotel) => ({
     url: `${siteConfig.url}/hotels/${hotel.slug}`,

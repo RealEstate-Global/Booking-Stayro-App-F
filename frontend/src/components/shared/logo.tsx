@@ -41,6 +41,7 @@ export function StayroLogo({ title = "Stayro", ...props }: StayroLogoProps) {
       role="img"
       aria-label={title}
       fill="currentColor"
+      style={{ minWidth: 0, flexShrink: 0 }}
       {...props}
     >
       <path d={WORDMARK_PATH} />

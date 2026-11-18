@@ -109,11 +109,11 @@ export function SiteHeader() {
         )}
       >
         {/* Start side: license line (collapses smoothly on scroll) + Stayro wordmark */}
-        <div className="flex flex-col-reverse items-start gap-1 md:gap-1.5">
+        <div className="flex min-w-0 flex-col-reverse items-start gap-1 md:gap-1.5">
           <StayroLogo
             aria-label="Stayro"
             className={cn(
-              "w-auto text-foreground transition-all duration-300",
+              "block shrink-0 w-auto text-foreground transition-all duration-300",
               isScrolled ? "h-5 md:h-7" : "h-6 md:h-9"
             )}
           />

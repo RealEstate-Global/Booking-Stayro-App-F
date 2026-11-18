@@ -248,6 +248,14 @@ export const en: Dictionary = {
     goBack: "Go Back",
     pathLabel: "Path",
   },
+  cookies: {
+    title: "We use cookies",
+    message:
+      "We use cookies to improve your experience and analyse how the site is used. By continuing to browse you agree.",
+    accept: "Accept",
+    decline: "Decline",
+    learnMore: "Privacy Policy",
+  },
   footer: {
     description:
       "Every stay has a story — Stayro, the Saudi travel & stays platform, licensed by the Ministry of Tourism.",

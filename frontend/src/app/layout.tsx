@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site";
 import { LanguageProvider } from "@/i18n/language-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { CookieConsent } from "@/components/shared/cookie-consent";
 import "./globals.css";
 
 const tajawal = Tajawal({
@@ -108,6 +109,7 @@ export default function RootLayout({
             <SiteHeader />
             <main className="relative z-10 flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
             <SiteFooter />
+            <CookieConsent />
             <Toaster position="top-center" richColors />
           </LanguageProvider>
         </ThemeProvider>

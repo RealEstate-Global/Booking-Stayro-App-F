@@ -1,161 +1,52 @@
-# Styles Guide
+# Stayro — Style Guide
 
-Styling guidelines and conventions for The Lost Yeti Kitchen & Bar.
+The visual language mirrors [stayro.com](https://stayro.com): warm charcoal surfaces, a single orange accent, generous rounded corners and soft shadows.
 
-## Design System
+## Design tokens
 
-### Color Palette
+Colors are defined as `R G B` triplets in `frontend/src/app/globals.css` (`:root` light, `.dark` dark) and consumed by Tailwind as `rgb(var(--token) / <alpha>)`, so every opacity utility works.
 
-```css
-/* Primary Colors */
---bg-primary: #0a0a0a;      /* Main background */
---bg-secondary: #111;        /* Card backgrounds */
---accent: #C65A1E;          /* Orange accent */
+| Token | Light | Dark | Usage |
+| ----- | ----- | ---- | ----- |
+| `--background` | `250 246 245` (warm off-white) | `58 55 57` (charcoal) | Page background |
+| `--foreground` | `38 34 34` | `250 246 245` | Primary text |
+| `--primary` | `255 91 46` (`#FF5B2E`) | same | Brand accent: CTAs, badges, active states |
+| `--card` / `--popover` | white-ish | raised charcoal | Surfaces |
+| `--muted-foreground` | soft grey | soft cream | Secondary text |
 
-/* Text Colors */
---text-primary: #ffffff;     /* Main text */
---text-secondary: #e5e5e5;   /* Secondary text */
---text-muted: #a3a3a3;      /* Muted text */
+- **Dark is the default** (like stayro.com); light is fully supported via `next-themes` (class strategy).
+- Dark mode body carries the concrete-texture background (`stayro-hero.webp`, fixed, 50% overlay).
 
-/* Border Colors */
---border: rgba(255,255,255,0.05);  /* Subtle borders */
-```
+## Typography
 
-### Typography
+- **Tajawal** via `next/font` — Arabic-first, weights 400–800.
+- Scale: hero `clamp(2.75rem, 8vw, 7rem)` extrabold; section titles `text-3xl md:text-5xl` extrabold; body `text-base/relaxed`; micro-copy `text-[10px]`–`text-xs` muted.
 
-**Fonts**:
-- **Headings**: Forum (serif)
-- **Body**: Open Sans (sans-serif)
+## Layout & rhythm
 
-**Font Sizes**:
-```css
-text-xs: 0.75rem;    /* 12px */
-text-sm: 0.875rem;   /* 14px */
-text-base: 1rem;     /* 16px */
-text-lg: 1.125rem;   /* 18px */
-text-xl: 1.25rem;    /* 20px */
-text-2xl: 1.5rem;    /* 24px */
-text-3xl: 1.875rem;  /* 30px */
-text-4xl: 2.25rem;   /* 36px */
-text-5xl: 3rem;      /* 48px */
-```
+- Max width `max-w-screen-xl` with `px-4 md:px-8` gutters.
+- Section spacing `py-12 md:py-16`; cards `rounded-2xl/3xl` with `border-foreground/10` + `bg-card` + soft shadow.
+- Radii scale: pills (`rounded-full`) for CTAs/badges, `rounded-2xl` for fields, `rounded-3xl` for panels/cards.
 
-### Spacing
+## Components & patterns
 
-```css
-gap-1: 0.25rem;   /* 4px */
-gap-2: 0.5rem;    /* 8px */
-gap-4: 1rem;      /* 16px */
-gap-6: 1.5rem;    /* 24px */
-gap-8: 2rem;      /* 32px */
-gap-12: 3rem;     /* 48px */
-```
+- **SectionBadge** — the orange eyebrow pill above every section heading.
+- **HotelCard** — image with hover zoom, rating chip (top-end), amenity pills, price + "Book now" row.
+- **StaySearchForm** — white/85 translucent pill bar; on mobile it stacks into a `grid-cols-2` card.
+- **DatePickerField** — trigger row (icon + `d MMM` label) opening a locale-aware calendar popover.
+- **Select** — rounded-xl items, no arrow buttons; the dropdown keeps the global slim scrollbar.
+- **Buttons** — primary = orange pill with hover `bg-primary/90`; ghost = transparent with hover tint.
 
-## Tailwind CSS
+## Motion
 
-### Utility Classes
+- Entrance animations are SSR-safe CSS keyframes in `globals.css` (`animate-fade-rise`, `-late`, `-later`; float accents `animate-float-y/x`).
+- The mobile menu sheet springs open via `motion/react` (stiffness 380 / damping 30) with staggered link slides.
+- Hover language: card lift + image zoom, pill arrows nudging with direction-aware RTL classes.
 
-**Layout**:
-```html
-<div class="flex flex-col md:flex-row gap-4">
-  <!-- Responsive flexbox -->
-</div>
-```
+## Iconography
 
-**Responsive Design**:
-```html
-<div class="text-sm md:text-base lg:text-lg">
-  <!-- Responsive text -->
-</div>
-```
+`lucide-react` only, 4–5px strokes, sized `h-4 w-4` (inline) to `h-7 w-7` (feature tiles), orange or inherit.
 
-**Hover Effects**:
-```html
-<button class="hover:bg-[#C65A1E] transition-all duration-300">
-  <!-- Smooth hover -->
-</button>
-```
+## Direction rules
 
-### Custom Classes
-
-**Animations**:
-```css
-.animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-```
-
-## Component Styles
-
-### Buttons
-
-```html
-<!-- Primary Button -->
-<button class="px-8 py-3.5 text-sm font-medium text-white bg-[#C65A1E] rounded-xl hover:bg-[#a84915] transition-all duration-300">
-  Button Text
-</button>
-
-<!-- Secondary Button -->
-<button class="px-8 py-3.5 text-sm font-medium text-white border border-white/20 rounded-xl hover:bg-white/5 transition-all duration-300">
-  Button Text
-</button>
-```
-
-### Cards
-
-```html
-<div class="bg-[#111] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all">
-  <!-- Card content -->
-</div>
-```
-
-### Forms
-
-```html
-<input 
-  type="text"
-  class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-[#C65A1E] focus:ring-1 focus:ring-[#C65A1E] transition-all"
-  placeholder="Enter text"
-/>
-```
-
-## Responsive Breakpoints
-
-```css
-sm: 640px   /* Mobile landscape */
-md: 768px   /* Tablet */
-lg: 1024px  /* Desktop */
-xl: 1280px  /* Large desktop */
-2xl: 1536px /* Extra large */
-```
-
-## Best Practices
-
-1. **Mobile-first**: Start with mobile styles, add larger breakpoints
-2. **Consistent spacing**: Use Tailwind spacing scale
-3. **Reusable classes**: Create utility classes for common patterns
-4. **Performance**: Minimize custom CSS
-5. **Accessibility**: Maintain color contrast ratios
-
-## Dark Theme
-
-All components use dark theme by default:
-- Dark backgrounds (#0a0a0a, #111)
-- Light text (#ffffff, #e5e5e5)
-- Orange accents (#C65A1E)
-- Subtle borders (white/5, white/10)
-
----
-
-For more details, see [STRUCTURE.md](./STRUCTURE.md)
+Never hardcode `left/right` in layouts — use `ps/pe`, `ms/me`, `start/end`, and `rtl:`/`ltr:` variants for directional glyphs (arrows, chevrons). This keeps one markup for both directions.

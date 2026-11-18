@@ -48,6 +48,8 @@ export function SiteFooter() {
     { href: "/about", label: t.footer.about },
     { href: "/hotels", label: t.footer.hotels },
     { href: "/support", label: t.footer.contactUs },
+    { href: "/privacy", label: t.footer.privacy },
+    { href: "/terms", label: t.footer.terms },
   ];
 
   const supportLinks = [
@@ -170,10 +172,10 @@ export function SiteFooter() {
             © {year} {locale === "ar" ? "ستيرو" : "Stayro"} — {t.footer.rights}
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="text-xs text-muted-foreground transition-colors hover:text-primary">
+            <Link href="/privacy" className="text-xs text-muted-foreground transition-colors hover:text-primary">
               {t.footer.privacy}
             </Link>
-            <Link href="#" className="text-xs text-muted-foreground transition-colors hover:text-primary">
+            <Link href="/terms" className="text-xs text-muted-foreground transition-colors hover:text-primary">
               {t.footer.terms}
             </Link>
           </div>
