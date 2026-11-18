@@ -18,7 +18,7 @@ export function StayHeroSection() {
       aria-label={t.home.heroTitle}
       className="relative isolate -mt-16 flex min-h-svh w-full flex-col justify-center overflow-hidden md:-mt-20"
     >
-      {/* Full-height background image with enhanced quality and smooth bottom mask */}
+      {/* Full-height background image with smooth reverse gradient fade into canvas */}
       <Image
         src="/images/cities/riyadh.webp"
         alt=""
@@ -27,33 +27,27 @@ export function StayHeroSection() {
         quality={95}
         sizes="100vw"
         style={{
-          maskImage: "linear-gradient(to bottom, black 50%, black 72%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 50%, black 72%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, black 0%, black 45%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,0.4) 80%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, black 45%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,0.4) 80%, transparent 100%)",
         }}
         className="-z-10 object-cover object-[center_55%]"
       />
-      {/* Legibility gradients — dark at the top/edges */}
+      {/* Legibility gradients — dark at the top and fading smoothly to transparent */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/80 via-black/45 to-transparent"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/85 via-black/45 via-45% to-transparent"
       />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent rtl:bg-gradient-to-l"
       />
 
-      {/* Seamless bottom merge with reverse progressive blur and gradient into next section */}
+      {/* Seamless progressive reverse blur — fades to 0 at bottom with zero solid cut */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 md:h-72 bg-gradient-to-t from-background via-background/85 via-45% to-transparent"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 md:h-52 backdrop-blur-[12px] [mask-image:linear-gradient(to_top,black_25%,transparent_100%)] [webkit-mask-image:linear-gradient(to_top,black_25%,transparent_100%)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-8 md:h-14 bg-background"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-36 md:h-60 backdrop-blur-[6px] [mask-image:linear-gradient(to_top,black_0%,transparent_100%)] [webkit-mask-image:linear-gradient(to_top,black_0%,transparent_100%)]"
       />
 
       <div className="container mx-auto w-full px-4 pb-14 pt-28 md:px-8 md:pb-16 md:pt-32">
