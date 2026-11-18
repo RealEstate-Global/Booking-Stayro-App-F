@@ -43,7 +43,7 @@ export function DatePickerField({
   showArrow = true,
   className,
 }: DatePickerFieldProps) {
-  const { t, locale } = useLanguage();
+  const { t, locale, dir } = useLanguage();
   const dateLocale = locale === "ar" ? arLocale : enUSLocale;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -84,7 +84,7 @@ export function DatePickerField({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto rounded-2xl border-foreground/10 p-0 shadow-2xl [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden overflow-hidden"
+        className="w-auto rounded-3xl border-foreground/15 bg-background/95 p-1 shadow-2xl backdrop-blur-xl [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden overflow-hidden"
         align="start"
       >
         <Calendar
@@ -92,6 +92,7 @@ export function DatePickerField({
           selected={date}
           onSelect={onSelect}
           autoFocus
+          dir={dir}
           locale={dateLocale}
           disabled={[
             { before: minDate ?? today },

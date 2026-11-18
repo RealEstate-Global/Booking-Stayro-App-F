@@ -13,47 +13,47 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3.5 relative", className)}
       classNames={{
         months: "flex flex-col sm:flex-row gap-4",
         month: "space-y-4",
-        month_caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
-        nav: "flex items-center gap-1",
+        month_caption: "flex justify-center pt-1 relative items-center h-8",
+        caption_label: "text-sm font-bold text-foreground",
+        nav: "flex items-center justify-between w-full absolute inset-x-0 top-3.5 px-3.5 pointer-events-none z-10",
         button_previous: cn(
           buttonVariants({ variant: "outline" }),
-          "absolute start-1 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+          "h-7 w-7 bg-background/90 hover:bg-foreground/10 p-0 rounded-full border border-foreground/15 text-foreground hover:text-primary transition-all pointer-events-auto shadow-sm cursor-pointer",
         ),
         button_next: cn(
           buttonVariants({ variant: "outline" }),
-          "absolute end-1 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+          "h-7 w-7 bg-background/90 hover:bg-foreground/10 p-0 rounded-full border border-foreground/15 text-foreground hover:text-primary transition-all pointer-events-auto shadow-sm cursor-pointer",
         ),
         month_grid: "w-full border-collapse space-y-1",
-        weekdays: "flex",
-        weekday: "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
-        week: "flex w-full mt-2",
-        day: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-e-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-s-md last:[&:has([aria-selected])]:rounded-e-md focus-within:relative focus-within:z-20",
+        weekdays: "flex justify-between",
+        weekday: "text-muted-foreground rounded-lg w-9 font-medium text-[0.8rem] text-center",
+        week: "flex w-full justify-between mt-2",
+        day: "h-9 w-9 text-center text-sm p-0 relative rounded-xl flex items-center justify-center focus-within:relative focus-within:z-20",
         day_button: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal aria-selected:opacity-100",
+          "h-9 w-9 p-0 font-normal rounded-xl hover:rounded-xl hover:bg-foreground/10 aria-selected:opacity-100 transition-all cursor-pointer",
         ),
-        range_end: "day-range-end",
+        range_start: "rounded-s-xl bg-primary text-white font-bold [&>button]:rounded-s-xl",
+        range_end: "rounded-e-xl bg-primary text-white font-bold [&>button]:rounded-e-xl",
+        range_middle: "bg-primary/15 text-foreground rounded-none [&>button]:rounded-none",
         selected:
-          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-        today: "bg-accent text-accent-foreground",
-        outside:
-          "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
-        disabled: "text-muted-foreground opacity-50",
-        range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+          "!bg-primary !text-white !font-bold !rounded-xl shadow-md shadow-primary/30 hover:!bg-primary/90 focus:!bg-primary [&>button]:!bg-primary [&>button]:!text-white [&>button]:!rounded-xl [&>button]:!font-bold",
+        today: "text-primary font-bold border border-primary/40 rounded-xl",
+        outside: "day-outside text-muted-foreground opacity-40 aria-selected:opacity-30",
+        disabled: "text-muted-foreground opacity-30 cursor-not-allowed",
         hidden: "invisible",
         ...classNames,
       }}
       components={{
         Chevron: ({ orientation }) =>
           orientation === "left" ? (
-            <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
+            <ChevronLeft className="h-4 w-4" />
           ) : (
-            <ChevronRight className="h-4 w-4 rtl:rotate-180" />
+            <ChevronRight className="h-4 w-4" />
           ),
       }}
       {...props}

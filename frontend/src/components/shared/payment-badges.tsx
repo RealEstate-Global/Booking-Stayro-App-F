@@ -1,4 +1,5 @@
 import type { SVGProps } from "react";
+import { useLanguage } from "@/i18n/language-provider";
 
 export function MadaBadge(props: SVGProps<SVGSVGElement>) {
   return (
@@ -130,8 +131,6 @@ export function ApplePayBadge(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-import { useLanguage } from "@/i18n/language-provider";
 
 export function PaymentBadges({ className = "" }: { className?: string }) {
   const { t } = useLanguage();
