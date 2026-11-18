@@ -38,8 +38,8 @@ export function StayHeroSection() {
           src="/images/cities/riyadh.webp"
           alt="Riyadh skyline"
           fill
-          priority
-          quality={80}
+          preload
+          quality={75}
           sizes="100vw"
           className="object-cover object-[center_55%]"
         />
