@@ -84,7 +84,7 @@ export function SiteFooter() {
           {/* Col 1: Brand Logo + About Summary + License + Contact Ways (lg:col-span-4) */}
           <div className="flex flex-col gap-4 lg:col-span-4">
             <Link href="/" aria-label="Stayro" className="inline-block">
-              <StayroLogo className="h-8 w-auto text-primary" />
+              <StayroLogo className="h-8 w-auto text-foreground transition-opacity hover:opacity-90" />
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground">
               {t.footer.description}

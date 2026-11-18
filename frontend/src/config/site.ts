@@ -7,8 +7,8 @@ export const siteConfig = {
     en: "Every stay has a story",
   },
   description: {
-    ar: "ستيرو منصة حجز السفر والإقامة — احجز رحلاتك وفنادقك وتأجير سيارتك في مكان واحد.",
-    en: "Stayro is your travel & stays booking platform — flights, hotels and car rentals in one place.",
+    ar: "ستيرو (Stayro) المنصة السعودية الرائدة لحجز الإقامات الفندقية والشقق المخدومة والشاليهات — تجارب إقامة فريدة وضيافة سعودية أصيلة في الرياض، مكة المكرمة، المدينة المنورة، جدة، والعلا، بأسعار تنافسية وترخيص رسمي من وزارة السياحة.",
+    en: "Stayro — Saudi Arabia's premier stays & accommodation booking platform. Book verified hotels, serviced apartments, and luxury villas across Riyadh, Makkah, Madinah, Jeddah, and AlUla with authentic Saudi hospitality.",
   },
   // Ministry of Tourism (Saudi Arabia) license, as published on stayro.com
   license: {

@@ -19,6 +19,7 @@ import type { Hotel } from "@/data/hotels";
 import { cities } from "@/data/cities";
 import { amenityIcons } from "@/components/shared/amenity-icons";
 import { DatePickerField } from "@/components/shared/date-picker-field";
+import { SaudiRiyalSymbol } from "@/components/shared/saudi-riyal-symbol";
 import { useLanguage } from "@/i18n/language-provider";
 import {
   calculatePrice,
@@ -224,16 +225,16 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                 <>
                   <div className="flex items-end justify-between border-b border-foreground/10 pb-4">
                     <div>
-                      <p className="text-[11px] text-muted-foreground">{t.hotelsPage.startingFrom}</p>
-                      <p className="text-3xl font-extrabold text-foreground">
-                        {formatSar(hotel.priceSar, locale)}
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {" "}
+                      <p className="text-[11px] font-medium text-muted-foreground">{t.hotelsPage.startingFrom}</p>
+                      <div className="flex items-baseline gap-1 text-3xl font-extrabold text-foreground">
+                        <span>{hotel.priceSar.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}</span>
+                        <SaudiRiyalSymbol className="text-foreground" />
+                        <span className="text-sm font-normal text-muted-foreground ms-1">
                           {t.hotelsPage.perNight}
                         </span>
-                      </p>
+                      </div>
                     </div>
-                    <span className="rounded-xl bg-primary px-3 py-1.5 text-sm font-extrabold text-primary-foreground">
+                    <span className="rounded-xl bg-primary px-3 py-1.5 text-sm font-extrabold text-primary-foreground shadow-sm">
                       {hotel.rating.toFixed(1)}
                     </span>
                   </div>
@@ -330,7 +331,10 @@ export function HotelDetailView({ hotel, searchParams }: HotelDetailViewProps) {
                     </div>
                     <div className="flex items-center justify-between border-t border-foreground/10 pt-2 text-base font-extrabold text-foreground">
                       <dt>{t.hotelDetail.total}</dt>
-                      <dd dir="ltr">{formatSar(total, locale)}</dd>
+                      <dd className="flex items-baseline gap-1">
+                        <span>{total.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}</span>
+                        <SaudiRiyalSymbol className="text-foreground" />
+                      </dd>
                     </div>
                   </dl>
                   <p className="mt-1 text-[10px] text-muted-foreground">{t.hotelDetail.taxesIncluded}</p>

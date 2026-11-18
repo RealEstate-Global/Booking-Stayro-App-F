@@ -6,7 +6,6 @@ import { useEffect, useState, type ComponentType, type SVGProps } from "react";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  BadgeCheck,
   BedDouble,
   ChevronLeft,
   ChevronRight,
@@ -144,35 +143,17 @@ export function SiteHeader() {
             : "h-16 bg-transparent px-4 md:h-20 md:px-8 border-0"
         )}
       >
-        {/* Start side: license line (collapses smoothly on scroll) + Stayro wordmark */}
-        <div className="flex shrink-0 flex-col-reverse items-start gap-1 md:gap-1.5">
+        {/* Start side: Stayro wordmark */}
+        <div className="flex shrink-0 items-center">
           <Link href="/" aria-label="Stayro" className="flex items-center">
             <StayroLogo
               aria-label="Stayro"
               className={cn(
                 "block w-auto transition-all duration-300 hover:opacity-90",
-                isScrolled ? "h-5 md:h-7 text-foreground" : "h-6 md:h-9 text-white"
+                isScrolled ? "h-6 md:h-7 text-foreground" : "h-7 md:h-8 text-white"
               )}
             />
           </Link>
-          <div
-            className={cn(
-              "overflow-hidden transition-all duration-300 ease-in-out",
-              isScrolled
-                ? "max-h-0 -translate-y-2 opacity-0 pointer-events-none"
-                : "max-h-8 translate-y-0 opacity-100"
-            )}
-          >
-            <p
-              className={cn(
-                "flex max-w-[16rem] items-center gap-1.5 text-[9px] leading-tight sm:max-w-none sm:text-[11px] md:text-xs transition-colors",
-                isScrolled ? "text-foreground/85" : "text-white/90 drop-shadow-sm"
-              )}
-            >
-              <BadgeCheck className="h-3 w-3 shrink-0 text-primary md:h-3.5 md:w-3.5" aria-hidden />
-              <span className="truncate">{t.header.license}</span>
-            </p>
-          </div>
         </div>
 
         {/* Center: desktop navigation pill in EXACT mathematical center */}
@@ -254,13 +235,17 @@ export function SiteHeader() {
             >
               {/* Header inside mobile sheet */}
               <div className="mb-3 flex items-center justify-between border-b border-foreground/10 pb-3">
-                <div className="flex items-center gap-2">
-                  <StayroLogo className="h-5 w-auto text-primary" />
-                </div>
-                <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                  <BadgeCheck className="h-3 w-3 text-primary" aria-hidden />
-                  {locale === "ar" ? "مرخّص من وزارة السياحة" : "Ministry of Tourism"}
-                </span>
+                <Link href="/" onClick={closeMobileMenu} className="flex items-center">
+                  <StayroLogo className="h-6 w-auto text-foreground" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={closeMobileMenu}
+                  aria-label={t.common.close}
+                  className="rounded-full p-1.5 text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                >
+                  <X className="h-4 w-4" />
+                </button>
               </div>
 
               {/* Navigation list */}

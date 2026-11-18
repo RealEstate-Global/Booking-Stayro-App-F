@@ -6,7 +6,7 @@ import { Star, MapPin } from "lucide-react";
 import type { Hotel } from "@/data/hotels";
 import { amenityIcons } from "@/components/shared/amenity-icons";
 import { useLanguage } from "@/i18n/language-provider";
-import { formatSar } from "@/lib/booking";
+import { SaudiRiyalSymbol } from "@/components/shared/saudi-riyal-symbol";
 import { cities } from "@/data/cities";
 import { Button } from "@/components/ui/button";
 
@@ -84,14 +84,19 @@ export function HotelCard({ hotel, query }: HotelCardProps) {
           })}
         </ul>
 
-        {/* Price + CTA pinned to bottom */}
-        <div className="mt-auto flex flex-wrap items-end justify-between gap-x-2 gap-y-3 border-t border-foreground/10 pt-4">
+        {/* Price + CTA pinned to bottom — continuous modern card surface without inner divider */}
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-x-3 gap-y-3 pt-4">
           <div className="min-w-0">
-            <p className="text-[11px] text-muted-foreground">{t.hotelsPage.startingFrom}</p>
-            <p className="whitespace-nowrap text-lg font-extrabold text-foreground sm:text-xl">
-              {formatSar(hotel.priceSar, locale)}
-              <span className="text-xs font-medium text-muted-foreground"> {t.hotelsPage.perNight}</span>
-            </p>
+            <p className="text-[11px] font-medium text-muted-foreground">{t.hotelsPage.startingFrom}</p>
+            <div className="flex items-baseline gap-1 text-foreground">
+              <span className="text-xl font-extrabold tracking-tight sm:text-2xl">
+                {hotel.priceSar.toLocaleString(locale === "ar" ? "ar-SA" : "en-US")}
+              </span>
+              <SaudiRiyalSymbol className="text-foreground" />
+              <span className="text-xs font-medium text-muted-foreground ms-1">
+                {t.hotelsPage.perNight}
+              </span>
+            </div>
           </div>
           <Button asChild className="shrink-0 rounded-full bg-primary font-bold text-primary-foreground shadow-sm hover:bg-primary/90 transition-all active:scale-95">
             <Link href={href}>{t.hotelsPage.bookNow}</Link>

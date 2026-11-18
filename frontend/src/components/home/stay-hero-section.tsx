@@ -1,98 +1,107 @@
 "use client";
 
 import Image from "next/image";
-import { BadgeCheck, Star } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { BadgeCheck, ShieldCheck, Sparkles, Star, Zap } from "lucide-react";
 import { useLanguage } from "@/i18n/language-provider";
 import { StaySearchForm } from "@/components/shared/stay-search-form";
 
 /**
  * Stayro home hero — full-viewport background (Riyadh skyline) with the
  * licensed Stayro headline and the live stays search front and center.
+ *
+ * In dark mode: no heavy body blur, no muddy opacity overlay — direct image
+ * clarity with subtle legibility gradient for text.
  */
 export function StayHeroSection() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   return (
     <section
       aria-label={t.home.heroTitle}
       className="relative isolate -mt-16 flex min-h-svh w-full flex-col justify-center overflow-hidden md:-mt-20"
     >
-      {/* Full-height background image with smooth reverse gradient fade into canvas */}
+      {/* Full-height background image — direct, vibrant and sharp without heavy blur */}
       <Image
         src="/images/cities/riyadh.webp"
-        alt=""
+        alt="Riyadh skyline"
         fill
         priority
         quality={95}
         sizes="100vw"
         style={{
           maskImage:
-            "linear-gradient(to bottom, black 0%, black 45%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,0.4) 80%, transparent 100%)",
+            "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.8) 85%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, black 0%, black 45%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,0.4) 80%, transparent 100%)",
+            "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.8) 85%, transparent 100%)",
         }}
-        className="-z-10 object-cover object-[center_55%]"
-      />
-      {/* Legibility gradients — dark at the top and fading smoothly to transparent */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/85 via-black/45 via-45% to-transparent"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent rtl:bg-gradient-to-l"
+        className="-z-10 object-cover object-[center_55%] transition-transform duration-1000 scale-[1.01]"
       />
 
-      {/* Seamless progressive reverse blur — fades to 0 at bottom with zero solid cut */}
+      {/* Subtle legibility top & bottom gradients — direct image visibility in dark mode */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-36 md:h-60 backdrop-blur-[6px] [mask-image:linear-gradient(to_top,black_0%,transparent_100%)] [webkit-mask-image:linear-gradient(to_top,black_0%,transparent_100%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-36 bg-gradient-to-b from-black/60 to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-background via-background/40 to-transparent"
       />
 
-      <div className="container mx-auto w-full px-4 pb-14 pt-28 md:px-8 md:pb-16 md:pt-32">
+      {/* Main hero container */}
+      <div className="container relative mx-auto w-full px-4 pb-14 pt-28 md:px-8 md:pb-16 md:pt-32">
+        {/* Floating rating stats card — anchored INSIDE container bounds so it never flies out */}
+        <div className="animate-float-y absolute end-4 top-24 z-10 hidden items-center gap-3 rounded-2xl border border-white/20 bg-black/60 p-3.5 pe-5 shadow-2xl backdrop-blur-md xl:flex">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/20 text-primary">
+            <Star className="h-6 w-6 fill-primary text-primary" aria-hidden />
+          </div>
+          <div>
+            <div className="flex items-baseline gap-1">
+              <span className="text-xl font-extrabold leading-none text-white">4.9</span>
+              <span className="text-xs font-semibold text-white/60">/ 5</span>
+            </div>
+            <p className="mt-1 text-[11px] font-medium text-white/80">
+              12,000+ {t.hotelsPage.reviews}
+            </p>
+          </div>
+        </div>
+
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-5 text-center md:gap-6">
-          <span className="animate-fade-rise inline-flex w-fit items-center gap-2 rounded-full border border-primary/50 bg-black/55 px-4 py-2 text-xs font-semibold text-primary backdrop-blur-sm">
+          {/* Saudi Ministry of Tourism License badge */}
+          <span className="animate-fade-rise inline-flex w-fit items-center gap-2 rounded-full border border-primary/50 bg-black/60 px-4 py-2 text-xs font-semibold text-primary backdrop-blur-sm shadow-md">
             <BadgeCheck className="h-4 w-4" aria-hidden />
             {t.home.heroBadge}
           </span>
 
-          <h1 className="animate-fade-rise max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.08] text-white drop-shadow-lg">
+          <h1 className="animate-fade-rise max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.08] text-white drop-shadow-xl">
             {t.home.heroTitle}
           </h1>
 
-          <p className="animate-fade-rise max-w-2xl text-base text-white/90 md:text-xl">
+          <p className="animate-fade-rise max-w-2xl text-base text-white/90 drop-shadow md:text-xl">
             {t.home.heroSubtitle}
           </p>
 
+          {/* Stays search form — centered with prominent elevation */}
           <div className="animate-fade-rise-late w-full pt-2">
-            <StaySearchForm className="mx-auto border-white/10 bg-background/95 shadow-2xl" />
+            <StaySearchForm className="mx-auto border-white/15 bg-background/95 shadow-2xl backdrop-blur-xl" />
           </div>
 
-          <div className="animate-fade-rise-later flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/75">
-            <span dir="ltr" className="transition-colors hover:text-primary">
-              {siteConfig.contacts.phones[0]}
+          {/* Saudi hospitality trust indicators — centered, responsive, culturally resonant */}
+          <div className="animate-fade-rise-later flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 pt-1 text-xs text-white/90 drop-shadow">
+            <span className="inline-flex items-center gap-1.5 font-medium">
+              <Zap className="h-3.5 w-3.5 text-primary" aria-hidden />
+              {locale === "ar" ? "تأكيد فوري للحجز" : "Instant Confirmation"}
             </span>
             <span className="hidden opacity-40 sm:inline">•</span>
-            <span className="transition-colors hover:text-primary">
-              {siteConfig.contacts.emails[0]}
+            <span className="inline-flex items-center gap-1.5 font-medium">
+              <ShieldCheck className="h-3.5 w-3.5 text-primary" aria-hidden />
+              {locale === "ar" ? "إقامات مرخصة وموثوقة" : "Licensed & Verified Stays"}
             </span>
             <span className="hidden opacity-40 sm:inline">•</span>
-            <span dir="ltr" className="transition-colors hover:text-primary">
-              {siteConfig.socials[0].handle}
+            <span className="inline-flex items-center gap-1.5 font-medium">
+              <Sparkles className="h-3.5 w-3.5 text-primary" aria-hidden />
+              {locale === "ar" ? "ضيافة سعودية أصيلة" : "Authentic Saudi Hospitality"}
             </span>
           </div>
-        </div>
-      </div>
-
-      {/* Floating rating card — top-end corner, lg+ only */}
-      <div className="animate-float-y absolute end-6 top-28 z-10 hidden items-center gap-3 rounded-2xl border border-white/15 bg-black/60 p-3 pe-4 backdrop-blur-md lg:flex">
-        <Star className="h-8 w-8 fill-primary text-primary" aria-hidden />
-        <div>
-          <p className="text-lg font-extrabold leading-none text-white">4.9</p>
-          <p className="mt-1 text-[10px] text-white/75">
-            {t.hotelsPage.ratingOutOf} · 12,000+ {t.hotelsPage.reviews}
-          </p>
         </div>
       </div>
     </section>
