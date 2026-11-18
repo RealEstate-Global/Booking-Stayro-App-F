@@ -184,7 +184,7 @@ function LanguageToggle({ isScrolled }: { isScrolled: boolean }) {
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const { t, dir, locale } = useLanguage();
+  const { t, dir } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -397,7 +397,7 @@ export function SiteHeader() {
                   className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-95"
                 >
                   <BedDouble className="h-4 w-4" aria-hidden />
-                  {locale === "ar" ? "ابحث عن إقامتك الآن" : "Search Stays Now"}
+                  {t.header.searchStaysNow}
                 </Link>
               </div>
             </motion.div>

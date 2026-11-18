@@ -14,7 +14,7 @@ import { StaySearchForm } from "@/components/shared/stay-search-form";
  * clarity with subtle legibility gradient for text.
  */
 export function StayHeroSection() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <section
@@ -93,17 +93,17 @@ export function StayHeroSection() {
           <div className="animate-fade-rise-later flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 pt-1 text-xs text-white/90 drop-shadow">
             <span className="inline-flex items-center gap-1.5 font-medium">
               <Zap className="h-3.5 w-3.5 text-primary" aria-hidden />
-              {locale === "ar" ? "تأكيد فوري للحجز" : "Instant Confirmation"}
+              {t.home.heroInstantConfirmation}
             </span>
             <span className="hidden opacity-40 sm:inline">•</span>
             <span className="inline-flex items-center gap-1.5 font-medium">
               <ShieldCheck className="h-3.5 w-3.5 text-primary" aria-hidden />
-              {locale === "ar" ? "إقامات مرخصة وموثوقة" : "Licensed & Verified Stays"}
+              {t.home.heroLicensedVerified}
             </span>
             <span className="hidden opacity-40 sm:inline">•</span>
             <span className="inline-flex items-center gap-1.5 font-medium">
               <Sparkles className="h-3.5 w-3.5 text-primary" aria-hidden />
-              {locale === "ar" ? "ضيافة سعودية أصيلة" : "Authentic Saudi Hospitality"}
+              {t.home.heroSaudiHospitality}
             </span>
           </div>
         </div>

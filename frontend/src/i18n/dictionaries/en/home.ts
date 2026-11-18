@@ -3,6 +3,13 @@ export const homeEn = {
   heroTitle: "Every stay has a story",
   heroSubtitle:
     "Discover and book the best stays in Saudi Arabia — hotels, apartments, chalets and resorts, all in one place.",
+  heroInstantConfirmation: "Instant Confirmation",
+  heroLicensedVerified: "Licensed & Verified Stays",
+  heroSaudiHospitality: "Authentic Saudi Hospitality",
+  whyRoomImageAlt: "Hotel room with Stayro — Luxury stay experience",
+  splashTitle: "Stayro",
+  splashTagline: "Every stay has a story",
+  splashAriaLabel: "Stayro Loading",
   contactPrompt: "Contact us to learn more about Stayro",
   appStoreLabel: "Stayro Business — available on the App Store",
   citiesBadge: "Destinations",

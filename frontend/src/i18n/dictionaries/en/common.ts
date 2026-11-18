@@ -12,6 +12,7 @@ export const commonEn = {
     toggleMenu: "Menu",
     switchToEnglish: "English",
     switchToArabic: "العربية",
+    searchStaysNow: "Search Stays Now",
   },
   common: {
     close: "Close",
@@ -19,6 +20,8 @@ export const commonEn = {
     search: "Search",
     loading: "Loading...",
     all: "All",
+    backToTop: "Back to top",
+    sarSymbol: "SAR",
   },
   notFound: {
     heading: "This page doesn't exist",

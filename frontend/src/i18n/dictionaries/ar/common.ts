@@ -12,6 +12,7 @@ export const commonAr = {
     toggleMenu: "القائمة",
     switchToEnglish: "English",
     switchToArabic: "العربية",
+    searchStaysNow: "ابحث عن إقامتك الآن",
   },
   common: {
     close: "إغلاق",
@@ -19,6 +20,8 @@ export const commonAr = {
     search: "بحث",
     loading: "جارٍ التحميل...",
     all: "الكل",
+    backToTop: "العودة للأعلى",
+    sarSymbol: "ر.س",
   },
   notFound: {
     heading: "هذه الصفحة غير موجودة",

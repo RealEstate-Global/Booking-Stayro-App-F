@@ -1,3 +1,6 @@
+"use client";
+
+import { useLanguage } from "@/i18n/language-provider";
 import { cn } from "@/lib/utils";
 
 interface SaudiRiyalSymbolProps {
@@ -14,13 +17,16 @@ interface SaudiRiyalSymbolProps {
  */
 export function SaudiRiyalSymbol({
   className,
-  title = "ر.س",
+  title,
 }: SaudiRiyalSymbolProps) {
+  const { t } = useLanguage();
+  const label = title ?? t.common.sarSymbol;
+
   return (
     <span
       role="img"
-      aria-label={title}
-      title={title}
+      aria-label={label}
+      title={label}
       className={cn(
         "inline-block shrink-0 bg-current align-[-0.14em]",
         "h-[1.15em] w-[1.02em]",

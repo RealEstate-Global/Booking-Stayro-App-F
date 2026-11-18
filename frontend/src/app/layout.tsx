@@ -183,9 +183,15 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={tajawal.variable}
+      className={`${tajawal.variable} splash-active`}
     >
       <body className="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
+        {/* Remove splash-active class if user has already visited (sessionStorage) or after timeout fallback */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("stayro-splash-done")){document.documentElement.classList.remove("splash-active")}}catch(e){}`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

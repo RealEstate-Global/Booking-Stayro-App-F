@@ -131,11 +131,14 @@ export function ApplePayBadge(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+import { useLanguage } from "@/i18n/language-provider";
+
 export function PaymentBadges({ className = "" }: { className?: string }) {
+  const { t } = useLanguage();
   return (
     <div
       className={`flex items-center gap-2 ${className}`}
-      aria-label="وسائل الدفع المعتمدة / Accepted Payment Methods"
+      aria-label={t.footer.paymentMethodsAria}
     >
       <MadaBadge />
       <VisaBadge />

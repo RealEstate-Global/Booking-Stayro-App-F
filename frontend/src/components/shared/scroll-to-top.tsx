@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronUp } from "lucide-react";
+import { useLanguage } from "@/i18n/language-provider";
 import { cn } from "@/lib/utils";
 
 /**
@@ -11,6 +12,7 @@ import { cn } from "@/lib/utils";
  * Smooth hardware-accelerated entrance/exit with spring physics.
  */
 export function ScrollToTop() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export function ScrollToTop() {
         <motion.button
           key="scroll-to-top"
           type="button"
-          aria-label="العودة للأعلى / Back to top"
+          aria-label={t.common.backToTop}
           onClick={scrollToTop}
           initial={{ opacity: 0, y: 24, scale: 0.85 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}

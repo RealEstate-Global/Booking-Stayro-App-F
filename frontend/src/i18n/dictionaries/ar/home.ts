@@ -3,6 +3,13 @@ export const homeAr = {
   heroTitle: "لكل إقامة هناك قصة",
   heroSubtitle:
     "اكتشف واحجز أفضل الإقامات في السعودية — فنادق، شقق، شاليهات ومنتجعات، بكل سهولة ومن مكان واحد.",
+  heroInstantConfirmation: "تأكيد فوري للحجز",
+  heroLicensedVerified: "إقامات مرخصة وموثوقة",
+  heroSaudiHospitality: "ضيافة سعودية أصيلة",
+  whyRoomImageAlt: "غرفة فندقية مع ستيرو — تجربة إقامة فاخرة",
+  splashTitle: "ستيرو",
+  splashTagline: "لكل إقامة هناك قصة",
+  splashAriaLabel: "شاشة تحميل ستيرو",
   contactPrompt: "تواصل معنا للمزيد من المعلومات عن ستيرو",
   appStoreLabel: "Stayro Business — متاح على App Store",
   citiesBadge: "الوجهات",

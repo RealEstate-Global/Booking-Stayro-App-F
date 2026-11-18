@@ -99,6 +99,25 @@
     scrollbar-gutter: stable;
   }
 
+  /* During splash loading: hide scrollbars, gutter and prevent all scroll */
+  html.splash-active,
+  html.splash-active body {
+    overflow: hidden !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+    scrollbar-gutter: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  html.splash-active::-webkit-scrollbar,
+  html.splash-active body::-webkit-scrollbar,
+  html.splash-active *::-webkit-scrollbar {
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
   }

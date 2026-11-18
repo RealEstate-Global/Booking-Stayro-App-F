@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
+import { useLanguage } from "@/i18n/language-provider";
 
 // Canonical Stayro house-S mark paths calibrated for viewBox="-15 -15 700 810"
 const MARK_PATH_1 =
@@ -21,34 +22,50 @@ const MARK_PATH_2 =
  * - Seamless fade-out revealing the live application
  */
 export function InitialSplashLoader() {
-  const [visible, setVisible] = useState(true);
+  const { t } = useLanguage();
+  const [visible, setVisible] = useState(() => {
+    // SSR always renders visible; client checks sessionStorage
+    if (typeof window === "undefined") return true;
+    try {
+      return !sessionStorage.getItem("stayro-splash-done");
+    } catch {
+      return true;
+    }
+  });
 
   useEffect(() => {
-    // Completely hide scrollbars during splash loading
-    const html = document.documentElement;
-    const body = document.body;
-    const prevHtmlOverflow = html.style.overflow;
-    const prevBodyOverflow = body.style.overflow;
+    if (!visible) {
+      // Already dismissed (e.g. returning visitor in same session)
+      document.documentElement.classList.remove("splash-active");
+      return;
+    }
 
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
+    // Ensure splash-active class is on html to disable scrollbar-gutter
+    const html = document.documentElement;
+    html.classList.add("splash-active");
 
     // Dismiss after neon sequence completes (~2.2s)
     const timer = setTimeout(() => {
       setVisible(false);
-      html.style.overflow = prevHtmlOverflow;
-      body.style.overflow = prevBodyOverflow;
     }, 2200);
 
     return () => {
       clearTimeout(timer);
-      html.style.overflow = prevHtmlOverflow;
-      body.style.overflow = prevBodyOverflow;
+      html.classList.remove("splash-active");
     };
-  }, []);
+  }, [visible]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence
+      onExitComplete={() => {
+        document.documentElement.classList.remove("splash-active");
+        try {
+          sessionStorage.setItem("stayro-splash-done", "1");
+        } catch {
+          // Ignore storage errors
+        }
+      }}
+    >
       {visible && (
         <motion.div
           key="stayro-neon-splash"
@@ -60,7 +77,7 @@ export function InitialSplashLoader() {
           }}
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center overflow-hidden bg-[#0B090A] text-white selection:bg-transparent [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           role="status"
-          aria-label="Stayro Loading"
+          aria-label={t.home.splashAriaLabel}
         >
           {/* Authentic Stayro Hero Backdrop — solid base + instant CSS texture + Next.js image */}
           <div className="absolute inset-0 -z-20 bg-[#0B090A]">
@@ -191,10 +208,10 @@ export function InitialSplashLoader() {
               className="flex flex-col items-center gap-2"
             >
               <h1 className="text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)] drop-shadow-[0_0_25px_rgba(255,91,46,0.8)] md:text-5xl">
-                ستيرو
+                {t.home.splashTitle}
               </h1>
               <p className="text-sm font-bold tracking-wide text-white/95 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] md:text-base">
-                لكل إقامة هناك قصة
+                {t.home.splashTagline}
               </p>
             </motion.div>
 

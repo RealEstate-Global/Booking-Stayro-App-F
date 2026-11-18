@@ -66,7 +66,7 @@ const socialIcons: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
 };
 
 export function SiteFooter() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
   const [email, setEmail] = useState("");
 
@@ -122,7 +122,7 @@ export function SiteFooter() {
                 <AppleIcon className="h-6 w-6 text-foreground transition-transform group-hover:scale-110" />
                 <div className="flex flex-col text-start">
                   <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
-                    {locale === "ar" ? "حمّله من" : "Download on the"}
+                    {t.footer.appStoreLabel}
                   </span>
                   <span className="text-xs font-bold leading-tight text-foreground">
                     App Store
@@ -139,7 +139,7 @@ export function SiteFooter() {
                 <GooglePlayIcon className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
                 <div className="flex flex-col text-start">
                   <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
-                    {locale === "ar" ? "متوفر على" : "GET IT ON"}
+                    {t.footer.googlePlayLabel}
                   </span>
                   <span className="text-xs font-bold leading-tight text-foreground">
                     Google Play
@@ -191,7 +191,7 @@ export function SiteFooter() {
             </ul>
             <div className="mt-6 flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-2.5 text-xs text-muted-foreground">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden />
-              <span>{locale === "ar" ? "دعم مباشر على مدار الساعة" : "24/7 Live Support Active"}</span>
+              <span>{t.footer.liveSupport}</span>
             </div>
           </nav>
 
@@ -262,7 +262,7 @@ export function SiteFooter() {
             {/* Left / Start: Copyright — comfortably inset from the left edge so scrolltop button is 100% clear */}
             <div className="flex items-center text-center lg:text-start">
               <p className="text-xs leading-relaxed text-muted-foreground">
-                © {year} {locale === "ar" ? "ستيرو" : "Stayro"} — {t.footer.rights}
+                © {year} {t.footer.brandName} — {t.footer.rights}
               </p>
             </div>
 

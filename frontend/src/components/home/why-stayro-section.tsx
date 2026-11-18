@@ -18,7 +18,7 @@ export function WhyStayroSection() {
         <div className="relative mx-auto h-[360px] w-full max-w-md overflow-hidden rounded-[2.5rem] border border-foreground/10 shadow-2xl md:h-[480px] md:max-w-lg lg:mx-0">
           <Image
             src="/images/hotels/room-suite.webp"
-            alt="غرفة فندقية مع ستيرو — Every Stayro stay"
+            alt={t.home.whyRoomImageAlt}
             fill
             quality={80}
             sizes="(max-width: 1024px) 90vw, 45vw"
