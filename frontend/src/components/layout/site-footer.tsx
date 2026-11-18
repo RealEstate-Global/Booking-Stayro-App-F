@@ -94,7 +94,7 @@ export function SiteFooter() {
   };
 
   return (
-    <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md pb-24 sm:pb-28 md:pb-24">
+    <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md pb-6">
       <div className="container mx-auto px-4 pt-12 sm:px-6 md:pt-16">
         {/* 4 Dedicated, Non-Overlapping Columns */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
@@ -257,7 +257,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom Bar: Inward horizontal spacing from left/right + generous clearance for scroll button */}
-        <div className="mt-14 border-t border-foreground/10 pt-8">
+        <div className="mt-10 border-t border-foreground/10 pt-4">
           <div className="mx-auto flex flex-col items-center justify-between gap-6 px-4 sm:px-12 md:px-20 lg:px-24 lg:flex-row">
             {/* Left / Start: Copyright — comfortably inset from the left edge so scrolltop button is 100% clear */}
             <div className="flex items-center text-center lg:text-start">
