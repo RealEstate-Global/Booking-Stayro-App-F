@@ -30,7 +30,7 @@ const navIcons: Record<NavItemKey, ComponentType<SVGProps<SVGSVGElement>>> = {
   support: Headset,
 };
 
-function ThemeToggle() {
+function ThemeToggle({ isScrolled }: { isScrolled: boolean }) {
   const { resolvedTheme, setTheme } = useTheme();
   const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
@@ -47,7 +47,12 @@ function ThemeToggle() {
       aria-label={t.header.toggleTheme}
       title={t.header.toggleTheme}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-foreground/15 bg-background/80 text-primary backdrop-blur-md transition-all hover:border-primary/40 hover:bg-accent/20 active:scale-95"
+      className={cn(
+        "inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full backdrop-blur-md transition-all active:scale-95",
+        isScrolled
+          ? "border border-foreground/15 bg-background/80 text-primary hover:border-primary/40 hover:bg-accent/20"
+          : "border border-white/20 bg-black/45 text-primary hover:border-primary/50 hover:bg-black/60 shadow-sm"
+      )}
     >
       <Sun
         aria-hidden
@@ -67,7 +72,7 @@ function ThemeToggle() {
   );
 }
 
-function LanguageToggle() {
+function LanguageToggle({ isScrolled }: { isScrolled: boolean }) {
   const { locale, toggleLocale, t } = useLanguage();
 
   return (
@@ -75,7 +80,12 @@ function LanguageToggle() {
       type="button"
       onClick={toggleLocale}
       aria-label={locale === "ar" ? t.header.switchToEnglish : t.header.switchToArabic}
-      className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/15 bg-background/80 px-3 text-xs font-bold text-foreground backdrop-blur-md transition-all hover:border-primary/40 hover:text-primary active:scale-95"
+      className={cn(
+        "inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-bold backdrop-blur-md transition-all active:scale-95",
+        isScrolled
+          ? "border border-foreground/15 bg-background/80 text-foreground hover:border-primary/40 hover:text-primary"
+          : "border border-white/20 bg-black/45 text-white hover:border-primary/50 hover:text-primary shadow-sm"
+      )}
     >
       <span className="text-xs font-black text-primary">{locale === "ar" ? "EN" : "ع"}</span>
       <span className="hidden sm:inline text-xs">
@@ -131,7 +141,7 @@ export function SiteHeader() {
           "relative mx-auto flex w-full max-w-screen-xl items-center justify-between gap-4 transition-all duration-300",
           isScrolled
             ? "h-14 rounded-full border border-foreground/15 bg-background/85 px-4 shadow-lg backdrop-blur-2xl md:h-16 md:px-6"
-            : "h-16 border-b border-foreground/10 bg-transparent px-4 md:h-20 md:px-8"
+            : "h-16 bg-transparent px-4 md:h-20 md:px-8 border-0"
         )}
       >
         {/* Start side: license line (collapses smoothly on scroll) + Stayro wordmark */}
@@ -140,8 +150,8 @@ export function SiteHeader() {
             <StayroLogo
               aria-label="Stayro"
               className={cn(
-                "block w-auto text-foreground transition-all duration-300 hover:opacity-90",
-                isScrolled ? "h-5 md:h-7" : "h-6 md:h-9"
+                "block w-auto transition-all duration-300 hover:opacity-90",
+                isScrolled ? "h-5 md:h-7 text-foreground" : "h-6 md:h-9 text-white"
               )}
             />
           </Link>
@@ -153,7 +163,12 @@ export function SiteHeader() {
                 : "max-h-8 translate-y-0 opacity-100"
             )}
           >
-            <p className="flex max-w-[16rem] items-center gap-1.5 text-[9px] leading-tight text-foreground/80 sm:max-w-none sm:text-[11px] md:text-xs">
+            <p
+              className={cn(
+                "flex max-w-[16rem] items-center gap-1.5 text-[9px] leading-tight sm:max-w-none sm:text-[11px] md:text-xs transition-colors",
+                isScrolled ? "text-foreground/85" : "text-white/90 drop-shadow-sm"
+              )}
+            >
               <BadgeCheck className="h-3 w-3 shrink-0 text-primary md:h-3.5 md:w-3.5" aria-hidden />
               <span className="truncate">{t.header.license}</span>
             </p>
@@ -162,7 +177,12 @@ export function SiteHeader() {
 
         {/* Center: desktop navigation pill in EXACT mathematical center */}
         <nav
-          className="hidden items-center gap-1 rounded-full border border-foreground/15 bg-background/80 p-1.5 shadow-sm backdrop-blur-md lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:flex"
+          className={cn(
+            "hidden items-center gap-1 rounded-full p-1.5 backdrop-blur-md lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:flex transition-all",
+            isScrolled
+              ? "border border-foreground/15 bg-background/80 shadow-sm"
+              : "border border-white/20 bg-black/45 shadow-md"
+          )}
           aria-label="Main"
         >
           {navItems.map((item) => {
@@ -176,7 +196,9 @@ export function SiteHeader() {
                   "relative rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200",
                   active
                     ? "bg-primary text-white shadow-sm"
-                    : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                    : isScrolled
+                    ? "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                    : "text-white/85 hover:bg-white/10 hover:text-white"
                 )}
               >
                 {t.nav[item.key]}
@@ -187,11 +209,16 @@ export function SiteHeader() {
 
         {/* End side: toggles + mobile menu button */}
         <div className="flex items-center gap-2 md:gap-2.5">
-          <LanguageToggle />
-          <ThemeToggle />
+          <LanguageToggle isScrolled={isScrolled} />
+          <ThemeToggle isScrolled={isScrolled} />
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-foreground/15 bg-background/80 text-foreground backdrop-blur-md transition-all hover:border-primary/40 hover:text-primary active:scale-95 lg:hidden"
+            className={cn(
+              "inline-flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-md transition-all active:scale-95 lg:hidden",
+              isScrolled
+                ? "border border-foreground/15 bg-background/80 text-foreground hover:border-primary/40 hover:text-primary"
+                : "border border-white/20 bg-black/45 text-white hover:border-primary/50 hover:text-primary shadow-sm"
+            )}
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label={t.header.toggleMenu}
             aria-expanded={isMobileMenuOpen}

@@ -56,9 +56,9 @@ export function StayroLogo({ title = "Stayro", style, ...props }: StayroLogoProp
       style={{ display: "block", flexShrink: 0, width: "auto", ...style }}
       {...props}
     >
-      <path d={WORDMARK_PATH} />
-      <path d={MARK_PATH_1} />
-      <path d={MARK_PATH_2} />
+      <path d={WORDMARK_PATH} fill="currentColor" />
+      <path d={MARK_PATH_1} fill="#FF5B2E" />
+      <path d={MARK_PATH_2} fill="#FF5B2E" />
     </svg>
   );
 }
