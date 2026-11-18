@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, type ComponentType, type FormEvent, type SVGProps } from "react";
-import { BadgeCheck, Mail, Phone, Send } from "lucide-react";
+import { BadgeCheck, Download, HelpCircle, Mail, MessageSquare, Phone, Send, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { siteConfig } from "@/config/site";
 import { useLanguage } from "@/i18n/language-provider";
@@ -53,20 +53,20 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   const [email, setEmail] = useState("");
 
+  // Pure navigation links — zero overlap with support
   const navigationLinks = [
     { href: "/", label: t.nav.home },
     { href: "/hotels", label: t.footer.hotels },
     { href: "/about", label: t.footer.about },
-    { href: "/support", label: t.footer.contactUs },
     { href: "/privacy", label: t.footer.privacy },
     { href: "/terms", label: t.footer.terms },
   ];
 
+  // Pure support links — zero overlap with navigation
   const supportLinks = [
-    { href: "/support", label: t.footer.help },
-    { href: "/support", label: t.footer.supportCenter },
-    { href: "/support", label: t.footer.contactUs },
-    { href: "/privacy", label: t.footer.privacy },
+    { href: "/support", label: t.footer.help, icon: HelpCircle },
+    { href: "/support", label: t.footer.supportCenter, icon: MessageSquare },
+    { href: "/support#faq", label: t.supportPage.faqTitle, icon: ShieldCheck },
   ];
 
   const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
@@ -79,9 +79,9 @@ export function SiteFooter() {
   return (
     <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4 py-12 sm:px-6 md:py-16">
-        {/* 4 Balanced Columns with Zero Empty Space */}
+        {/* 4 Dedicated, Non-Overlapping Columns */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          {/* Col 1: Brand + About + License (lg:col-span-4) */}
+          {/* Col 1: Brand Logo + About Summary + License + Contact Ways (lg:col-span-4) */}
           <div className="flex flex-col gap-4 lg:col-span-4">
             <Link href="/" aria-label="Stayro" className="inline-block">
               <StayroLogo className="h-8 w-auto text-primary" />
@@ -89,13 +89,45 @@ export function SiteFooter() {
             <p className="text-sm leading-relaxed text-muted-foreground">
               {t.footer.description}
             </p>
-            <div className="mt-auto flex items-start gap-2.5 rounded-2xl border border-primary/20 bg-primary/5 p-3 text-xs leading-relaxed text-foreground/85">
+            <div className="flex items-start gap-2.5 rounded-2xl border border-primary/20 bg-primary/5 p-3 text-xs leading-relaxed text-foreground/85">
               <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
               <span>{t.header.license}</span>
             </div>
+
+            {/* Contact Ways moved under About Column */}
+            <div className="mt-2 rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-3.5">
+              <h4 className="mb-2 text-xs font-bold text-foreground">
+                {t.footer.contactsTitle}
+              </h4>
+              <ul className="space-y-2 text-xs">
+                {siteConfig.contacts.phones.map((phone, i) => (
+                  <li key={phone}>
+                    <a
+                      href={siteConfig.contacts.phonesHref[i]}
+                      dir="ltr"
+                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <Phone className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
+                      <span>{phone}</span>
+                    </a>
+                  </li>
+                ))}
+                {siteConfig.contacts.emails.map((contactEmail) => (
+                  <li key={contactEmail}>
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="inline-flex items-center gap-2 break-all text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <Mail className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
+                      <span>{contactEmail}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Col 2: Navigation Links (lg:col-span-2) */}
+          {/* Col 2: Pure Navigation Links (lg:col-span-2) */}
           <nav className="flex flex-col lg:col-span-2" aria-label="Footer navigation">
             <h3 className="mb-4 text-sm font-bold tracking-wide text-foreground">
               {t.footer.navigation}
@@ -114,30 +146,34 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          {/* Col 3: Support Links (lg:col-span-2) */}
+          {/* Col 3: Pure Support Links (lg:col-span-2) */}
           <nav className="flex flex-col lg:col-span-2" aria-label="Footer support">
             <h3 className="mb-4 text-sm font-bold tracking-wide text-foreground">
               {t.footer.support}
             </h3>
-            <ul className="space-y-2.5">
-              {supportLinks.map((link, idx) => (
-                <li key={link.label + idx}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-3">
+              {supportLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <Icon className="h-4 w-4 shrink-0 text-primary/70" aria-hidden />
+                      <span>{link.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
-            <div className="mt-5 flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="mt-6 flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-2.5 text-xs text-muted-foreground">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden />
-              <span>{locale === "ar" ? "دعم على مدار الساعة" : "24/7 Live Support"}</span>
+              <span>{locale === "ar" ? "دعم مباشر على مدار الساعة" : "24/7 Live Support Active"}</span>
             </div>
           </nav>
 
-          {/* Col 4: Newsletter + Socials + Contacts (lg:col-span-4) */}
+          {/* Col 4: Newsletter Subscription + Social Links (lg:col-span-4) */}
           <div className="flex flex-col gap-5 lg:col-span-4">
             {/* Newsletter Subscription */}
             <div className="rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-4">
@@ -166,9 +202,9 @@ export function SiteFooter() {
               </form>
             </div>
 
-            {/* Social Links underneath */}
+            {/* Social Links */}
             <div>
-              <h4 className="mb-2 text-xs font-semibold text-foreground/80">
+              <h4 className="mb-2.5 text-xs font-semibold text-foreground/80">
                 {t.footer.social}
               </h4>
               <ul className="flex flex-wrap gap-2">
@@ -181,7 +217,7 @@ export function SiteFooter() {
                         target="_blank"
                         rel="noopener noreferrer me"
                         aria-label={`${social.label} — ${social.handle}`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-background/80 px-3 py-1.5 text-xs text-muted-foreground transition-all hover:border-primary/40 hover:text-primary active:scale-95"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-background/80 px-3.5 py-1.5 text-xs text-muted-foreground transition-all hover:border-primary/40 hover:text-primary active:scale-95"
                       >
                         {Icon ? <Icon className="h-3.5 w-3.5" /> : null}
                         <span>{social.handle}</span>
@@ -192,36 +228,17 @@ export function SiteFooter() {
               </ul>
             </div>
 
-            {/* Contact Ways underneath socials */}
+            {/* App Store Official Link */}
             <div className="border-t border-foreground/10 pt-3">
-              <h4 className="mb-2 text-xs font-semibold text-foreground/80">
-                {t.footer.contactsTitle}
-              </h4>
-              <ul className="space-y-1.5 text-xs">
-                {siteConfig.contacts.phones.map((phone, i) => (
-                  <li key={phone}>
-                    <a
-                      href={siteConfig.contacts.phonesHref[i]}
-                      dir="ltr"
-                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      <Phone className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
-                      <span>{phone}</span>
-                    </a>
-                  </li>
-                ))}
-                {siteConfig.contacts.emails.map((contactEmail) => (
-                  <li key={contactEmail}>
-                    <a
-                      href={`mailto:${contactEmail}`}
-                      className="inline-flex items-center gap-2 break-all text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      <Mail className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
-                      <span>{contactEmail}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <a
+                href={siteConfig.appStore.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-primary"
+              >
+                <Download className="h-3.5 w-3.5 text-primary" aria-hidden />
+                <span>{locale === "ar" ? "تطبيق ستيرو للأعمال (App Store)" : "Stayro Business on App Store"}</span>
+              </a>
             </div>
           </div>
         </div>
