@@ -52,6 +52,8 @@ export function InitialSplashLoader() {
     <AnimatePresence
       onExitComplete={() => {
         document.documentElement.classList.remove("splash-active");
+        // Kick off the modern staggered reveal of the real app.
+        document.documentElement.classList.add("welcome-complete");
         try {
           sessionStorage.setItem("stayro-splash-done", "1");
         } catch {

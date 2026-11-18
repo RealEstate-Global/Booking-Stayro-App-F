@@ -363,18 +363,31 @@
   background-color: rgba(10, 8, 9, 0.45);
 }
 
-.stayro-brand {
+/* One centered column for the entire welcome composition — independent of
+   viewport height, so mark + name + tagline + socials stay centered on any screen. */
+.stayro-center {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vh, 2.25rem);
+  padding: 2rem 1rem;
   text-align: center;
 }
 
+.stayro-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
 .stayro-symbol {
-  position: absolute;
-  top: 5rem;
-  left: 50%;
-  width: min(76vw, 18rem);
+  position: relative;
+  width: min(76vw, 30vh, 18rem);
   height: auto;
   overflow: visible;
   color: rgb(var(--primary));
@@ -382,7 +395,6 @@
     drop-shadow(0 0.35rem 0 rgba(255, 91, 46, 0.55))
     drop-shadow(0 0.85rem 0.8rem rgba(0, 0, 0, 0.72));
   transform-origin: center;
-  transform: translateX(-50%);
   animation: stayro-mark-arrive 2.2s cubic-bezier(0.2, 0.7, 0.15, 1) both;
 }
 
@@ -403,45 +415,35 @@
 }
 
 .stayro-name {
-  position: absolute;
-  top: 25rem;
-  left: 50%;
+  position: relative;
   margin: 0;
   color: rgb(var(--foreground));
-  font-size: 3.75rem;
+  font-size: clamp(2.5rem, 9vw, 3.75rem);
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
-  transform: translateX(-50%);
   animation: stayro-text-reveal 500ms 600ms ease-out both;
 }
 
 .stayro-tagline {
-  position: absolute;
-  top: 29.75rem;
-  left: 50%;
+  position: relative;
   margin: 0;
   color: rgb(var(--foreground));
-  font-size: 1.25rem;
+  font-size: clamp(0.95rem, 3.2vw, 1.25rem);
   font-weight: 400;
   line-height: 1.65;
   white-space: nowrap;
-  transform: translateX(-50%);
   animation: stayro-text-reveal 600ms 760ms ease-out both;
 }
 
 .stayro-socials {
-  position: absolute;
-  top: calc(29.75rem + 2.25rem);
-  left: 50%;
-  right: auto;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: clamp(1.25rem, 4vw, 2.75rem);
-  width: min(100% - 2.5rem, 32rem);
-  transform: translateX(-50%);
+  gap: clamp(1rem, 4vw, 2.75rem);
+  width: min(100%, 32rem);
   animation: stayro-text-reveal 900ms 1.1s ease-out both;
 }
 
@@ -481,22 +483,75 @@
 }
 
 @keyframes stayro-mark-arrive {
-  0% { transform: translateX(-50%) perspective(900px) rotateX(14deg) rotateY(-12deg) scale(0.88); }
-  68% { transform: translateX(-50%) perspective(900px) rotateX(-3deg) rotateY(3deg) scale(1.035); }
-  100% { transform: translateX(-50%) perspective(900px) rotateX(0) rotateY(0) scale(1); }
+  0% { transform: perspective(900px) rotateX(14deg) rotateY(-12deg) scale(0.88); }
+  68% { transform: perspective(900px) rotateX(-3deg) rotateY(3deg) scale(1.035); }
+  100% { transform: perspective(900px) rotateX(0) rotateY(0) scale(1); }
 }
 
 @keyframes stayro-text-reveal {
-  from { opacity: 0; transform: translateX(-50%) translateY(0.45rem); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translateY(0.45rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Keep the whole welcome composition in view on short viewports. */
-@media (max-height: 640px) {
-  .stayro-symbol { top: 2rem; width: min(56vw, 10rem); }
-  .stayro-name { top: 12rem; font-size: 2.5rem; }
-  .stayro-tagline { top: 15.5rem; font-size: 1rem; }
-  .stayro-socials { top: 18.5rem; }
+/* --------------------------------------------------------------------------
+   Modern app entry — plays once the welcome screen has finished. The
+   `welcome-complete` class is set by the splash on exit (or by the inline
+   script for returning visitors), so the real site never snaps in abruptly.
+   -------------------------------------------------------------------------- */
+@keyframes site-header-enter {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes site-main-enter {
+  from { opacity: 0; transform: translateY(28px) scale(0.99); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes site-footer-enter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes site-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+html.welcome-complete header {
+  animation: site-header-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html.welcome-complete main {
+  animation: site-main-enter 900ms 80ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html.welcome-complete footer {
+  animation: site-footer-enter 800ms 160ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Re-trigger the hero's staggered content reveal after the welcome screen. */
+html.welcome-complete .animate-fade-rise {
+  animation: site-rise 800ms 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html.welcome-complete .animate-fade-rise-late {
+  animation: site-rise 800ms 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html.welcome-complete .animate-fade-rise-later {
+  animation: site-rise 800ms 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.welcome-complete header,
+  html.welcome-complete main,
+  html.welcome-complete footer,
+  html.welcome-complete .animate-fade-rise,
+  html.welcome-complete .animate-fade-rise-late,
+  html.welcome-complete .animate-fade-rise-later {
+    animation: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
