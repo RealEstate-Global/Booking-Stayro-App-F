@@ -4,7 +4,7 @@ import { AboutView } from "@/components/pages/about-view";
 export const metadata: Metadata = {
   title: "من نحن",
   description:
-    "ستيرو — منصة سعودية للسفر والإقامات مرخّصة من وزارة السياحة برقم 73104535. لكل إقامة هناك قصة — قادم قريباً.",
+    "ستيرو — منصة سعودية لحجز الإقامات الفندقية والشقق المخدومة مرخّصة من وزارة السياحة برقم 73104535. لكل إقامة هناك قصة.",
 };
 
 export default function AboutPage() {

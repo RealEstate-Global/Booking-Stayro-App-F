@@ -139,16 +139,18 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 w-full transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 w-full transition-[padding] duration-150 ease-out",
         isScrolled ? "px-3 pt-2 sm:px-6 md:pt-3" : "px-0 pt-0"
       )}
     >
       <div
         className={cn(
-          "relative mx-auto flex w-full max-w-screen-xl items-center justify-between gap-4 transition-all duration-300",
+          "relative mx-auto flex w-full max-w-screen-xl items-center justify-between gap-4",
+          "transform-gpu will-change-transform",
+          "transition-[height,border-radius,background-color,border-color,box-shadow,padding] duration-150 ease-out",
           isScrolled
             ? "h-14 rounded-full border border-foreground/15 bg-background/85 px-4 shadow-lg backdrop-blur-2xl md:h-16 md:px-6"
-            : "h-16 bg-transparent px-4 md:h-20 md:px-8 border-0"
+            : "h-16 bg-transparent px-4 md:h-20 md:px-8 border-0 border-transparent shadow-none"
         )}
       >
         {/* Start side: Stayro wordmark */}
@@ -157,7 +159,7 @@ export function SiteHeader() {
             <StayroLogo
               aria-label="Stayro"
               className={cn(
-                "block w-auto transition-all duration-300 hover:opacity-90",
+                "block w-auto transition-all duration-150 hover:opacity-90",
                 isScrolled ? "h-6 md:h-7 text-foreground" : "h-7 md:h-8 text-white"
               )}
             />

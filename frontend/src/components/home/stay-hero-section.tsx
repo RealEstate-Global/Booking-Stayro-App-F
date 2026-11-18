@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "motion/react";
 import { BadgeCheck, ShieldCheck, Sparkles, Star, Zap } from "lucide-react";
 import { useLanguage } from "@/i18n/language-provider";
 import { StaySearchForm } from "@/components/shared/stay-search-form";
@@ -20,22 +21,29 @@ export function StayHeroSection() {
       aria-label={t.home.heroTitle}
       className="relative isolate -mt-16 flex min-h-svh w-full flex-col justify-center overflow-hidden md:-mt-20"
     >
-      {/* Full-height background image — direct, vibrant and sharp without heavy blur */}
-      <Image
-        src="/images/cities/riyadh.webp"
-        alt="Riyadh skyline"
-        fill
-        priority
-        quality={95}
-        sizes="100vw"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.8) 85%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.8) 85%, transparent 100%)",
-        }}
-        className="-z-10 object-cover object-[center_55%] transition-transform duration-1000 scale-[1.01]"
-      />
+      {/* Full-height background image — cinematic entrance matching stayro.com */}
+      <motion.div
+        initial={{ filter: "grayscale(60%) brightness(0.2) blur(8px)", scale: 1.08 }}
+        animate={{ filter: "grayscale(0%) brightness(1) blur(0px)", scale: 1.01 }}
+        transition={{ duration: 1.8, ease: "easeOut" }}
+        className="absolute inset-0 -z-10"
+      >
+        <Image
+          src="/images/cities/riyadh.webp"
+          alt="Riyadh skyline"
+          fill
+          priority
+          quality={95}
+          sizes="100vw"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.8) 85%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 0%, black 70%, rgba(0,0,0,0.8) 85%, transparent 100%)",
+          }}
+          className="object-cover object-[center_55%]"
+        />
+      </motion.div>
 
       {/* Subtle legibility top & bottom gradients — direct image visibility in dark mode */}
       <div
