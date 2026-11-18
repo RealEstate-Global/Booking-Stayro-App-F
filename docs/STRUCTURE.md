@@ -1,498 +1,92 @@
 # Project Structure
 
-Comprehensive guide to the architecture and organization of The Lost Yeti Kitchen & Bar project.
+Architecture and organization of the Stayro (ستيرو) platform — a **Next.js 16 (App Router)** bilingual stays-booking frontend with a full search → listing → detail → demo-booking flow.
 
-## Table of Contents
+## Repository layout
 
-- [Directory Structure](#directory-structure)
-- [Component Architecture](#component-architecture)
-- [File Organization](#file-organization)
-- [Naming Conventions](#naming-conventions)
-- [Module System](#module-system)
-
-## Directory Structure
-
-```
-lost-yeti-angular/
-├── .angular/                    # Angular cache
-├── .github/                     # GitHub configuration
-│   └── workflows/              # CI/CD workflows
-│       ├── ci.yml
-│       ├── deploy.yml
-│       └── security.yml
-├── docs/                        # Documentation
-│   ├── CHANGELOG.md
-│   ├── CODE_OF_CONDUCT.md
-│   ├── CONTRIBUTING.md
-│   ├── DEPLOYMENT.md
-│   ├── ERD.md
-│   ├── FEATURES.md
-│   ├── PROJECT_SETUP.md
-│   ├── SECURITY.md
-│   ├── STRUCTURE.md
-│   ├── STYLES.md
-│   ├── TECHNOLOGIES.md
-│   ├── USE_CASES.md
-│   └── CONTRIBUTORS.md
-├── node_modules/                # Dependencies
-├── src/                         # Source code
-│   ├── app/                    # Application code
-│   │   ├── components/         # Reusable components
-│   │   │   ├── animated-background/
-│   │   │   │   ├── animated-background.component.ts
-│   │   │   │   ├── animated-background.component.html
-│   │   │   │   └── animated-background.component.css
-│   │   │   ├── custom-calendar/
-│   │   │   │   ├── custom-calendar.component.ts
-│   │   │   │   ├── custom-calendar.component.html
-│   │   │   │   └── custom-calendar.component.css
-│   │   │   ├── custom-dropdown/
-│   │   │   │   ├── custom-dropdown.component.ts
-│   │   │   │   ├── custom-dropdown.component.html
-│   │   │   │   └── custom-dropdown.component.css
-│   │   │   ├── footer/
-│   │   │   │   ├── footer.component.ts
-│   │   │   │   ├── footer.component.html
-│   │   │   │   └── footer.component.css
-│   │   │   └── header/
-│   │   │       ├── header.component.ts
-│   │   │       ├── header.component.html
-│   │   │       └── header.component.css
-│   │   ├── sections/           # Page sections
-│   │   │   ├── about/
-│   │   │   ├── blog/
-│   │   │   ├── category/
-│   │   │   ├── chefs/
-│   │   │   ├── cinematic-banner/
-│   │   │   ├── hero/
-│   │   │   ├── locations/
-│   │   │   ├── menu/
-│   │   │   ├── reservation/
-│   │   │   └── reviews/
-│   │   ├── pages/              # Full pages (future)
-│   │   ├── services/           # Services (future)
-│   │   ├── models/             # TypeScript interfaces (future)
-│   │   ├── guards/             # Route guards (future)
-│   │   ├── interceptors/       # HTTP interceptors (future)
-│   │   ├── app.component.ts    # Root component
-│   │   └── app.routes.ts       # Routing configuration
-│   ├── assets/                 # Static assets
-│   │   ├── images/            # Images
-│   │   ├── videos/            # Videos
-│   │   └── fonts/             # Custom fonts (if any)
-│   ├── environments/           # Environment configs (future)
-│   ├── .htaccess              # Apache configuration
-│   ├── favicon.ico            # Favicon
-│   ├── favicon.svg            # SVG favicon
-│   ├── index.html             # Main HTML file
-│   ├── main.ts                # Application entry point
-│   ├── robots.txt             # SEO robots file
-│   ├── sitemap.xml            # SEO sitemap
-│   └── styles.css             # Global styles
-├── .editorconfig               # Editor configuration
-├── .gitignore                  # Git ignore rules
-├── angular.json                # Angular CLI configuration
-├── package.json                # Dependencies and scripts
-├── package-lock.json           # Locked dependencies
-├── README.md                   # Project README
-├── tsconfig.json               # TypeScript configuration
-├── tsconfig.app.json           # App TypeScript config
-└── tsconfig.spec.json          # Test TypeScript config
+```text
+.
+├── .github/                        # CI/CD (pnpm-based), labeler, dependabot
+├── backend/                        # Placeholder for the future Stayro API (not scaffolded yet)
+├── docs/                           # This documentation
+├── frontend/                       # The Next.js application (standalone pnpm project)
+│   ├── public/
+│   │   ├── images/cities/          # Real skyline photos: makkah, madinah, riyadh, jeddah, dammam
+│   │   ├── images/hotels/          # Hotel/room photography used by the demo catalog
+│   │   └── images/                 # Brand assets (stayro-hero.webp texture, og image)
+│   ├── src/
+│   │   ├── app/                    # App Router — routes & app-wide files
+│   │   │   ├── layout.tsx          # Root layout: Tajawal font, theme + language providers, header/footer, JSON-LD
+│   │   │   ├── page.tsx            # / home (full-height hero + search, cities, featured stays, why/how, testimonials, CTA)
+│   │   │   ├── about/page.tsx      # /about — story, license, values, CTA
+│   │   │   ├── hotels/page.tsx     # /hotels — search results (Suspense + skeleton)
+│   │   │   ├── hotels/[slug]/page.tsx  # Hotel detail + demo booking (generateStaticParams + per-hotel metadata)
+│   │   │   ├── support/page.tsx    # /support — contacts, FAQ accordion, message form
+│   │   │   ├── loading.tsx         # Global loading fallback
+│   │   │   ├── not-found.tsx       # Global 404
+│   │   │   ├── error.tsx           # Global error boundary
+│   │   │   ├── sitemap.ts          # /sitemap.xml (static routes + all hotel slugs)
+│   │   │   ├── robots.ts           # /robots.txt
+│   │   │   ├── icon.svg            # Stayro favicon
+│   │   │   └── globals.css         # Design tokens (R G B triplets), dark body texture, centralized slim scrollbar
+│   │   ├── components/
+│   │   │   ├── layout/             # SiteHeader (license line, animated mobile sheet), SiteFooter
+│   │   │   ├── home/               # StayHeroSection, CitiesSection, FeaturedStaysSection,
+│   │   │   │                       #   WhyStayroSection, HowItWorksSection, TestimonialsSection, CtaBannerSection
+│   │   │   ├── hotels/             # HotelCard
+│   │   │   ├── pages/              # Route-level client views (HomeView, HotelsView, HotelDetailView, AboutView, SupportView)
+│   │   │   ├── shared/             # StaySearchForm, DatePickerField (reusable calendar), Logo, SectionBadge, amenity-icons
+│   │   │   └── ui/                 # shadcn/ui primitives (select/scroll-area are arrow-free)
+│   │   ├── config/                 # site.ts — brand, license 73104535, contacts, socials, appStore (single source of truth)
+│   │   ├── data/                   # Demo catalog: cities.ts (5 real cities), hotels.ts (12 real Saudi hotel brands)
+│   │   ├── hooks/                  # use-mobile.tsx
+│   │   ├── i18n/                   # language-provider.tsx, config.ts, dictionaries/{ar,en}.ts
+│   │   └── lib/                    # booking.ts (nights, VAT 15%, SAR formatting, STY- references), utils.ts
+│   ├── tailwind.config.ts          # Tokens mapped to CSS variables; rtl-aware content globs
+│   ├── next.config.ts              # outputFileTracingRoot, image formats (AVIF/WebP)
+│   └── package.json                # pnpm; scripts: dev/build/start/lint/typecheck
+├── screenshots/                    # Product screenshots
+├── .gitignore
+└── README.md
 ```
 
-## Component Architecture
-
-### Standalone Components
-
-The project uses Angular 17's standalone component architecture:
-
-```typescript
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './example.component.html',
-  styleUrls: ['./example.component.css']
-})
-export class ExampleComponent {
-  // Component logic
-}
-```
-
-### Component Types
-
-#### 1. Layout Components
-**Location**: `src/app/components/`
-
-**Purpose**: Structural components used across the application
-
-**Examples**:
-- `HeaderComponent` - Navigation header
-- `FooterComponent` - Site footer
-- `AnimatedBackgroundComponent` - Global background
-
-#### 2. Section Components
-**Location**: `src/app/sections/`
-
-**Purpose**: Page sections with specific content
-
-**Examples**:
-- `HeroComponent` - Hero section
-- `ReservationComponent` - Booking form
-- `MenuComponent` - Menu display
-
-#### 3. Reusable Components
-**Location**: `src/app/components/`
-
-**Purpose**: Shared UI components
-
-**Examples**:
-- `CustomCalendarComponent` - Date picker
-- `CustomDropdownComponent` - Select dropdown
-
-### Component Communication
-
-#### Parent to Child (Input)
-```typescript
-// Parent
-<app-child [data]="parentData"></app-child>
-
-// Child
-@Input() data: string;
-```
-
-#### Child to Parent (Output)
-```typescript
-// Child
-@Output() valueSelected = new EventEmitter<string>();
-
-onSelect(value: string) {
-  this.valueSelected.emit(value);
-}
-
-// Parent
-<app-child (valueSelected)="handleValue($event)"></app-child>
-```
-
-#### Two-Way Binding
-```typescript
-// Component
-[(ngModel)]="value"
-```
-
-## File Organization
-
-### Component Files
-
-Each component consists of three files:
-
-```
-component-name/
-├── component-name.component.ts      # Logic
-├── component-name.component.html    # Template
-└── component-name.component.css     # Styles
-```
-
-### Component Structure
-
-```typescript
-// Imports
-import { Component } from '@angular/core';
-
-// Decorator
-@Component({
-  selector: 'app-component-name',
-  standalone: true,
-  imports: [],
-  templateUrl: './component-name.component.html',
-  styleUrls: ['./component-name.component.css']
-})
-
-// Class
-export class ComponentNameComponent {
-  // Properties
-  property: string = 'value';
-  
-  // Constructor
-  constructor() {}
-  
-  // Lifecycle hooks
-  ngOnInit() {}
-  
-  // Methods
-  method() {}
-}
-```
-
-## Naming Conventions
-
-### Files
-- **Components**: `component-name.component.ts`
-- **Services**: `service-name.service.ts`
-- **Models**: `model-name.model.ts`
-- **Guards**: `guard-name.guard.ts`
-- **Pipes**: `pipe-name.pipe.ts`
-
-### Classes
-- **Components**: `ComponentNameComponent`
-- **Services**: `ServiceNameService`
-- **Interfaces**: `InterfaceName`
-- **Enums**: `EnumName`
-
-### Variables
-- **Properties**: `camelCase`
-- **Constants**: `UPPER_SNAKE_CASE`
-- **Private**: `_privateProperty`
-
-### CSS Classes
-- **Utility**: Tailwind classes
-- **Custom**: `kebab-case`
-- **BEM**: `block__element--modifier` (if needed)
-
-## Module System
-
-### Standalone Architecture
-
-No NgModules required. Each component imports its dependencies:
-
-```typescript
-@Component({
-  standalone: true,
-  imports: [
-    CommonModule,      // *ngIf, *ngFor, etc.
-    FormsModule,       // ngModel
-    RouterModule,      // routing
-    CustomComponent    // other components
-  ]
-})
-```
-
-### Routing
-
-**File**: `src/app/app.routes.ts`
-
-```typescript
-export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  // Lazy loading
-  {
-    path: 'admin',
-    loadComponent: () => import('./admin/admin.component')
-      .then(m => m.AdminComponent)
-  }
-];
-```
-
-### Bootstrap
-
-**File**: `src/main.ts`
-
-```typescript
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(routes),
-    provideHttpClient(),
-    // other providers
-  ]
-});
-```
-
-## Data Flow
-
-### Application State
-
-```
-User Interaction
-      ↓
-  Component
-      ↓
-   Service (future)
-      ↓
-  API Call (future)
-      ↓
-   Response
-      ↓
-  Component
-      ↓
-   Template
-      ↓
-    View
-```
-
-### Form Data Flow
-
-```
-User Input
-    ↓
-[(ngModel)]
-    ↓
-Component Property
-    ↓
-Form Submit
-    ↓
-Validation
-    ↓
-Service/API (future)
-```
-
-## Scalability Considerations
-
-### Future Structure
-
-As the application grows, consider:
-
-```
-src/app/
-├── core/                    # Core functionality
-│   ├── services/           # Singleton services
-│   ├── guards/             # Route guards
-│   ├── interceptors/       # HTTP interceptors
-│   └── models/             # Shared models
-├── shared/                  # Shared module
-│   ├── components/         # Shared components
-│   ├── directives/         # Shared directives
-│   └── pipes/              # Shared pipes
-├── features/                # Feature modules
-│   ├── auth/              # Authentication
-│   ├── admin/             # Admin panel
-│   └── ordering/          # Online ordering
-└── layout/                  # Layout components
-```
-
-### State Management
-
-For complex state, consider:
-- NgRx (Redux pattern)
-- Akita
-- RxJS BehaviorSubject
-
-### Code Splitting
-
-Implement lazy loading:
-```typescript
-{
-  path: 'feature',
-  loadChildren: () => import('./feature/feature.routes')
-}
-```
-
-## Best Practices
-
-### Component Design
-- Single responsibility
-- Small, focused components
-- Reusable where possible
-- Clear naming
-
-### File Organization
-- Group related files
-- Consistent structure
-- Logical hierarchy
-- Easy navigation
-
-### Code Organization
-- Imports at top
-- Decorator next
-- Class last
-- Lifecycle hooks in order
-
-### Performance
-- OnPush change detection
-- TrackBy for *ngFor
-- Lazy loading
-- Unsubscribe from observables
-
-## Architecture Patterns
-
-### Smart vs Presentational
-
-**Smart Components** (Container):
-- Handle business logic
-- Manage state
-- API calls
-- Route parameters
-
-**Presentational Components**:
-- Display data
-- Emit events
-- No business logic
-- Reusable
-
-### Example
-
-```typescript
-// Smart Component
-@Component({
-  selector: 'app-reservation-container',
-  template: `
-    <app-reservation-form
-      [timeSlots]="timeSlots"
-      (submit)="onSubmit($event)">
-    </app-reservation-form>
-  `
-})
-export class ReservationContainerComponent {
-  timeSlots = ['17:00', '18:00', '19:00'];
-  
-  onSubmit(data: Reservation) {
-    // Handle submission
-  }
-}
-
-// Presentational Component
-@Component({
-  selector: 'app-reservation-form',
-  template: `<!-- Form UI -->`
-})
-export class ReservationFormComponent {
-  @Input() timeSlots: string[];
-  @Output() submit = new EventEmitter<Reservation>();
-}
-```
-
-## Testing Structure
-
-```
-component-name/
-├── component-name.component.ts
-├── component-name.component.html
-├── component-name.component.css
-└── component-name.component.spec.ts    # Unit tests
-```
-
-## Documentation Standards
-
-Each component should include:
-
-```typescript
-/**
- * Component description
- * 
- * @example
- * <app-component [input]="value"></app-component>
- */
-@Component({...})
-export class ComponentName {
-  /**
-   * Property description
-   */
-  @Input() property: string;
-  
-  /**
-   * Method description
-   * @param param - Parameter description
-   * @returns Return value description
-   */
-  method(param: string): void {
-    // Implementation
-  }
-}
-```
-
----
-
-For more details, see:
-- [FEATURES.md](./FEATURES.md) - Feature documentation
-- [TECHNOLOGIES.md](./TECHNOLOGIES.md) - Technology stack
-- [STYLES.md](./STYLES.md) - Styling guidelines
+## Design decisions
+
+1. **Two plain folders, no workspace** — `frontend/` and `backend/` are independent pnpm projects (the team asked against a monorepo workspace).
+2. **App Router with server pages + client views** — `app/**/page.tsx` are server components (export `metadata`) that render `components/pages/*View` client components, which consume the language context. `/hotels` wraps its view in `Suspense` (it reads search params); `/hotels/[slug]` is statically generated per hotel via `generateStaticParams`.
+3. **Single responsibility, no duplication**
+   - `StaySearchForm` is the only search bar — used by the home hero and the /hotels page.
+   - `DatePickerField` is the only date control — a reusable, locale-aware calendar popover (no native `type=date` anywhere).
+   - `HotelCard` renders listings on both the home (featured) and /hotels grids.
+   - `SectionBadge` replaces the eyebrow pill pattern across sections.
+   - Layout chrome (header/footer) lives only in `components/layout`.
+   - Contact details, license number and socials live only in `config/site.ts`.
+4. **Bilingual Arabic (RTL) / English (LTR)** — `i18n/language-provider.tsx` is a client context that swaps a typed dictionary, persists the choice to `localStorage` (`stayro-locale`), and keeps `<html lang>`/`<html dir>` in sync. Components use **logical CSS properties** (`start/end`, `ms/me`, `ps/pe`) instead of physical left/right so the same markup works in both directions.
+5. **Design tokens** — colors are `R G B` triplets in `globals.css` (`:root` light, `.dark` dark) consumed by Tailwind as `rgb(var(--token) / <alpha-value>)`. Dark is the default theme (stayro.com look) with the concrete-texture body; light is fully supported.
+6. **Centralized scrollbar** — one slim, rounded, theme-aware scrollbar defined once in `globals.css` `@layer base` (`*` + `[data-radix-select-viewport]` override so dropdowns keep it too). No arrow buttons, no per-component duplicates.
+7. **Stayro branding** — Tajawal (Arabic-first font), Stayro house-S mark (`components/shared/logo.tsx`, `app/icon.svg`), Ministry of Tourism license **73104535** in the header and footer, real contact channels (Rakan@stayro.com, Abdulrahman@stayro.com, +966 55 123 4471, +966 546 546 480) and socials (@StayroApp on Instagram/TikTok/X).
+8. **SEO** — Next.js Metadata API (per-route + per-hotel `generateMetadata`), Open Graph, JSON-LD `TravelAgency` in the root layout, `app/sitemap.ts` (static routes + every hotel), `app/robots.ts`.
+9. **Demo data & booking** — `src/data/` holds real Saudi cities and real hotel brands, but ratings, review counts, prices and testimonials are clearly **demo values**. The booking card computes nights + 15% VAT client-side and issues a `STY-XXXXXX` demo reference — no payment until `backend/` is built (see `backend/README.md`).
+
+## Naming conventions
+
+- Files: `kebab-case.tsx` / `kebab-case.ts`
+- Components & exports: `PascalCase`
+- Hooks: `use-camelCase`
+- Directories: `kebab-case`
+
+## Adding a new page
+
+1. Add route: `src/app/my-page/page.tsx` (server component, exports `metadata`).
+2. Add view: `src/components/pages/my-page-view.tsx` ("use client").
+3. Add all strings to **both** `src/i18n/dictionaries/ar.ts` and `en.ts` (the `Dictionary` type enforces key parity).
+4. Add the nav entry in `src/data/navigation.ts` if it belongs in the main nav.
+
+## Adding a new stay
+
+Append to `src/data/hotels.ts` (slug, city id from `cities.ts`, district, stars, rating, price, amenities, images, bilingual description). The detail route, metadata and sitemap pick it up automatically — no other file changes needed.
+
+## Adding a new locale
+
+1. Create `src/i18n/dictionaries/<locale>.ts` implementing `Dictionary` from `ar.ts`.
+2. Register it in `src/i18n/config.ts` and the `dictionaries` map in `language-provider.tsx`.

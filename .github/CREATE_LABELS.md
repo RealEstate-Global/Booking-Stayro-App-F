@@ -4,7 +4,7 @@ The workflows and dependabot expect certain labels to exist in your GitHub repos
 
 ## How to Create Labels
 
-1. Go to your repository on GitHub: https://github.com/Mostafa-SAID7/TUXIMO
+1. Go to your repository on GitHub: https://github.com/Mostafa-SAID7/Stayro
 2. Click on "Issues" tab
 3. Click on "Labels" button
 4. Click "New label" button

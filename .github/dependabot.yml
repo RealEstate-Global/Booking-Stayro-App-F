@@ -1,8 +1,8 @@
 version: 2
 updates:
-  # Enable version updates for npm
+  # pnpm keeps compatibility with the npm ecosystem for lockfile updates
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/frontend"
     schedule:
       interval: "weekly"
       day: "monday"

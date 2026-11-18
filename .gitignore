@@ -6,19 +6,37 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+lint-report.*
 
+# dependencies
 node_modules
+.pnpm-store
+
+# build output
 dist
 dist-ssr
-*.local
+.next
+out
+build
+*.tsbuildinfo
 
-# Editor directories and files
+# env files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# vercel
+.vercel
+
+# editor / OS
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+*.sw?
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.local

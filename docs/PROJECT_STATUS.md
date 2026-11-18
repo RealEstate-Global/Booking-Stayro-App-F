@@ -1,4 +1,4 @@
-# TUXIMO - Project Status Report
+# Stayro - Project Status Report
 
 **Date:** January 2025  
 **Version:** 1.0.0  
@@ -8,10 +8,10 @@
 
 ## 🎯 Project Overview
 
-**TUXIMO** (Ambition) is a premium travel and booking platform built with React 18, Vite, and TypeScript, featuring a modern UI with Tailwind CSS and shadcn/ui components.
+**Stayro**  is a premium travel and booking platform built with React 18, Vite, and TypeScript, featuring a modern UI with Tailwind CSS and shadcn/ui components.
 
-- **Live URL:** https://tuximo73.vercel.app
-- **Repository:** https://github.com/Mostafa-SAID7/TUXIMO
+- **Live URL:** https://Stayro73.vercel.app
+- **Repository:** https://github.com/Mostafa-SAID7/Stayro
 - **Tech Stack:** React 18, Vite 5, TypeScript 5, Tailwind CSS, React Router v7
 
 ---
@@ -35,7 +35,7 @@
   - Build command: `npm run build` (was `npm run build:prod`)
   - Build paths: `dist/assets` (was `dist/lost-yeti`)
   - File patterns: `*.tsx` (was `*.html`)
-  - Project name: TUXIMO (was lost-yeti)
+  - Project name: Stayro (was lost-yeti)
 - ✅ **Action versions updated**
   - upload-artifact@v4 (was v3)
   - download-artifact@v4 (was v3)
@@ -182,7 +182,7 @@ src/
 - [x] CodeQL uses current version (v3)
 - [x] Security scans handle missing secrets gracefully
 - [x] Docker/Trivy scan is skipped (not applicable)
-- [x] Project metadata uses correct name (TUXIMO)
+- [x] Project metadata uses correct name (Stayro)
 - [x] ESLint checks continue working
 - [x] TypeScript validation continues working
 - [x] npm audit continues working
@@ -197,7 +197,7 @@ src/
 ## 🚀 Deployment
 
 ### Vercel (Current)
-- **URL:** https://tuximo73.vercel.app
+- **URL:** https://Stayro73.vercel.app
 - **Auto-deploy:** Enabled on push to main
 - **Build Command:** npm run build
 - **Output Directory:** dist
@@ -289,13 +289,13 @@ The following 16 labels are configured for automated PR labeling:
 ## 📞 Support & Resources
 
 ### Repository
-- **GitHub:** https://github.com/Mostafa-SAID7/TUXIMO
-- **Issues:** https://github.com/Mostafa-SAID7/TUXIMO/issues
-- **Pull Requests:** https://github.com/Mostafa-SAID7/TUXIMO/pulls
+- **GitHub:** https://github.com/Mostafa-SAID7/Stayro
+- **Issues:** https://github.com/Mostafa-SAID7/Stayro/issues
+- **Pull Requests:** https://github.com/Mostafa-SAID7/Stayro/pulls
 
 ### Deployment
 - **Vercel Dashboard:** https://vercel.com/dashboard
-- **Live Site:** https://tuximo73.vercel.app
+- **Live Site:** https://Stayro73.vercel.app
 
 ### Documentation
 - **React Docs:** https://react.dev
@@ -326,4 +326,4 @@ The following 16 labels are configured for automated PR labeling:
 
 **Status:** ✅ **PRODUCTION READY**
 
-The TUXIMO travel platform is fully functional, with all CI/CD workflows fixed and passing. Dependabot is re-enabled and working, React Router has been upgraded to v7, and all automated checks are operational.
+The Stayro travel platform is fully functional, with all CI/CD workflows fixed and passing. Dependabot is re-enabled and working, React Router has been upgraded to v7, and all automated checks are operational.
