@@ -220,3 +220,96 @@ export function SimplePageSkeleton() {
     </LoadingRegion>
   );
 }
+
+/** /about: manifesto heading, story prose, value cards, closing CTA. */
+export function AboutSkeleton() {
+  return (
+    <LoadingRegion label="Loading about page">
+      <div className="flex flex-1 flex-col">
+        <section className="px-4 py-20 text-center md:px-8 md:py-28">
+          <div className="mx-auto flex max-w-3xl flex-col items-center gap-5">
+            <Skeleton className="h-7 w-36 rounded-full" />
+            <Skeleton className="h-12 w-4/5 md:h-16" />
+            <Skeleton className="h-5 w-full" />
+            <Skeleton className="h-5 w-5/6" />
+          </div>
+        </section>
+        <section className="px-4 pb-16 md:px-8">
+          <div className="container mx-auto grid items-center gap-10 lg:grid-cols-2">
+            <Skeleton className="h-80 rounded-3xl" />
+            <div className="flex flex-col gap-4">
+              <Skeleton className="h-9 w-2/3" />
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} className="h-4 w-full" />
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="px-4 pb-16 md:px-8">
+          <div className="container mx-auto grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="h-52 rounded-3xl" />
+            ))}
+          </div>
+        </section>
+      </div>
+    </LoadingRegion>
+  );
+}
+
+/** /support: contact cards, message form and FAQ accordion. */
+export function SupportSkeleton() {
+  return (
+    <LoadingRegion label="Loading support page">
+      <div className="container mx-auto flex flex-1 flex-col gap-10 px-4 py-12 sm:px-6 md:py-16">
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 text-center">
+          <Skeleton className="h-6 w-32 rounded-full" />
+          <Skeleton className="h-11 w-3/4 md:h-14" />
+          <Skeleton className="h-5 w-2/3" />
+        </div>
+        <div className="mx-auto grid w-full max-w-6xl gap-4 sm:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-36 rounded-2xl" />
+          ))}
+        </div>
+        <div className="mx-auto grid w-full max-w-6xl gap-6 md:grid-cols-2">
+          <Skeleton className="h-96 rounded-3xl" />
+          <div className="flex flex-col gap-3">
+            <Skeleton className="h-8 w-48" />
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-14 rounded-2xl" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </LoadingRegion>
+  );
+}
+
+/** /privacy and /terms: long-form legal prose sections. */
+export function LegalSkeleton() {
+  return (
+    <LoadingRegion label="Loading document">
+      <div className="container mx-auto flex flex-1 flex-col gap-8 px-4 py-16 md:px-8 md:py-24">
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 text-center">
+          <Skeleton className="h-6 w-40 rounded-full" />
+          <Skeleton className="h-11 w-3/4 md:h-14" />
+          <Skeleton className="h-4 w-1/2" />
+        </div>
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
+          {Array.from({ length: 5 }).map((_, section) => (
+            <div key={section} className="flex flex-col gap-3">
+              <Skeleton className="h-7 w-1/2" />
+              {Array.from({ length: 3 }).map((_, line) => (
+                <Skeleton
+                  key={line}
+                  className={`h-4 ${line === 2 ? "w-3/4" : "w-full"}`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </LoadingRegion>
+  );
+}
