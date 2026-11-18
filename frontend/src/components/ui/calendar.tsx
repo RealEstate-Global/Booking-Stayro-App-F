@@ -9,9 +9,10 @@ import { buttonVariants } from "@/components/ui/button";
 
 export type CalendarProps = DayPickerProps;
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+function Calendar({ className, classNames, showOutsideDays = true, dir, ...props }: CalendarProps) {
   return (
     <DayPicker
+      dir={dir}
       showOutsideDays={showOutsideDays}
       className={cn("p-3.5 relative", className)}
       classNames={{
@@ -49,12 +50,14 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         ...classNames,
       }}
       components={{
-        Chevron: ({ orientation }) =>
-          orientation === "left" ? (
-            <ChevronLeft className="h-4 w-4" />
-          ) : (
-            <ChevronRight className="h-4 w-4" />
-          ),
+        Chevron: ({ orientation }) => {
+          // react-day-picker reports the *logical* orientation. In RTL the
+          // previous-month button sits on the right and must point right, and
+          // the next-month button sits on the left and must point left.
+          const Icon =
+            (orientation === "left") !== (dir === "rtl") ? ChevronLeft : ChevronRight;
+          return <Icon className="h-4 w-4" />;
+        },
       }}
       {...props}
     />
