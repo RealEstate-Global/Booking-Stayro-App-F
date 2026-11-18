@@ -6,7 +6,7 @@ import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Floating scroll-to-top button — fixed to the LEFT side of the viewport.
+ * Floating scroll-to-top button — fixed to the corner of the viewport.
  * Appears after scrolling 400px, disappears at the top.
  * Smooth hardware-accelerated entrance/exit with spring physics.
  */
@@ -37,10 +37,10 @@ export function ScrollToTop() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.92 }}
           className={cn(
-            "fixed bottom-6 left-5 z-40",
+            "fixed bottom-6 start-5 sm:start-6 z-40",
             "flex h-11 w-11 items-center justify-center",
             "rounded-full border border-primary/30 bg-primary shadow-lg shadow-primary/30",
-            "text-white backdrop-blur-md",
+            "text-white backdrop-blur-md cursor-pointer",
             "hover:bg-primary/90 hover:shadow-primary/50",
             "transition-shadow duration-200",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"

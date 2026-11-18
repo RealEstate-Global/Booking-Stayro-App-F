@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { siteConfig } from "@/config/site";
 import { useLanguage } from "@/i18n/language-provider";
 import { StayroLogo } from "@/components/shared/logo";
+import { PaymentBadges } from "@/components/shared/payment-badges";
 
 function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -93,8 +94,8 @@ export function SiteFooter() {
   };
 
   return (
-    <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto px-4 py-12 sm:px-6 md:py-16">
+    <footer className="relative z-10 border-t border-foreground/10 bg-background/80 backdrop-blur-md pb-16 sm:pb-20 md:pb-16">
+      <div className="container mx-auto px-4 pt-12 sm:px-6 md:pt-16">
         {/* 4 Dedicated, Non-Overlapping Columns */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Col 1: Brand Logo + About Summary + License + Contact Ways (lg:col-span-4) */}
@@ -219,7 +220,7 @@ export function SiteFooter() {
                 />
                 <button
                   type="submit"
-                  className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:scale-95"
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:scale-95 cursor-pointer"
                 >
                   <span>{t.footer.subscribe}</span>
                   <Send className="h-3 w-3 rtl:rotate-180" aria-hidden />
@@ -255,21 +256,31 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-foreground/10 pt-6 sm:flex-row">
-          <p className="text-xs text-muted-foreground">
-            © {year} {locale === "ar" ? "ستيرو" : "Stayro"} — {t.footer.rights}
-          </p>
-          <div className="flex gap-6">
+        {/* Bottom Bar: Copyright (inward with safe scroll button clearance) | Center: Payment Badges | Right: Legal Links */}
+        <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-foreground/10 pt-6 lg:flex-row">
+          {/* Left / Start: Copyright — moved inward with safe padding so the floating scroll button NEVER overlaps */}
+          <div className="flex items-center ps-14 sm:ps-16 md:ps-14 lg:ps-0">
+            <p className="text-xs text-muted-foreground">
+              © {year} {locale === "ar" ? "ستيرو" : "Stayro"} — {t.footer.rights}
+            </p>
+          </div>
+
+          {/* Center: Available payment methods (mada, Visa, Mastercard, Apple Pay) */}
+          <div className="flex items-center justify-center">
+            <PaymentBadges />
+          </div>
+
+          {/* Right / End: Legal links */}
+          <div className="flex items-center gap-6">
             <Link
               href="/privacy"
-              className="text-xs text-muted-foreground transition-colors hover:text-primary"
+              className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               {t.footer.privacy}
             </Link>
             <Link
               href="/terms"
-              className="text-xs text-muted-foreground transition-colors hover:text-primary"
+              className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               {t.footer.terms}
             </Link>
